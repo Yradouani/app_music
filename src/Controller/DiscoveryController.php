@@ -11,7 +11,7 @@ class DiscoveryController extends AbstractController
     #[Route('/discovery', name: 'discovery.index')]
     public function index(): Response
     {
-        return $this->render('discovery/index.html.twig', [
+        return $this->render('discovery/discovery.html.twig', [
             'controller_name' => 'DiscoveryController',
         ]);
     }
