@@ -1,5 +1,14 @@
 {% extends 'base.html.twig' %}
 
+{% block stylesheets %}
+	<link rel="stylesheet" href="{{ asset('assets/style/playlist.css') }}">
+{% endblock %}
+
+{% block javascripts %}
+	<script src="{{ asset('assets/js/playlist.js') }}"></script>
+	<script src="{{ asset('assets/js/getTrackById.js') }}"></script>
+{% endblock %}
+
 {% block title %}Hello PlaylistController!{% endblock %}
 
 {% block body %}
