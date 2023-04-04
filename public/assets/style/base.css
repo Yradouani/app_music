@@ -126,7 +126,7 @@ button {
 /*-----------------FOOTER----------------*/
 /*---------------------------------------*/
 footer {
-    position: sticky;
+    position: absolute;
     background: var(--tertiary-bg);
     bottom: 0;
     height: 9vh;
