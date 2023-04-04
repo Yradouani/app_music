@@ -1,45 +1,46 @@
 @import url('https://fonts.googleapis.com/css2?family=Righteous&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
 
-:root{
-    --main-color : #00D98E;
-    --main-bg : #121216;
-    --secondary-bg : #191922;
-    --tertiary-bg : #23232D;
-    --grey-border : #353535;
-    --grey-text : #A7A7A7;
-    --white : white;
+:root {
+    --main-color: #00D98E;
+    --main-bg: #121216;
+    --secondary-bg: #191922;
+    --tertiary-bg: #23232D;
+    --grey-border: #353535;
+    --grey-text: #A7A7A7;
+    --white: white;
 }
 
-*{
+* {
     color: var(--white);
     font-family: 'Montserrat', sans-serif;
 }
 
-a{
+a {
     text-decoration: none;
     transition: 500ms;
 }
 
-body{
+body {
     box-sizing: border-box;
     min-width: 370px;
     overflow: hidden;
 }
 
-.top-container{
+.top-container {
     display: flex;
 }
 
-main{
+main {
     width: 100%;
     min-height: 91vh;
     background: var(--main-bg);
 }
+
 /*---------------------------------------*/
 /*------------------NAV------------------*/
 /*---------------------------------------*/
-nav#desktop-nav{
+nav#desktop-nav {
     display: initial;
     position: fixed;
     top: 0;
@@ -47,25 +48,25 @@ nav#desktop-nav{
     max-width: 250px;
     width: 27%;
     background: var(--secondary-bg);
-    border-right: var(--grey-border) 1px solid ;
+    border-right: var(--grey-border) 1px solid;
 }
 
-nav#mobile-nav{
+nav#mobile-nav {
     display: none;
 }
 
-.logo{
+.logo {
     display: flex;
     align-items: center;
     width: 100%;
     padding: 25px 10px 35px 1.5vw;
 }
 
-.logo img{
+.logo img {
     width: 40px;
 }
 
-.logo .brand{
+.logo .brand {
     font-family: 'Righteous', cursive;
     font-size: 25px;
     margin-left: 5px;
@@ -73,81 +74,83 @@ nav#mobile-nav{
 
 
 
-nav a{
+nav a {
     display: flex;
     font-size: 20px;
     padding: 15px 15px 15px 1.7vw;
 }
 
-nav a:hover{
+nav a:hover {
     background: var(--tertiary-bg);
 }
 
 nav a.selected span,
-nav a.selected i{
+nav a.selected i {
     color: var(--main-color);
 }
 
-nav a span{
+nav a span {
     padding-left: 10px;
 }
 
-nav .bottom-links{
+nav .bottom-links {
     position: absolute;
     bottom: 0;
     width: 100%;
 }
-nav .menu-title{
+
+nav .menu-title {
     display: none;
 }
-nav .bottom-links a:last-child{
+
+nav .bottom-links a:last-child {
     border-top: var(--grey-border) 1px solid;
 }
 
-nav .bottom-links a:last-child > i,
-nav .bottom-links a:last-child > span{
-    color:  var(--grey-text) ;
+nav .bottom-links a:last-child>i,
+nav .bottom-links a:last-child>span {
+    color: var(--grey-text);
 }
 
-header{
+header {
     display: none;
 }
 
-button{
+button {
     background: none;
     border: none;
-    cursor: pointer; 
+    cursor: pointer;
 }
 
 /*---------------------------------------*/
 /*-----------------FOOTER----------------*/
 /*---------------------------------------*/
-footer{
+footer {
     position: sticky;
     background: var(--tertiary-bg);
     bottom: 0;
     height: 9vh;
     width: 100%;
-    border-top: var(--grey-border) 1px solid ;
+    border-top: var(--grey-border) 1px solid;
 }
 
 /*---------------------------------------*/
 /*--------------RESPONSIVE---------------*/
 /*---------------------------------------*/
 
-@media (max-width: 768px){
-    .top-container{
+@media (max-width: 768px) {
+    .top-container {
         display: block;
     }
 
-    header{
+    header {
         display: flex;
         height: 6vh;
         background: var(--secondary-bg);
         border-bottom: 1px solid var(--grey-border);
     }
 
-    nav#mobile-nav{    
+    nav#mobile-nav {
         display: initial;
         position: absolute;
         right: 0;
@@ -160,54 +163,54 @@ footer{
         border-left: var(--grey-border) 1px solid;
     }
 
-    nav#desktop-nav{    
+    nav#desktop-nav {
         display: none;
     }
 
-    main{
+    main {
         min-height: 85vh !important;
     }
 
-    .logo{
+    .logo {
         display: flex;
         align-items: center;
         padding: 12px;
     }
-    
-    nav .logo{
+
+    nav .logo {
         display: none;
     }
 
-    .logo img{
+    .logo img {
         width: 40px;
     }
-    
-    .logo .brand{
+
+    .logo .brand {
         font-family: 'Righteous', cursive;
         font-size: 25px;
         margin-left: 5px;
     }
 
-    button i{
+    button i {
         padding: 10px 15px;
         font-size: 25px;
     }
 
-    button > i{
+    button>i {
         transition: 500ms;
     }
 
-    button:hover > i{
+    button:hover>i {
         color: var(--main-color);
     }
-  
-    nav .menu-title{
+
+    nav .menu-title {
         display: flex;
         align-items: center;
         justify-content: space-between;
     }
 
-    nav .menu-title span{
+    nav .menu-title span {
         font-size: 18px;
         padding: 10px;
         font-weight: 500;
