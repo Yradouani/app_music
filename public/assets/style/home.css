@@ -1,4 +1,112 @@
 body {
-    background-color: black;
-    color: white;
+    background-image: url('/assets/fond.png');
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: 'Poppins', sans-serif;
+}
+
+.home_container {
+    position: relative;
+    width: 420px;
+    min-height: 490px;
+    height: auto;
+    max-height: 520px;
+    padding: 15px 25px;
+    border-radius: 10px;
+    font-size: 18px;
+} 
+
+.home_logo_content {
+    display: flex;
+   justify-content: center;
+    padding-bottom: 15%;
+    padding-right: 10%;
+}
+
+.home_logo_img img {
+    width: 90px;
+    padding-top: 15px;
+}
+
+.home_logo_name h2 {
+    color: #fff;
+    font-size: 2em;
+}
+
+.home_connexion {
+    display: flex;
+    justify-content: space-between;
+}
+.home_connexion .home_tab_link {
+    text-decoration: none;
+    color: #00d98e;
+    transition: ease-in 0.5s;
+}
+
+.home_connexion .home_tab_link:hover {
+    color: #e51a98;
+    cursor: pointer;
+}
+
+.tab-body {
+    display: none;  
+    position: relative;
+    width: 350px;
+}
+
+.tab-body.active {
+    display: block;
+}
+ 
+.tab-body .input_box {
+    position: relative;
+    width: 100%;
+    height: 50px;
+    margin: 40px 0;
+}
+
+.tab-body .input_box input {
+    width: 100%;
+    height: 100%;
+    border: 1px solid #fff;
+    outline: none;
+    border-radius: 20px;
+    font-size: 1em;
+    padding: 0 25px 0 45px;
+}
+
+.tab-body .input_box label {
+    position: absolute;
+    top: 50%;
+    left: 45px;
+    transform: translateY(-50%);
+    font-size: 1em;
+    pointer-events:none;
+    transition: .5s;
+}
+
+.tab-body .input_box input:focus~label,
+.tab-body .input_box input:valid~label {
+    font-size: 0.8em;
+    top: -14px;
+    left: 17px;
+    color:#fff;
+}
+
+.home_btn {
+    border-radius: 50px;
+    padding: 10px;
+    background-color: #00d98e;
+    margin-left: 130px;
+    width: 150px;
+    font-weight: 600;
+    transition: all 0.5s;
+}
+.home_btn:hover {
+    background-color: #e51a98;
+    cursor: pointer;
 }
