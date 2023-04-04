@@ -1,5 +1,13 @@
 {% extends 'base.html.twig' %}
 
+{% block stylesheets %}
+	<link rel="stylesheet" href="{{ asset('assets/style/discovery.css') }}">
+{% endblock %}
+
+{% block javascripts %}
+	<script src="{{ asset('assets/js/discovery.js') }}"></script>
+{% endblock %}
+
 {% block title %}Hello DiscoveryController!{% endblock %}
 
 {% block body %}

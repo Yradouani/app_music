@@ -1,19 +1,113 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
-        {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
-        {% block stylesheets %}
-            {{ encore_entry_link_tags('app') }}
-        {% endblock %}
+<!DOCTYPE html></html><html lang="fr">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="normalize.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+	{% block stylesheets %}{# normalize.css #}
+		{# base.css #}
+	{% endblock %}
+	<link rel="shortcut icon" href="logo.png" type="image/x-icon"> {% block title %}{% endblock %}
+	</head>
+	<body>
+		<div class="top-container">
+			<nav id="mobile-nav">
+				<div class="menu-title">
+					<button>
+						<i class="fa-solid fa-xmark"></i>
+					</button>
+				</div>
 
-        {% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
-        {% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-    </body>
+				<div class="logo">
+					<img src="logo.png"/>
+					<span class="brand">SoundWave</span>
+				</div>
+				<div class="top-links">
+					<a href="#">
+						<i class="fa-solid fa-headphones"></i>
+						<span>Découvertes</span>
+					</a>
+					<a href="#">
+						<i class="fa-solid fa-music"></i>
+						<span>Playlists</span>
+					</a>
+					<a href="#" class="selected">
+						<i class="fa-solid fa-heart"></i>
+						<span>Favoris</span>
+					</a>
+				</div>
+				<div class="bottom-links">
+					<a href="#">
+						<i class="fa-solid fa-lock"></i>
+						<span>Admin</span>
+					</a>
+					<a href="#">
+						<i class="fa-solid fa-power-off"></i>
+						<span>Déconnexion</span>
+					</a>
+				</div>
+			</nav>
+			<header>
+				<div class="logo">
+					<img src="logo.png"/>
+					<span class="brand">SoundWave</span>
+				</div>
+				<button class="menu-burger">
+					<i class="fa-solid fa-bars"></i>
+				</button>
+			</header>
+			<nav id="desktop-nav">
+				<div class="menu-title">
+					<button>
+						<i class="fa-solid fa-xmark"></i>
+					</button>
+				</div>
+
+				<div class="logo">
+					<img src="logo.png"/>
+					<span class="brand">SoundWave</span>
+				</div>
+				<div class="top-links">
+					<a href="#">
+						<i class="fa-solid fa-headphones"></i>
+						<span>Découvertes</span>
+					</a>
+					<a href="#">
+						<i class="fa-solid fa-music"></i>
+						<span>Playlists</span>
+					</a>
+					<a href="#" class="selected">
+						<i class="fa-solid fa-heart"></i>
+						<span>Favoris</span>
+					</a>
+				</div>
+				<div class="bottom-links">
+					<a href="#">
+						<i class="fa-solid fa-lock"></i>
+						<span>Admin</span>
+					</a>
+					<a href="#">
+						<i class="fa-solid fa-power-off"></i>
+						<span>Déconnexion</span>
+					</a>
+				</div>
+			</nav>
+
+
+			<main>
+				{% block main %}{% endblock %}
+			</main>
+		</div>
+		<footer>
+			<div class="player-btn-group"></div>
+		</footer>
+		<script src="burgerMenu.js"></script>
+
+
+		{% block javascripts %}
+			{# base.js #}
+		{% endblock %}
+	</body>
 </html>

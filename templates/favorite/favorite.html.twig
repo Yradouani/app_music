@@ -1,7 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello FavoriteController!
+{% block stylesheets %}
+	<link rel="stylesheet" href="{{ asset('assets/style/favorite.css') }}">
 {% endblock %}
+
+{% block javascripts %}
+	<script src="{{ asset('assets/js/favorite.js') }}"></script>
+	<script src="{{ asset('assets/js/getTrackById.js') }}"></script>
+{% endblock %}
+
+{% block title %}Hello FavoriteController!{% endblock %}
 
 {% block body %}
 	<style>

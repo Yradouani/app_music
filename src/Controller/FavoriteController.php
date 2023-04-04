@@ -11,7 +11,7 @@ class FavoriteController extends AbstractController
     #[Route('/favorite', name: 'favorite.index')]
     public function index(): Response
     {
-        return $this->render('favorite/index.html.twig', [
+        return $this->render('favorite/favorite.html.twig', [
             'controller_name' => 'FavoriteController',
         ]);
     }
