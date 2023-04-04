@@ -1,0 +1,63 @@
+body {
+    margin: 0;
+    background-color: #121216;
+}
+
+th {
+    text-align: left;
+}
+
+#discovery {
+    position: absolute;
+    height: 100vh;
+    /* left : 270px; */
+    right: 0;
+    width: 73%;
+}
+
+.genreButton {
+    width: 25%;
+    /* margin-right: 1% */
+}
+
+#divGenreButton {
+    display: flex;
+    justify-content: space-between;
+    width: 50%;
+}
+
+#rapButton {
+    background-image: linear-gradient(to right, #1E37B6, #1E37B6);
+}
+
+#popButton {
+    background-image: linear-gradient(to right, #E596BB , #EF87B6);
+}
+
+#rockButton {
+    background-image: linear-gradient(to right, #E45952 , #c53c34);
+}
+
+#rnbButton {
+    background-image: linear-gradient(to right, #32498D , #5070C2);
+}
+
+#jazzButton {
+    background-image: linear-gradient(to right, #0091B9 , #00C7EE);
+}
+
+#classiqueButton {
+    background-image: linear-gradient(to right, #FFC740 , #FF9D06);
+}
+
+#varieteButton {
+    background-image: linear-gradient(to right, #F76B79 , #dc4686);
+}
+
+#reggaeButton {
+    background-image: linear-gradient(to right, #34CB96 , #2ec369);
+}
+
+#songTr:hover {
+    background-color: #32323c;
+}

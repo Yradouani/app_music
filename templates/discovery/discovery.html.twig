@@ -8,14 +8,63 @@
 	<script src="{{ asset('assets/js/discovery.js') }}"></script>
 {% endblock %}
 
-{% block title %}Hello DiscoveryController!{% endblock %}
+{% block title %}Discovery
+{% endblock %}
+
 
 {% block body %}
 
-<p>Recherche</p>
+	<div id="discovery">
 
-<p>swiper</p>
+		<form action="#">
+			<i class="fa-solid fa-magnifying-glass"></i>
+			<input id="search" type="text">
+		</form>
 
+		<h1>swiper</p>
+
+		<h4>genres</h4>
+
+		<div class="divGenreButton">
+			<button id="rapButton" class="genreButton">Rap</button>
+			<button id="popButton" class="genreButton">Pop</button>
+			<button id="rockButton" class="genreButton">Rock</button>
+			<button id="rnbButton" class="genreButton">R&amp;B</button>
+		</div>
+
+		<div class="divGenreButton">
+			<button id="jazzButton" class="genreButton">Jazz</button>
+			<button id="classiqueButton" class="genreButton">Classique</button>
+			<button id="varieteButton" class="genreButton">Variété française</button>
+			<button id="reggaeButton" class="genreButton">Reggae</button>
+		</div>
+		<h4>Top France</h4>
+
+		<table>
+			<tr>
+				<th colspan="5">TITRE</th>
+				<th colspan="1">ARTISTE</th>
+				<th colspan="1">ALBUM</th>
+			</tr>
+			<tr id="songTr">
+				<td>
+					<img src="#" alt="albumImg">
+						<td>1. </td>
+						<td>Flowers</td>
+						<td>
+							<i class="fa-regular fa-heart"></i>
+						</td>
+						<td>
+							<i class="fa-solid fa-plus"></i>
+						</td>
+						<td>Miley Cyrus</td>
+						<td>Flowers</td>
+					</tr>
+				</td>
+			</tr>
+		</table>
+
+	</div>
 
 
 {% endblock %}
