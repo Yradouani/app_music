@@ -42,7 +42,7 @@ main {
 /*---------------------------------------*/
 nav#desktop-nav {
     display: initial;
-    position: fixed;
+    position: sticky;
     top: 0;
     height: 91vh;
     /* max-width: 250px; */

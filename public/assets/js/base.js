@@ -7,7 +7,7 @@ window.onresize = () => {
 
 function menuBurger(screenWidth) {
     if (screenWidth > 768) {
-        nav.style.display = "initial";
+        nav.style.display = "none";
     } else {
         mobile();
     }

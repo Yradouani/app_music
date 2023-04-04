@@ -1,13 +1,8 @@
-{% block stylesheets %}
-	<link rel="stylesheet" href="{{ asset('assets/style/base.css') }}">
-{% endblock %}
-
 {% block javascripts %}
-	<script src="{{ asset('assets/js/base.js') }}"></script>
+	<script src="{{ asset('assets/js/base.js') }} " defer></script>
 {% endblock %}
 
 
-<div class="top-container">
 	<nav id="mobile-nav">
 		<div class="menu-title">
 			<button>
@@ -88,4 +83,4 @@
 			</a>
 		</div>
 	</nav>
-</div>
+
