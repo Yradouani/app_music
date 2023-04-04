@@ -1,5 +1,13 @@
 {% extends 'base.html.twig' %}
 
+{% block stylesheets %}
+	<link rel="stylesheet" href="{{ asset('assets/style/admin.css') }}">
+{% endblock %}
+
+{% block javascripts %}
+	<script src="{{ asset('assets/js/admin.js') }}"></script>
+{% endblock %}
+
 {% block title %}Hello AdminController!{% endblock %}
 
 {% block body %}
