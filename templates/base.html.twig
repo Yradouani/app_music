@@ -20,11 +20,15 @@
 		{% endblock %}
 	</head>
 	<body>
-		{% block panel %}
-			{% include "partials/panel.html.twig" %}
-		{% endblock %}
+		<div class="top-container">
 
-		{% block main %}{% endblock %}
+			{% block panel %}
+				{% include "partials/panel.html.twig" %}
+			{% endblock %}
+			<main>
+				{% block main %}{% endblock %}
+			</main>
+		</div>
 
 		{% block footer %}
 			{% include "partials/footer.html.twig" %}
