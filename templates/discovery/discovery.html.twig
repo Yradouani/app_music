@@ -8,39 +8,68 @@
 	<script src="{{ asset('assets/js/discovery.js') }}"></script>
 {% endblock %}
 
-{% block title %}Hello DiscoveryController!
+{% block title %}Discovery
 {% endblock %}
+
 
 {% block main %}
-	<style>
-		.example-wrapper {
-			margin: 1em auto;
-			max-width: 800px;
-			width: 95%;
-			font: 18px / 1.5 sans-serif;
-		}
-		.example-wrapper code {
-			background: #F5F5F5;
-			padding: 2px 6px;
-		}
-	</style>
 
-	<div class="example-wrapper">
-		<h1>Hello
-			{{ controller_name }}! ✅</h1>
+	<div id="discovery">
 
-		This friendly message is coming from:
-		<ul>
-			<li>Your controller at
-				<code>
-					<a href="{{ '/home/thibaud/Documents/Simplon/Ali/Simplon Windows/brief/app_music/src/Controller/DiscoveryController.php'|file_link(0) }}">src/Controller/DiscoveryController.php</a>
-				</code>
-			</li>
-			<li>Your template at
-				<code>
-					<a href="{{ '/home/thibaud/Documents/Simplon/Ali/Simplon Windows/brief/app_music/templates/discovery/index.html.twig'|file_link(0) }}">templates/discovery/index.html.twig</a>
-				</code>
-			</li>
-		</ul>
-	</div>
-{% endblock %}
+		{# <form action="#"> #}
+			<i id="searchIcon" class="fa-solid fa-magnifying-glass"></i>
+			<input id="search" type="text" placeholder="Rechercher">
+		{# </form> #}
+
+		<hr>
+
+		<h1>swiper</p>
+
+		<h4 id="titleGenre">genres</h4>
+
+		<div class="divGenreButton">
+			<button id="rapButton" class="genreButton">Rap</button>
+			<button id="popButton" class="genreButton">Pop</button>
+			<button id="rockButton" class="genreButton">Rock</button>
+			<button id="rnbButton" class="genreButton">R&amp;B</button>
+		</div>
+
+		<div class="divGenreButton">
+			<button id="jazzButton" class="genreButton">Jazz</button>
+			<button id="classiqueButton" class="genreButton">Classique</button>
+			<button id="varieteButton" class="genreButton">Variété française</button>
+			<button id="reggaeButton" class="genreButton">Reggae</button>
+		</div>
+
+		<h4 id="titleTopFrance">Top France</h4>
+
+		<div id="tableTop">
+			<table style="width:98%; margin-left:1%">
+				<tr>
+					<th colspan="5" style="width:50%">TITRE</th>
+					<th colspan="1" style="width:25%">ARTISTE</th>
+					<th colspan="1" style="width:25%">ALBUM</th>
+				</tr>
+				<tr id="track">
+					<td style="width:6%">
+						<img id="albumCover" src="assets/images/albumCover.jpg" alt="albumImg">
+					</td>
+					<td style="width:1%">
+						1.
+					</td>
+					<td style="width:36%">
+						Flowers
+					</td>
+					<td>
+						<i class="fa-regular fa-heart"></i>
+					</td>
+					<td>
+						<i class="fa-solid fa-plus"></i>
+					</td>
+					<td>Miley Cyrus</td>
+					<td>Flowers</td>
+				</tr>
+			</td>
+		</tr>
+	</table>
+</div></div>{% endblock %}

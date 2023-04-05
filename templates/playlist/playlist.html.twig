@@ -4,26 +4,86 @@
 	<link rel="stylesheet" href="{{ asset('assets/style/playlist.css') }}">
 {% endblock %}
 
-{% block javascripts %}
-	<script src="{{ asset('assets/js/playlist.js') }}"></script>
-	<script src="{{ asset('assets/js/getTrackById.js') }}"></script>
+
+{% block title %}Playlist
 {% endblock %}
 
-{% block title %}Hello PlaylistController!{% endblock %}
-
-{% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/home/thibaud/Documents/Simplon/Ali/Simplon Windows/brief/app_music/src/Controller/PlaylistController.php'|file_link(0) }}">src/Controller/PlaylistController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/home/thibaud/Documents/Simplon/Ali/Simplon Windows/brief/app_music/templates/playlist/index.html.twig'|file_link(0) }}">templates/playlist/index.html.twig</a></code></li>
-    </ul>
-</div>
+{% block main %}
+	{% if id is not defined %}
+		<div id="playlist-container">
+			<div id="playlist-header">
+				<h1>
+					<i class="fa-solid fa-music"></i>
+					Playlists
+				</h1>
+			</div>
+			<div id="playlist-content">
+				<h2>
+					Playlists
+				</h2>
+				<div id="track_container">
+					<div id="add_playlist">
+						<div class="playlist-image add_playlist_image">
+							<i class="fa-thin fa-plus"></i>
+						</div>
+						<span>Ajouter une playlist</span>
+					</div>
+					<div id="1" class="track">
+						<div class="playlist-image">
+							<img src="/assets/images/cd.jpg"/>
+						</div>
+						<span>Workout Motivation</span>
+					</div>
+					<div id="2" class="track">
+						<div class="playlist-image">
+							<img src="/assets/images/cd.jpg"/>
+						</div>
+						<span>Workout Motivation</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	{% endif %}
+	{% if id is defined %}
+		<div id="oneplaylist_header">
+			<div id="oneplaylist_header_img">
+				<img src="/assets/images/cd.jpg"/>
+			</div>
+			<div id="oneplaylist_header_text">
+				<div>
+					<h2>Playlist</h2>
+					<h1>Ma playlist</h1>
+				</div>
+				<button>
+					<i class="fa-solid fa-play"></i>Écouter</button>
+			</div>
+		</div>
+		<div id="oneplaylist_table">
+			<table class="no-bg-color table table-dark table-hover">
+				<thead>
+					<tr>
+						<th scope="col">Titre</th>
+						<th scope="col">Artiste</th>
+						<th scope="col">Album</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>
+							<img src="/assets/images/cd.jpg"/>
+							<i class="fa-solid fa-microphone-stand"></i>
+							<i class="bi bi-suit-heart-fill"></i>
+							<i class="fa-thin fa-plus"></i>
+						</td>
+						<td>18,000</td>
+						<td>18,000</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	{% endif %}
+{% endblock %}
+{% block javascripts %}
+	<script src="{{ asset('assets/js/playlist.js') }}" defer></script>
+	{# <script src="{{ asset('assets/js/getTrackById.js') }}"></script> #}
 {% endblock %}

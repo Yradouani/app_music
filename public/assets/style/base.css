@@ -45,8 +45,9 @@ nav#desktop-nav {
     position: sticky;
     top: 0;
     height: 91vh;
-    max-width: 250px;
-    width: 27%;
+    /* max-width: 250px; */
+    width: 23%;
+    /* width: 27%; */
     background: var(--secondary-bg);
     border-right: var(--grey-border) 1px solid;
 }
@@ -371,7 +372,7 @@ input[type=range]:-webkit-slider-runnable-track {
     }
 
     nav#mobile-nav {
-        display: initial;
+        display: none;
         position: absolute;
         right: 0;
         max-width: none;
