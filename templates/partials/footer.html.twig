@@ -1,3 +1,50 @@
 <footer>
-	<div class="player-btn-group"></div>
-</footer>
+	<div class="player-btn-group">
+		<button id="backward">
+			<i class="fa-solid fa-backward-step"></i>
+		</button>
+		<button id="start-stop">
+			<i class='fa-solid fa-pause'></i>
+		</button>
+		<button id="forward">
+			<i class="fa-solid fa-forward-step"></i>
+		</button>
+	</div>
+	<div class="player-main">
+		<div class="top-player">
+
+			<div class="track-artist">
+				<div class='vinyl'>
+					<img src="/assets/images/vinyl.svg" alt="">
+				</div>
+				<span id="track">Wesh alors</span>
+				-
+				<span id="artist">Jul</span>
+			</div>
+			<div class="fav-pl-btn">
+				<button class="favorite-btn">
+					<i class="fa-regular fa-heart"></i>
+				</button>
+				<button class="playlist-btn">
+					<i class="fa-solid fa-plus"></i>
+				</button>
+				<div class="add-on-pl-modal">
+					<div class="add-on-pl-header">
+						<span>
+							<i class="fa-solid fa-plus"></i>Nouvelle playlist</span>
+					</div>
+					<div class="pl-list">
+						<div class="pl-container">
+							<div class="img"></div>
+							<span class="pl-name">Playlist</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="bottom-player">
+			<div id="elapsed-player">0:00</div>
+			<input type="range" min="0" value="0">
+			<div id="duration-player">3:20</div>
+		</div>
+	</footer>
