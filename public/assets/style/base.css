@@ -24,7 +24,6 @@ a {
 body {
     box-sizing: border-box;
     min-width: 370px;
-    overflow: hidden;
 }
 
 .top-container {
@@ -35,6 +34,7 @@ main {
     width: 100%;
     min-height: 91vh;
     background: var(--main-bg);
+    overflow: scroll;
 }
 
 /*---------------------------------------*/
@@ -120,19 +120,239 @@ button {
     background: none;
     border: none;
     cursor: pointer;
+    transition: 500ms;
 }
 
 /*---------------------------------------*/
 /*-----------------FOOTER----------------*/
 /*---------------------------------------*/
 footer {
-    position: absolute;
+    display: flex;
+    align-items: center;
+    position: sticky;
     background: var(--tertiary-bg);
     bottom: 0;
     height: 9vh;
     width: 100%;
     border-top: var(--grey-border) 1px solid;
 }
+
+footer .player-btn-group{
+    height: 100%;
+    width: 27%;
+    max-width: 250px;
+    min-width: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+footer .player-btn-group button{
+    width: 35px;
+    height: 35px;
+    padding: 1%;
+    margin: 1%;
+    border-radius: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+footer .player-btn-group button:hover{
+    background: var(--grey-border);
+    transform: scale(1.15);
+}
+
+footer .player-btn-group button i{
+    font-size: 25px;
+}
+
+footer .player-main{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    max-width: 1400px;
+    margin-bottom: 7px;
+}
+
+footer .player-main .top-player{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 95%;
+    font-weight: 500;
+    font-size: 17px;
+    margin: 10px 5px;
+}
+footer .track-artist{
+    display: flex;
+}
+
+footer .track-artist .vinyl{
+    display: flex;
+    align-items: center;
+    margin-right: 15px;
+}
+
+
+footer .fav-pl-btn{
+    margin-right: 40px
+}
+
+footer .player-main .top-player .fav-pl-btn i{
+    color: var(--grey-text);
+}
+
+footer .player-main .top-player .fav-pl-btn i:hover{
+    color: var(--white);
+    transform: scale(1.15);
+}
+
+footer .player-main .bottom-player {
+    display: flex;
+    width: 95%;
+}
+
+footer .player-main .bottom-player input{
+    width: 97%;
+    margin-inline: 1.5%;
+    background: var(--tertiary-bg);
+    cursor: pointer;
+}
+
+footer .player-main .bottom-player > div{
+    color : var(--grey-text)
+}
+
+/* modal ajout playlist */
+
+footer .fav-pl-btn {
+   position: relative;
+}
+
+footer .fav-pl-btn .add-on-pl-modal{
+    width: 250px;
+    height: 300px;
+    background: var(--tertiary-bg);
+    position: absolute;
+    border-radius: 15px 15px 0px 15px;
+    border: 2px solid var(--grey-border);
+    bottom: 10px;
+    right: 10px;
+    display: none;
+}
+
+footer .fav-pl-btn .add-on-pl-header{
+    display: flex;
+    padding: 20px 25px;
+}
+
+footer .fav-pl-btn .add-on-pl-header i{
+    margin-right: 10px;
+}
+
+footer .fav-pl-btn .add-on-pl-header span{
+    color: var(--grey-text);
+}
+
+footer .fav-pl-btn .pl-container {
+    display: flex;
+    align-items: center;
+    padding-inline: 25px;
+    padding-block: 5px ;
+}
+
+footer .fav-pl-btn .pl-container .img{
+    background: red;
+    width: 30px;
+    height: 30px;    
+    margin-right: 10px;
+    border-radius: 5px;
+}
+
+footer .fav-pl-btn .pl-container span{
+    font-size: 14px;
+}
+/*************Firefox**************/
+input[type=range]::-moz-range-track {
+    background:  var(--grey-text);
+    border-radius: 10px;
+    transition: 500ms;  
+}
+
+input[type=range]::-moz-range-progress { 
+    transition: 500ms;  
+    background: var(--main-color);
+    border-radius: 10px;       
+}
+
+input[type=range]::-moz-range-thumb {
+  background: transparent;
+  opacity: 0;
+  border: none;
+  transition: 500ms;  
+}
+
+input[type=range]:hover::-moz-range-thumb,
+input[type=range]:active::-moz-range-thumb{
+    background: white;
+    opacity: 1;
+}
+  
+input[type=range]:hover::-moz-range-track,
+input[type=range]:hover::-moz-range-progress,
+input[type=range]:active::-moz-range-track,
+input[type=range]:active::-moz-range-progress{
+    height: 5px;
+}
+
+/**************EDGE**************/
+/* la zone de déplacement */
+input[type=range]::-ms-track {
+    background: var(--grey-text);
+}
+
+/* le curseur */
+input[type=range]::-ms-thumb {
+    background: transparent;
+    height: 0;
+}
+
+/* le curseur */
+input[type=range]:hover::-ms-thumb {
+    background: white;
+    height: 1rem;
+    width: 1rem;
+}
+
+/* la tooltip de la valeur */
+input[type=range]::-ms-tooltip {
+  display: none;                  
+}
+
+/* barre progression avant */
+input[type=range].custom-slider::-ms-fill-lower {
+  background: var(--main-color);
+}
+
+/**********Chrome***********/
+
+/* la zone de déplacement */
+input[type=range]:-webkit-slider-runnable-track {
+    background:  var(--grey-text);
+
+}
+
+  /* le curseur */
+  input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;               
+    background: var(--white);
+    display: none;    
+}
+
+
 
 /*---------------------------------------*/
 /*--------------RESPONSIVE---------------*/
@@ -168,7 +388,7 @@ footer {
     }
 
     main {
-        min-height: 85vh !important;
+        min-height: 95vh !important;
     }
 
     .logo {
@@ -191,16 +411,16 @@ footer {
         margin-left: 5px;
     }
 
-    button i {
+    .top-container button i {
         padding: 10px 15px;
         font-size: 25px;
     }
 
-    button>i {
+    .top-containerbutton>i {
         transition: 500ms;
     }
 
-    button:hover>i {
+    .top-container button:hover>i {
         color: var(--main-color);
     }
 
@@ -214,5 +434,43 @@ footer {
         font-size: 18px;
         padding: 10px;
         font-weight: 500;
+    }
+
+    /* Footer (player) */
+    footer {
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        height: 13vh;
+    }
+
+    footer .player-btn-group{
+        width: 100%;
+        max-width: none;
+        min-width: none;
+    }
+    
+    footer .player-btn-group button{
+        width: 35px;
+        height: 35px;
+        padding: 0;
+        margin: 0 1%;
+    }
+
+    footer .player-btn-group button i{
+        font-size: 22px;
+    }
+
+    footer .player-main  {
+        margin-bottom: 10px !important;
+        width: 98%;
+    }
+    
+    footer .player-main .top-player {
+        margin: auto !important;
+    }
+    
+    footer .player-main .bottom-player {
+        margin: auto !important;
     }
 }
