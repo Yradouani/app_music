@@ -7,23 +7,50 @@ th {
     text-align: left;
 }
 
+hr {
+    color: #26262E;
+}
+
 #discovery {
-    position: absolute;
     height: 100vh;
-    /* left : 270px; */
     right: 0;
-    width: 73%;
+    width: 100%;
+}
+
+#searchIcon {
+    margin-left: 2%;
+    margin-right: 2%;
+    margin-top: 2%;
+}
+
+#search {
+    background-color: #121216;
+    border: none;
+}
+
+#search:focus {
+    outline: none;
+}
+
+#titleGenre {
+    margin-left: 2%;
+}
+
+#titleTopFrance {
+    margin-left: 2%;
+}
+
+.divGenreButton {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
 }
 
 .genreButton {
-    width: 25%;
-    /* margin-right: 1% */
-}
-
-#divGenreButton {
-    display: flex;
-    justify-content: space-between;
-    width: 50%;
+    width: 22%;
+    height: 80px;
+    margin-bottom: 20px;
+    border-radius: 10px;
 }
 
 #rapButton {
@@ -58,6 +85,14 @@ th {
     background-image: linear-gradient(to right, #34CB96 , #2ec369);
 }
 
-#songTr:hover {
+#tableTop {
+    width: 100%;
+}
+
+#track:hover {
     background-color: #32323c;
+}
+
+#albumCover {
+    width: 70px;
 }
