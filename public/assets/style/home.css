@@ -1,4 +1,4 @@
-body {
+.home_main {
     background-image: url('/assets/images/fond.png');
     margin: 0;
     display: flex;
@@ -81,6 +81,7 @@ body {
     border-radius: 20px;
     font-size: 1em;
     padding: 0 25px 0 45px;
+    color: #000;
 }
 
 .tab-body .input_box label {
@@ -91,6 +92,7 @@ body {
     font-size: 1em;
     pointer-events:none;
     transition: .5s;
+    color: #000;
 }
 
 .tab-body .input_box input:focus~label,

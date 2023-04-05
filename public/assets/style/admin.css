@@ -1,5 +1,39 @@
 .admin_container {
     width: 73%;
     display: flex;
-    background: blueviolet;
+    flex-direction: column;
+    padding-top: 7%;
+}
+
+.admin_title {
+    display: flex;
+    padding-left: 20px;
+    padding-bottom: 20px;
+    align-items: center;
+
+}
+
+.admin_title i {
+    padding-right: 10px;
+}
+
+.admin_general p {
+    padding-left: 30px;
+}
+
+
+.admin_table_users {
+    border-collapse: collapse;
+    width: 100%;
+}
+  
+.admin_table_users th {
+    border-bottom: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.admin_table_users th, td {
+    padding: 10px;
+    font-size: 0.75em;
 }
