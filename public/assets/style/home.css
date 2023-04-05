@@ -1,5 +1,5 @@
 body {
-    background-image: url('/assets/fond.png');
+    background-image: url('/assets/images/fond.png');
     margin: 0;
     display: flex;
     flex-direction: column;
@@ -50,6 +50,10 @@ body {
 .home_connexion .home_tab_link:hover {
     color: #e51a98;
     cursor: pointer;
+}
+
+.home_connexion .home_tab_link.active {
+    color: #fff;
 }
 
 .tab-body {
