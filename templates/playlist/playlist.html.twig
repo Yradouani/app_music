@@ -82,6 +82,20 @@
 			</table>
 		</div>
 	{% endif %}
+
+	<div id="bg-dark"></div>
+	<div id="modal">
+		<span id="add_playlist_modal_header">
+			<i class="fa-thin fa-plus"></i>
+			Nouvelle playlist</span>
+		<hr>
+		<span id="add_playlist_name">
+			<form>
+				<input id="name_playlist_input" type="text" placeholder="Nom de playlist"/>
+				<input type="submit" value="" class="arrow-button"/>
+			</form>
+		</span>
+	</div>
 {% endblock %}
 {% block javascripts %}
 	<script src="{{ asset('assets/js/playlist.js') }}" defer></script>
