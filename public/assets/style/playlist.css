@@ -182,3 +182,7 @@ form {
     color: #A7A7A7;
     cursor: pointer;
 }
+
+#error_message {
+    margin-bottom: 20px;
+}

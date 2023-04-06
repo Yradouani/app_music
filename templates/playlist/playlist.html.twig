@@ -9,6 +9,9 @@
 {% endblock %}
 
 {% block main %}
+	{{ dump(playlists) }}
+	{# {{ dump(coucou) }} #}
+
 	{% if id is not defined %}
 		<div id="playlist-container">
 			<div id="playlist-header">
@@ -21,6 +24,9 @@
 				<h2>
 					Playlists
 				</h2>
+				{% if isUsed is defined and isUsed == true %}
+					<div id="error_message">Le nom de la playlist est déjà utilisé, veuillez en choisir un autre</div>
+				{% endif %}
 				<div id="track_container">
 					<div id="add_playlist">
 						<div class="playlist-image add_playlist_image">
@@ -28,18 +34,16 @@
 						</div>
 						<span>Ajouter une playlist</span>
 					</div>
-					<div id="1" class="track">
-						<div class="playlist-image">
-							<img src="/assets/images/cd.jpg"/>
+					{% for playlist in playlists %}
+						<div id={{playlist.id}} class="track">
+							<div
+								class="playlist-image">
+								{# {% if %} #}
+								<img src="/assets/images/cd.jpg"/>
+							</div>
+							<span>{{ playlist.getNamePlaylist() }}</span>
 						</div>
-						<span>Workout Motivation</span>
-					</div>
-					<div id="2" class="track">
-						<div class="playlist-image">
-							<img src="/assets/images/cd.jpg"/>
-						</div>
-						<span>Workout Motivation</span>
-					</div>
+					{% endfor %}
 				</div>
 			</div>
 		</div>
@@ -90,8 +94,8 @@
 			Nouvelle playlist</span>
 		<hr>
 		<span id="add_playlist_name">
-			<form>
-				<input id="name_playlist_input" type="text" placeholder="Nom de playlist"/>
+			<form action="{{ path('addplaylist.index') }}" method="POST">
+				<input id="name_playlist_input" name="name_playlist" type="text" placeholder="Nom de playlist"/>
 				<input type="submit" value="" class="arrow-button"/>
 			</form>
 		</span>

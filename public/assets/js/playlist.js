@@ -25,3 +25,10 @@ document.onmouseup = (e) => {
         bgDark.style.display = "none";
     }
 }
+
+// let form = document.querySelector('#add_playlist_name form')
+// let inputname = document.querySelector("#name_playlist_input")
+// form.addEventListener("submit", () => {
+//     console.log("coucou")
+//     console.log(inputname.value)
+// })
