@@ -9,10 +9,9 @@
 {% endblock %}
 
 {% block main %}
-	{{ dump(playlists) }}
-	{# {{ dump(coucou) }} #}
 
 	{% if id is not defined %}
+		{{ dump(playlists) }}
 		<div id="playlist-container">
 			<div id="playlist-header">
 				<h1>
@@ -49,6 +48,7 @@
 		</div>
 	{% endif %}
 	{% if id is defined %}
+		{{ dump(tracks_api_response)}}
 		<div id="oneplaylist_header">
 			<div id="oneplaylist_header_img">
 				<img src="/assets/images/cd.jpg"/>
@@ -63,37 +63,45 @@
 			</div>
 		</div>
 		<div id="oneplaylist_table">
-			<table class="no-bg-color table table-dark table-hover">
+			<table style="width:94%; margin-left:3%">
 				<thead>
 					<tr>
-						<th scope="col">Titre</th>
-						<th scope="col">Artiste</th>
-						<th scope="col">Album</th>
+						<th colspan="5" style="width:50%">TITRE</th>
+						<th colspan="1" style="width:25%">ARTISTE</th>
+						<th colspan="1" style="width:25%">ALBUM</th>
 					</tr>
 				</thead>
-				<tbody>
-					<tr>
-						<td>
-							<img src="/assets/images/cd.jpg"/>
-							<i class="fa-solid fa-microphone-stand"></i>
-							<i class="bi bi-suit-heart-fill"></i>
-							<i class="fa-thin fa-plus"></i>
-						</td>
-						<td>18,000</td>
-						<td>18,000</td>
-					</tr>
+				<tbody id="allTracks">
+					{% for track in tracks_api_response %}
+						<tr id="track">
+							<td style="width:6%">
+								<img id="albumCover" src={{ track.contributors[0].picture }} alt="albumImg">
+							</td>
+							<td style="width:1%">
+								{{ loop.index }}.
+							</td>
+							<td style="width:36%">
+								{{ track.title}}
+							</td>
+							<td>
+								<i id="heart" class="fa-regular fa-heart"></i>
+							</td>
+							<td>
+								<i id="plus" class="fa-solid fa-plus"></i>
+							</td>
+							<td>{{ track.artist.name}}</td>
+							<td>{{ track.album.title}}</td>
+						</tr>
+					{% endfor %}
 				</tbody>
 			</table>
 		</div>
 	{% endif %}
-
 	<div id="bg-dark"></div>
 	<div id="modal">
 		<span id="add_playlist_modal_header">
 			<i class="fa-thin fa-plus"></i>
-			Nouvelle playlist</span>
-		<hr>
-		<span id="add_playlist_name">
+			Nouvelle playlist</span><hr><span id="add_playlist_name">
 			<form action="{{ path('addplaylist.index') }}" method="POST">
 				<input id="name_playlist_input" name="name_playlist" type="text" placeholder="Nom de playlist"/>
 				<input type="submit" value="" class="arrow-button"/>
@@ -102,6 +110,4 @@
 	</div>
 {% endblock %}
 {% block javascripts %}
-	<script src="{{ asset('assets/js/playlist.js') }}" defer></script>
-	{# <script src="{{ asset('assets/js/getTrackById.js') }}"></script> #}
-{% endblock %}
+	<script src="{{ asset('assets/js/playlist.js') }}" defer></script>{# <script src="{{ asset('assets/js/getTrackById.js') }}"></script> #}{% endblock %}
