@@ -20,6 +20,7 @@ hr {
 
 #divSearch {
     border-bottom: 3px solid #26262E;
+    /* margin-bottom: 40px;   en js quand click du searchButton   */
 }
 
 #searchIcon {
@@ -46,7 +47,7 @@ hr {
     margin-bottom : 20px;
 }
 
-#titleTopFrance {
+#titleTab {
     margin-left: 2%;
     margin-bottom : 20px;
 }

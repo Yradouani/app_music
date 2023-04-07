@@ -24,7 +24,7 @@
 			<hr>
 		</div>
 
-		<div>
+		<div id="divSwiper">
 			<h1>swiper</p>
 		</div>
 
@@ -32,22 +32,22 @@
 			<h4 id="titleGenre">Genres</h4>
 
 			<div class="divGenreButton">
-				<button id="rapButton" class="genreButton">Rap</button>
-				<button id="popButton" class="genreButton">Pop</button>
-				<button id="rockButton" class="genreButton">Rock</button>
-				<button id="rnbButton" class="genreButton">R&amp;B</button>
+				<button id="rapButton" class="genreButton" name="1996494362">Rap</button>
+				<button id="popButton" class="genreButton" name="53362031">Pop</button>
+				<button id="rockButton" class="genreButton" name="1306931615">Rock</button>
+				<button id="rnbButton" class="genreButton" name="1384018035">R&amp;B</button>
 			</div>
 
 			<div class="divGenreButton">
-				<button id="jazzButton" class="genreButton">Jazz</button>
-				<button id="classiqueButton" class="genreButton">Classique</button>
-				<button id="varieteButton" class="genreButton">Variété française</button>
-				<button id="reggaeButton" class="genreButton">Reggae</button>
+				<button id="jazzButton" class="genreButton" name="10071848282">Jazz</button>
+				<button id="classiqueButton" class="genreButton" name="747148961">Classique</button>
+				<button id="varieteButton" class="genreButton" name="788022051">Variété française</button>
+				<button id="reggaeButton" class="genreButton" name="2042023484">Reggae</button>
 			</div>
 		</div>
 
 		<div>
-			<h4 id="titleTopFrance">Top France</h4>
+			<h4 id="titleTab">Top France</h4>
 
 			<div id="tableTop">
 				<table style="width:94%; margin-left:3%">
@@ -59,7 +59,7 @@
 						</tr>
 					</thead>
 					<tbody id="allTracks">
-						<tr id="track">
+						{# <tr id="track">
 							<td style="width:6%">
 								<img id="albumCover" src="assets/images/albumCover.jpg" alt="albumImg">
 							</td>
@@ -77,10 +77,10 @@
 							</td>
 							<td>Miley Cyrus</td>
 							<td>Flowers</td>
-						</tr>
+						</tr> #}
 					</tbody>
-				</td>
-			</tr>
-		</table>
+				</table>
+			</div>
+		</div>
 	</div>
-</div></div>{% endblock %}
+{% endblock %}
