@@ -1,7 +1,7 @@
 {% block javascripts %}
-	<script src="{{ asset('assets/js/base.js') }} " defer></script>
+	<script src="{{ asset('assets/js/base.js')}}" defer></script>
+	<script src="{{ asset('assets/js/addToPlaylist.js') }} " defer></script>
 {% endblock %}
-
 
 <nav id="mobile-nav">
 	<div class="menu-title">
@@ -15,6 +15,7 @@
 		<span class="brand">SoundWave</span>
 	</div>
 	<div class="top-links">
+
 		<a href={{ path('discovery.index') }}>
 			<i class="fa-solid fa-headphones"></i>
 			<span>Découvertes</span>
@@ -29,6 +30,7 @@
 		</a>
 	</div>
 	<div class="bottom-links">
+
 		<a href={{ path('admin.index') }}>
 			<i class="fa-solid fa-lock"></i>
 			<span>Admin</span>
@@ -59,6 +61,7 @@
 		<span class="brand">SoundWave</span>
 	</div>
 	<div class="top-links">
+
 		<a href={{ path('discovery.index') }}>
 			<i class="fa-solid fa-headphones"></i>
 			<span>Découvertes</span>
@@ -73,6 +76,7 @@
 		</a>
 	</div>
 	<div class="bottom-links">
+
 		<a href={{ path('admin.index') }}>
 			<i class="fa-solid fa-lock"></i>
 			<span>Admin</span>
@@ -83,3 +87,4 @@
 		</a>
 	</div>
 </nav>
+
