@@ -9,6 +9,7 @@ th {
 
 hr {
     color: #26262E;
+    margin-bottom: 0;
 }
 
 #discovery {
@@ -17,15 +18,24 @@ hr {
     width: 100%;
 }
 
+#divSearch {
+    border-bottom: 3px solid #26262E;
+    /* margin-bottom: 40px;   en js quand click du searchButton   */
+}
+
 #searchIcon {
     margin-left: 2%;
     margin-right: 2%;
-    margin-top: 2%;
+    margin-top: 20px;
 }
 
 #search {
     background-color: #121216;
     border: none;
+}
+
+#divGenre {
+    margin-bottom: 10px;
 }
 
 #search:focus {
@@ -34,10 +44,12 @@ hr {
 
 #titleGenre {
     margin-left: 2%;
+    margin-bottom : 20px;
 }
 
-#titleTopFrance {
+#titleTab {
     margin-left: 2%;
+    margin-bottom : 20px;
 }
 
 .divGenreButton {
@@ -48,9 +60,11 @@ hr {
 
 .genreButton {
     width: 22%;
-    height: 80px;
+    height: 90px;
     margin-bottom: 20px;
     border-radius: 10px;
+    font-size: 20px;
+    font-weight: 700;
 }
 
 #rapButton {
@@ -87,6 +101,16 @@ hr {
 
 #tableTop {
     width: 100%;
+}
+
+#heart:hover {
+    font-weight: bold;
+    color: #c53c34;
+}
+
+#plus:hover {
+    font-weight: bold;
+    color: #00D98E;
 }
 
 #track:hover {
