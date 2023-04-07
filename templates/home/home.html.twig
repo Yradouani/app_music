@@ -14,6 +14,7 @@
 {% block main %}
 	<div class="home_main">
 		<div class="home_container">
+
 			<div class="home_logo_content">
 				<div class="home_logo_img">
 					<img src="/assets/images/logo.png" alt="logo_image">
@@ -27,38 +28,39 @@
 				<a class="home_tab_link" data-ref="inscription" href="javascript:void(0)">Inscription</a>
 			</div>
 			<div class="tab-body" data-id="connexion">
-				<form>
+				<form method="post" action="{{ path('home.connexion') }}">
 					<div class="input_box">
-						<input type="mail" class="input" required>
+						<input type="mail" class="input" name="email" required>
 						<label>Email</label>
 					</div>
 					<div class="input_box">
-						<input type="password" class="input" required>
+						<input type="password" class="input" name="password" required>
 						<label>Mot de passe</label>
 					</div>
-					<button class="home_btn" type="button">Se connecter</button>
+					<button class="home_btn" type="submit">Se connecter</button>
 				</form>
+
 			</div>
 
 			<div class="tab-body" data-id="inscription">
-    <form method="POST" action="{{ path('home.inscription') }}">
-        <div class="input_box">
-            <input type="text" class="input" name="pseudo" required>
-            <label>Pseudo</label>
-        </div>
-        <div class="input_box">
-            <input type="email" class="input" name="email" required>
-            <label>Email</label>
-        </div>
-        <div class="input_box">
-            <input type="password" class="input" name="password" required>
-            <label>Mot de passe</label>
-        </div>
-        <button class="home_btn" type="submit">S'inscrire</button>
-    </form>
-</div>
-
+				<form method="post" action="{{ path('home.inscription') }}">
+					<div class="input_box">
+						<input type="text" class="input" name="pseudo" required>
+						<label>Pseudo</label>
+					</div>
+					<div class="input_box">
+						<input type="email" class="input" name="email" required>
+						<label>Email</label>
+					</div>
+					<div class="input_box">
+						<input type="password" class="input" name="password" required>
+						<label>Mot de passe</label>
+					</div>
+					<button class="home_btn" type="submit">S'inscrire</button>
+				</form>
+			</div>
 
 		</div>
 	</div>
+
 {% endblock %}
