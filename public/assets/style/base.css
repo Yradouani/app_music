@@ -46,7 +46,6 @@ nav#desktop-nav {
     top: 0;
     height: 91vh;
     max-width: 250px;
-    /* width: 23%; */
     width: 27%;
     background: var(--secondary-bg);
     border-right: var(--grey-border) 1px solid;
