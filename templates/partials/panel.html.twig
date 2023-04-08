@@ -1,4 +1,5 @@
 {% block javascripts %}
+
 	<script src="{{ asset('assets/js/base.js')}}" defer></script>
 	<script src="{{ asset('assets/js/addToPlaylist.js') }} " defer></script>
 {% endblock %}
@@ -15,23 +16,21 @@
 		<span class="brand">SoundWave</span>
 	</div>
 	<div class="top-links">
-
-		<a href={{ path('discovery.index') }}>
+		<a href="#">
 			<i class="fa-solid fa-headphones"></i>
 			<span>Découvertes</span>
 		</a>
-		<a href={{ path('playlist.index') }}>
+		<a href="#">
 			<i class="fa-solid fa-music"></i>
 			<span>Playlists</span>
 		</a>
-		<a href={{ path('favorite.index') }} class="selected">
+		<a href="#" class="selected">
 			<i class="fa-solid fa-heart"></i>
 			<span>Favoris</span>
 		</a>
 	</div>
 	<div class="bottom-links">
-
-		<a href={{ path('admin.index') }}>
+		<a href="#">
 			<i class="fa-solid fa-lock"></i>
 			<span>Admin</span>
 		</a>
@@ -61,23 +60,21 @@
 		<span class="brand">SoundWave</span>
 	</div>
 	<div class="top-links">
-
-		<a href={{ path('discovery.index') }}>
+		<a href="#">
 			<i class="fa-solid fa-headphones"></i>
 			<span>Découvertes</span>
 		</a>
-		<a href={{ path('playlist.index') }}>
+		<a href="#">
 			<i class="fa-solid fa-music"></i>
 			<span>Playlists</span>
 		</a>
-		<a href={{ path('favorite.index') }} class="selected">
+		<a href="#" class="selected">
 			<i class="fa-solid fa-heart"></i>
 			<span>Favoris</span>
 		</a>
 	</div>
 	<div class="bottom-links">
-
-		<a href={{ path('admin.index') }}>
+		<a href="#">
 			<i class="fa-solid fa-lock"></i>
 			<span>Admin</span>
 		</a>
@@ -87,4 +84,3 @@
 		</a>
 	</div>
 </nav>
-
