@@ -2,7 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\Playlist;
+use App\Entity\Track;
+use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -10,21 +14,87 @@ use Symfony\Component\Routing\Annotation\Route;
 class PlaylistController extends AbstractController
 {
     #[Route('/playlists', name: 'playlist.index')]
-    public function index(): Response
+    public function index(EntityManagerInterface $entityManager): Response
     {
+        $userRepository = $entityManager->getRepository(User::class);
+        $user = $userRepository->find(1);
+
+        $playlists = $entityManager->getRepository(Playlist::class)->findBy(['id_user' => $user]);
+
         return $this->render('playlist/playlist.html.twig', [
-            'controller_name' => 'PlaylistController',
+            'playlists' => $playlists
+        ]);
+    }
+
+    #[Route('/addplaylists', name: 'addplaylist.index')]
+    public function addPlaylist(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        if ($request->isMethod('POST')) {
+            $playlists = $entityManager->getRepository(Playlist::class)->findBy(['id_user' => 1]);
+            $namePlaylist = $request->request->get('name_playlist');
+            $isUsed = false;
+            foreach ($playlists as $playlist) {
+                if ($playlist->getNamePlaylist() == $namePlaylist) {
+                    $isUsed = true;
+                }
+            }
+            if ($isUsed == false) {
+                $userRepository = $entityManager->getRepository(User::class);
+                $user = $userRepository->find(1);
+
+                $playlist = new Playlist();
+                $playlist->setNamePlaylist($namePlaylist);
+                $playlist->setIdUser($user);
+                $entityManager->persist($playlist);
+                $entityManager->flush();
+            }
+        }
+
+        $playlists = $entityManager->getRepository(Playlist::class)->findBy(['id_user' => 1]);
+        return $this->render('playlist/playlist.html.twig', [
+            'playlists' => $playlists,
+            'isUsed' => $isUsed
         ]);
     }
 
     #[Route('/playlists/{id}', name: 'onePlaylist')]
-    public function show(Request $request): Response
+    public function show(Request $request, EntityManagerInterface $entityManager): Response
     {
         $id = $request->get('id');
 
+        $playlistRepository = $entityManager->getRepository(Playlist::class);
+        $playlist = $playlistRepository->find($id);
+        $tracks = $entityManager->getRepository(Track::class)->findBy(['id_playlist' => $playlist]);
+        $tracks_api_response = [];
+        $url = "";
+
+        // echo "<pre>";
+        for ($i = 0; $i < count($tracks); $i++) {
+            $url = 'https://api.deezer.com/track/' . $tracks[$i]->getNumTrack();
+            // $curl = curl_init($url);
+            // curl_setopt($curl, CURLOPT_VERBOSE, true);
+            // curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+            // curl_setopt($curl, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3');
+            // curl_setopt($curl, CURLOPT_HTTPGET, true);
+            // $data = curl_exec($curl);
+
+            $context = stream_context_create([
+                "http" => [
+                    "header" => "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3\r\n"
+                ]
+            ]);
+            $response = file_get_contents($url, false, $context);
+            $data = json_decode($response, true);
+            $tracks_api_response[$i] = $data;
+            // curl_close($curl);
+            sleep(1);
+        }
+        // echo "</pre>";
+
         return $this->render('playlist/playlist.html.twig', [
             'controller_name' => 'PlaylistController',
-            'id' => $id
+            'id' => $id,
+            'tracks_api_response' => $tracks_api_response,
         ]);
     }
 }
