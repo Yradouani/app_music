@@ -187,6 +187,7 @@ footer .player-main .top-player{
     font-size: 17px;
     margin: 10px 5px;
 }
+
 footer .track-artist{
     display: flex;
 }
@@ -197,8 +198,19 @@ footer .track-artist .vinyl{
     margin-right: 15px;
 }
 
+footer .track-artist .vinyl img{
+    transition: 2500ms;
+}
+
+footer .track-artist > div:nth-child(2){
+    max-height: 51px;
+    overflow: hidden;
+    text-overflow: ellipsis; 
+}
+
 
 footer .fav-pl-btn{
+    display: flex;
     margin-right: 40px
 }
 
