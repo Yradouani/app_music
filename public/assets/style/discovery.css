@@ -7,6 +7,10 @@ th {
     text-align: left;
 }
 
+.track-container{
+    cursor: pointer;
+}
+
 hr {
     color: #26262E;
     margin-bottom: 0;
@@ -19,7 +23,7 @@ hr {
 }
 
 #divSearch {
-    border-bottom: 3px solid #26262E;
+    border-bottom: 1px solid var(--grey-border);
     /* margin-bottom: 40px;   en js quand click du searchButton   */
 }
 

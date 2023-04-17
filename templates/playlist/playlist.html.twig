@@ -11,7 +11,6 @@
 {% block main %}
 
 	{% if id is not defined %}
-		{{ dump(playlists) }}
 		<div id="playlist-container">
 			<div id="playlist-header">
 				<h1>
@@ -29,7 +28,7 @@
 				<div id="track_container">
 					<div id="add_playlist">
 						<div class="playlist-image add_playlist_image">
-							<i class="fa-thin fa-plus"></i>
+							<span class="fa-thin fa-plus"></span>
 						</div>
 						<span>Ajouter une playlist</span>
 					</div>
@@ -100,8 +99,9 @@
 	<div id="bg-dark"></div>
 	<div id="modal">
 		<span id="add_playlist_modal_header">
-			<i class="fa-thin fa-plus"></i>
-			Nouvelle playlist</span><hr><span id="add_playlist_name">
+			<span class="fa-thin fa-plus"></span>
+			Nouvelle playlist</span>
+		<span id="add_playlist_name">
 			<form action="{{ path('addplaylist.index') }}" method="POST">
 				<input id="name_playlist_input" name="name_playlist" type="text" placeholder="Nom de playlist"/>
 				<input type="submit" value="" class="arrow-button"/>

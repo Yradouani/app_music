@@ -43,13 +43,14 @@
     background: linear-gradient(45deg, rgb(89, 89, 89), white);
 }
 
-.add_playlist_image i {
+.add_playlist_image .fa-thin.fa-plus{
     color: #5E5E5E;
     font-size: 70px;
     transition: all 0.2s ease-in-out;
+    font-style: bol !important;
 }
 
-.add_playlist_image:hover i {
+.add_playlist_image:hover .fa-thin.fa-plus{
     transform: scale(1.1);
 }
 
@@ -133,12 +134,18 @@ tbody img {
     left: 50%;
     transform: translate(-50%, -50%);
     display: none;
+    border: 1px solid var(--grey-border);
 }
 
 #modal span {
-    margin: 20px;
+    padding: 10px;
     display: flex;
     align-items: center;
+    height: 75px;
+}
+
+#modal span#add_playlist_modal_header{
+    border-bottom: var(--grey-border) 1px solid;
 }
 
 #add_playlist_name {
@@ -153,7 +160,7 @@ tbody img {
 
 .arrow-button {
     border: none;
-    color: #fff;
+    color: red;
     padding: 10px 20px;
     font-size: 16px;
     cursor: pointer;
@@ -163,6 +170,11 @@ tbody img {
     background-size: 20px 20px;
     padding-right: 22px;
     background-color: transparent;
+    transition: 200ms;
+}
+
+.arrow-button:hover{
+    transform: scale(1.2);
 }
 
 form {
@@ -173,7 +185,8 @@ form {
     outline: none;
 }
 
-#add_playlist_modal_header i {
+#add_playlist_modal_header .fa-thin.fa-plus {
+    margin: 0;
     margin-right: 20px;
     font-size: 30px;
 }
@@ -185,4 +198,9 @@ form {
 
 #error_message {
     margin-bottom: 20px;
+}
+
+hr{
+    color: red;
+    font-weight: 900;
 }
