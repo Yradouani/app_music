@@ -9,7 +9,7 @@ let search = document.getElementById("search");
 let newGenreTitle = "";
 let tableauTop = "";
 
-for(let i = 0; i < genreButton.length; i++) {
+for (let i = 0; i < genreButton.length; i++) {
     genreButton[i].addEventListener("click", () => fn_loadGenre(i));
 }
 
@@ -17,7 +17,7 @@ searchIcon.addEventListener("click", () => fn_search());
 
 function fn_top100() {
     // au chargement de la page charge le top 100 avec l'api
-    
+
     const options = {
         method: 'GET',
         headers: {
@@ -30,16 +30,16 @@ function fn_top100() {
         .then(response => response.json())
         .then(response => {
 
-            for(let i = 0; i < 100; i++) {
-                    tableauTop += `  <tr>
+            for (let i = 0; i < 100; i++) {
+                tableauTop += `  <tr>
                                         <td style="width:6%">
-                                            <img id="albumCover" src="${ response.tracks.data[i].album.cover_big }" alt="albumImg">
+                                            <img id="albumCover" src="${response.tracks.data[i].album.cover_big}" alt="albumImg">
                                         </td>
                                         <td style="width:1%">
-                                            ${ i + 1 }.
+                                            ${i + 1}.
                                         </td>
                                         <td style="width:36%">
-                                            ${ response.tracks.data[i].title }
+                                            ${response.tracks.data[i].title}
                                         </td>
                                         <td>
                                             <i id="heart" class="fa-regular fa-heart"></i>
@@ -48,16 +48,16 @@ function fn_top100() {
                                             <i id="plus" class="fa-solid fa-plus"></i>
                                         </td>
                                         <td>
-                                            ${ response.tracks.data[i].artist.name }
+                                            ${response.tracks.data[i].artist.name}
                                         </td>
                                         <td>
-                                            ${ response.tracks.data[i].album.title }
+                                            ${response.tracks.data[i].album.title}
                                         </td>
                                     </tr>`;
             }
             allTracks.innerHTML = tableauTop;
-    })
-    .catch(err => console.error(err));
+        })
+        .catch(err => console.error(err));
 
 
 }
@@ -87,16 +87,16 @@ function fn_loadGenre(i) {
         .then(response => response.json())
         .then(response => {
 
-        for(let i = 0; i < 50; i++) {
-                    tableauTop += `  <tr>
+            for (let i = 0; i < 50; i++) {
+                tableauTop += `  <tr>
                                         <td style="width:6%">
-                                            <img id="albumCover" src="${ response.tracks.data[i].album.cover_big }" alt="albumImg">
+                                            <img id="albumCover" src="${response.tracks.data[i].album.cover_big}" alt="albumImg">
                                         </td>
                                         <td style="width:1%">
-                                            ${ i + 1 }.
+                                            ${i + 1}.
                                         </td>
                                         <td style="width:36%">
-                                            ${ response.tracks.data[i].title }
+                                            ${response.tracks.data[i].title}
                                         </td>
                                         <td>
                                             <i id="heart" class="fa-regular fa-heart"></i>
@@ -105,16 +105,16 @@ function fn_loadGenre(i) {
                                             <i id="plus" class="fa-solid fa-plus"></i>
                                         </td>
                                         <td>
-                                            ${ response.tracks.data[i].artist.name }
+                                            ${response.tracks.data[i].artist.name}
                                         </td>
                                         <td>
-                                            ${ response.tracks.data[i].album.title }
+                                            ${response.tracks.data[i].album.title}
                                         </td>
                                     </tr>`;
             }
             allTracks.innerHTML = tableauTop;
-    })
-    .catch(err => console.error(err));
+        })
+        .catch(err => console.error(err));
 }
 
 function fn_search() {
@@ -140,16 +140,16 @@ function fn_search() {
         .then(response => response.json())
         .then(response => {
 
-        for(let i = 0; i < 25; i++) {
-                    tableauTop += `  <tr>
+            for (let i = 0; i < 25; i++) {
+                tableauTop += `  <tr>
                                         <td style="width:6%">
-                                            <img id="albumCover" src="${ response.data[i].album.cover_big }" alt="albumImg">
+                                            <img id="albumCover" src="${response.data[i].album.cover_big}" alt="albumImg">
                                         </td>
                                         <td style="width:1%">
-                                            ${ i + 1 }.
+                                            ${i + 1}.
                                         </td>
                                         <td style="width:36%">
-                                            ${ response.data[i].title }
+                                            ${response.data[i].title}
                                         </td>
                                         <td>
                                             <i id="heart" class="fa-regular fa-heart"></i>
@@ -158,16 +158,16 @@ function fn_search() {
                                             <i id="plus" class="fa-solid fa-plus"></i>
                                         </td>
                                         <td>
-                                            ${ response.data[i].artist.name }
+                                            ${response.data[i].artist.name}
                                         </td>
                                         <td>
-                                            ${ response.data[i].album.title }
+                                            ${response.data[i].album.title}
                                         </td>
                                     </tr>`;
             }
             allTracks.innerHTML = tableauTop;
-    })
-    .catch(err => console.error(err));
+        })
+        .catch(err => console.error(err));
 }
 
 
@@ -187,3 +187,24 @@ function fn_search() {
 //         }
 //     })
 // 	.catch(err => console.error(err));
+
+// swapper
+var swiper = new Swiper(".mySwiper", {
+    effect: "coverflow",
+    grabCursor: true,
+    centeredSlides: true,
+    slidesPerView: 3,
+    spaceBetween: 30,
+    coverflowEffect: {
+        rotate: 40,
+        stretch: 100,
+        depth: 50,
+        modifier: 1,
+        slideShadows: true
+    },
+    pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+    },
+});
+
