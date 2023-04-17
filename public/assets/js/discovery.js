@@ -38,12 +38,13 @@ function fn_top100() {
 function displayTopTracks(response){
     console.log(response);
     if(response.error){
+        console.log(response);
         getTopTracks();
     }else{
     
         trackId = response.tracks.data[0].id ;
     for(let i = 0; i < 100; i++) {
-            tableauTop += `  <tr class='track-container' id="${ response.tracks.data[i].id }" onclick=changeMusicInPlayer(this)>
+            tableauTop += `<tr class='track-container' id="${ response.tracks.data[i].id }" onclick=changeMusicInPlayer(this)>
                                 <td style="width:6%">
                                     <img id="albumCover" src="${ response.tracks.data[i].album.cover_big }" alt="albumImg">
                                 </td>

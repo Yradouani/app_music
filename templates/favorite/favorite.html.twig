@@ -12,4 +12,70 @@
 {% block title %}Hello FavoriteController!
 {% endblock %}
 
-{% block main %}{% endblock %}
+{% block main %}
+{{ parent() }}
+	<div class="favorite_container">
+		<div class="favorite_title">
+			<i class="fa-solid fa-heart"></i>
+			<h2>Favoris</h2>
+		</div>
+
+		<div class="favorite_general">
+
+			<p>
+				<span>2</span> 
+				coups de coeur</p>
+	<button class="favorite_btn" type="button"><i class="fa-solid fa-play"></i> Écouter</button>
+		</div>
+	</div>
+	<div class="favorite_list_register">
+		<table class="favorite_table_users">
+			<thead>
+				<tr>
+					<th>Titre</th>
+					<th></th>
+					<th></th>
+					<th>Artiste</th>
+					<th>Album</th>
+					<th>Ajouté</th>
+					<th><i class="fas fa-clock"></th>
+				</tr>
+			</thead>
+            
+			<tbody>
+				<tr>
+					<td>
+						<img src="http://via.placeholder.com/30x30" alt="#"> Meu Nego</td>
+					<td>
+						<i class="fa-solid fa-heart" style="color:#00d98e;"></i>
+						</td>
+					<td>
+						<i class="fa-solid fa-plus"></i>
+						</td>
+						<td><p>Thievery Corporation, Karina Ze...</p></td>
+						<td><p>Saudade</p></td>
+						<td><p>Hier</p></td>
+						<td><p>03:21</p></td>
+				</tr>
+				<tr>
+					<td>
+					<img src="http://via.placeholder.com/30x30" alt="#"> I Feel Blue</td>
+						
+					<td>
+						<i class="fa-solid fa-heart" style="color:#00d98e;"></i>
+						</td>
+					<td>
+						<i class="fa-solid fa-plus"></i>
+						</td>
+					
+						<td><p>Alif Tree</p></td>
+						<td><p>French Cuisine</p></td>
+						<td><p>Hier</p></td>
+						<td><p>04:53</p></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+
+{% endblock %}

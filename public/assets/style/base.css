@@ -72,8 +72,6 @@ nav#mobile-nav {
     margin-left: 5px;
 }
 
-
-
 nav a {
     display: flex;
     align-items: center;
@@ -414,9 +412,6 @@ input[type=range]:-webkit-slider-runnable-track {
         display: none;
     }
 
-    .logo img {
-        width: 40px;
-    }
 
     .logo .brand {
         font-family: 'Righteous', cursive;
