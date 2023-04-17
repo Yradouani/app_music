@@ -17,6 +17,11 @@ security:
             lazy: true
             provider: app_user_provider
 
+
+            form_login:
+            # "app_login" is the name of the route created previously
+                login_path: app_discovery
+                check_path: app_discovery
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall
 
@@ -41,3 +46,5 @@ when@test:
                 cost: 4 # Lowest possible value for bcrypt
                 time_cost: 3 # Lowest possible value for argon
                 memory_cost: 10 # Lowest possible value for argon
+
+
