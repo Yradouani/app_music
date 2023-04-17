@@ -55,7 +55,9 @@ hr {
 .divGenreButton {
     display: flex;
     justify-content: space-around;
+    flex-wrap: wrap;
     width: 100%;
+    height: 100%;
 }
 
 .genreButton {
@@ -65,6 +67,7 @@ hr {
     border-radius: 10px;
     font-size: 20px;
     font-weight: 700;
+    /* min-width: 200px; */
 }
 
 #rapButton {
@@ -119,4 +122,21 @@ hr {
 
 #albumCover {
     width: 70px;
+}
+
+
+/* ----------RESPONSIVE---------- */
+
+
+@media (max-width: 768px) {
+
+    #divGenre {
+        margin-bottom: 10px;
+        justify-content: space-evenly;
+        /* height: 600px; */
+    }
+
+    .genreButton {
+        min-width: 40%;
+    }
 }
