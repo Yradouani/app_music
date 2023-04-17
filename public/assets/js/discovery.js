@@ -9,7 +9,7 @@ let search = document.getElementById("search");
 let newGenreTitle = "";
 let tableauTop = "";
 
-for  (let i = 0; i < genreButton.length; i++) {
+for (let i = 0; i < genreButton.length; i++) {
     genreButton[i].addEventListener("click", () => fn_loadGenre(i));
 }
 
@@ -26,12 +26,19 @@ function fn_top100() {
     //         'Access-Control-Allow-Headers': 'Content-Type'
     //     }
     // };
+    // const options = {
+    //     method: 'GET',
+    //     headers: {
+    //         'Access-Control-Allow-Origin': '*',
+    //         'Access-Control-Allow-Methods': 'GET, POST, PUT',
+    //         'Access-Control-Allow-Headers': 'Content-Type'
+    //     }
+    // };
     const options = {
         method: 'GET',
         headers: {
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Methods': 'GET, POST, PUT',
-            'Access-Control-Allow-Headers': 'Content-Type'
+            'X-RapidAPI-Key': 'b824698b76mshc29d02afeecec35p15959cjsn24db764eeaad',
+            'X-RapidAPI-Host': 'deezerdevs-deezer.p.rapidapi.com'
         }
     };
     getTopTracks()

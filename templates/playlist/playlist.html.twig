@@ -33,11 +33,17 @@
 					</div>
 					{% for playlist in playlists %}
 						<div id={{playlist.id}} class="track">
-							<div
-								class="playlist-image">
-								{# {% if %} #}
-								<img src="/assets/images/cd.jpg"/>
-							</div>
+							{% if playlistimage is defined %}
+								<div class="playlist-image">
+									<img src="/assets/images/cd.jpg"/>
+									<i class="fa-sharp fa-solid fa-xmark delete"></i>
+								</div>
+							{% else %}
+								<div class="playlist-image playlist-noimage">
+									<i class="fa-solid fa-question"></i>
+									<i class="fa-sharp fa-solid fa-xmark delete"></i>
+								</div>
+							{% endif %}
 							<span>{{ playlist.getNamePlaylist() }}</span>
 						</div>
 					{% endfor %}

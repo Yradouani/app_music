@@ -16,13 +16,14 @@ class DiscoveryController extends AbstractController
     #[Route('/discovery', name: 'discovery.index')]
     public function index(Request $request, EntityManagerInterface $entityManager): Response
     {
+        $isAlreadyInPlaylist = false;
+        $trackAdded = false;
         if ($request->isMethod('POST')) {
             $track_id = $request->request->get('track_id');
             $idPlaylist = $request->request->get('playlist');
             $playlistRepository = $entityManager->getRepository(Playlist::class);
             $playlist = $playlistRepository->find($idPlaylist);
             $tracks = $entityManager->getRepository(Track::class)->findBy(['num_track' => $track_id]);
-            $isAlreadyInPlaylist = false;
             foreach ($tracks as $track) {
                 if ($track->getIdPlaylist() == $playlist) {
                     $isAlreadyInPlaylist = true;
@@ -37,6 +38,7 @@ class DiscoveryController extends AbstractController
                 $newTrack->setNumTrack($track_id);
                 $entityManager->persist($newTrack);
                 $entityManager->flush();
+                $trackAdded = true;
             }
         }
         $userRepository = $entityManager->getRepository(User::class);
@@ -45,7 +47,8 @@ class DiscoveryController extends AbstractController
 
         return $this->render('discovery/discovery.html.twig', [
             'playlists' => $playlists,
-            'isAlreadyInPlaylist' => $isAlreadyInPlaylist
+            'isAlreadyInPlaylist' => $isAlreadyInPlaylist,
+            'trackAdded' => $trackAdded
         ]);
     }
 }

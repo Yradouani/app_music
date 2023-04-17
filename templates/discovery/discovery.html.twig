@@ -14,7 +14,7 @@
 
 {% block main %}
 	{# {{ dump(isAlreadyInPlaylist)}}
-			{{ dump(tracks)}} #}
+									{{ dump(tracks)}} #}
 	<div id="discovery">
 
 		<div id="divSearch">
@@ -61,7 +61,10 @@
 		<div>
 			<h4 id="titleTab">Top France</h4>
 			{% if isAlreadyInPlaylist is defined and isAlreadyInPlaylist == true %}
-				<div id="error_message">Ce morceau est déjà enregistré dans cette playlist</div>
+				<div id="error_message">Ce morceau est déjà enregistré dans cette playlist !</div>
+			{% endif %}
+			{% if trackAdded is defined and trackAdded == true %}
+				<div id="confirm_message">Votre morceau a bien été enregistré à vos playlists</div>
 			{% endif %}
 			<div id="tableTop">
 				<table style="width:94%; margin-left:3%">
@@ -74,7 +77,7 @@
 					</thead>
 					<tbody
 						id="allTracks">{# <tr id="track">
-																																																																																																																																																																																																																																														------------------------------------JS inject--------------------																				</tr> #}
+																																																																																																																																																																																																																																																																																								------------------------------------JS inject--------------------																				</tr> #}
 					</tbody>
 				</table>
 			</div>
