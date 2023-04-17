@@ -9,7 +9,7 @@ let search = document.getElementById("search");
 let newGenreTitle = "";
 let tableauTop = "";
 
-for  (let i = 0; i < genreButton.length; i++) {
+for (let i = 0; i < genreButton.length; i++) {
     genreButton[i].addEventListener("click", () => fn_loadGenre(i));
 }
 
@@ -26,12 +26,19 @@ function fn_top100() {
     //         'Access-Control-Allow-Headers': 'Content-Type'
     //     }
     // };
+    // const options = {
+    //     method: 'GET',
+    //     headers: {
+    //         'Access-Control-Allow-Origin': '*',
+    //         'Access-Control-Allow-Methods': 'GET, POST, PUT',
+    //         'Access-Control-Allow-Headers': 'Content-Type'
+    //     }
+    // };
     const options = {
         method: 'GET',
         headers: {
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Methods': 'GET, POST, PUT',
-            'Access-Control-Allow-Headers': 'Content-Type'
+            'X-RapidAPI-Key': 'b824698b76mshc29d02afeecec35p15959cjsn24db764eeaad',
+            'X-RapidAPI-Host': 'deezerdevs-deezer.p.rapidapi.com'
         }
     };
     getTopTracks()
@@ -79,6 +86,7 @@ function fn_top100() {
                             </tr>`;
             }
             allTracks.innerHTML = tableauTop;
+            addTrackInPlaylist();
         }
     }
 }
@@ -142,6 +150,7 @@ function fn_loadGenre(i) {
                                     </tr>`;
             }
             allTracks.innerHTML = tableauTop;
+            addTrackInPlaylist();
         }
 
     }
@@ -217,6 +226,7 @@ function fn_search() {
                                 </tr>`;
             }
             allTracks.innerHTML = tableauTop;
+            addTrackInPlaylist();
         }
     }
 
@@ -243,17 +253,21 @@ let bgDark = document.querySelector("#bg-dark");
 let modal = document.querySelector("#modal");
 
 function addTrackInPlaylist() {
+    let trackContainer = document.querySelectorAll('.track-container')
+
     let addPlaylistBtn = document.querySelectorAll('.add_playlist');
     for (let i = 0; i < addPlaylistBtn.length; i++) {
-        console.log(addPlaylistBtn)
         addPlaylistBtn[i].addEventListener("click", () => {
-            console.log("coucou")
             modal.style.display = "block";
             bgDark.style.display = "block";
+            console.log(trackContainer[i])
+            let idTrack = trackContainer[i].getAttribute("id");
+            console.log(idTrack)
+            document.getElementById("track_id_input").value = idTrack;
         })
     }
 }
-addTrackInPlaylist();
+
 document.onmouseup = (e) => {
     console.log(e.target)
     if (!modal.contains(e.target)) {
@@ -261,6 +275,18 @@ document.onmouseup = (e) => {
         bgDark.style.display = "none";
     }
 }
+
+const select = document.getElementById("mySelect");
+const optionCount = select.getElementsByTagName("option").length;
+select.setAttribute("size", optionCount);
+select.addEventListener("change", function () {
+    const selectedOption = this.options[this.selectedIndex];
+    const options = this.getElementsByTagName("option");
+    for (let i = 0; i < options.length; i++) {
+        options[i].classList.remove("selected");
+    }
+    selectedOption.classList.add("selected");
+});
 
 // swapper
 var swiper = new Swiper(".mySwiper", {
