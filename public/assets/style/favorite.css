@@ -1,0 +1,57 @@
+.favorite_container {
+    width: 73%;
+    display: flex;
+    flex-direction: column;
+    padding-top: 7%;
+}
+
+.favorite_title {
+    display: flex;
+    padding-left: 20px;
+    padding-bottom: 20px;
+    align-items: center;
+
+}
+
+.favorite_title i {
+    padding-right: 10px;
+    font-size: 1.5em;
+}
+
+
+.favorite_general p {
+    padding-left: 30px;
+}
+.favorite_btn {
+    border-radius: 50px;
+    padding: 10px;
+    background-color: #00d98e;
+    margin-left: 30px;
+    width: 150px;
+    font-weight: 600;
+    transition: all 0.5s;
+    color: #000;
+}
+.favorite_btn i {
+    color: #000;
+}
+.favorite_btn:hover {
+    background-color: #30ffb6;
+    cursor: pointer;
+}
+
+.favorite_table_users {
+    border-collapse: collapse;
+    width: 100%;
+}
+  
+.favorite_table_users th {
+    border-bottom: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.favorite_table_users th, td {
+    padding: 10px;
+    font-size: 0.75em;
+}

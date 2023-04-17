@@ -12,7 +12,7 @@ btn.onclick = () => {
 
 function closeBtn(modal){
     document.onmouseup = (e) => {
-        if(e.target != modal){
+        if(!modal.contains(e.target)){
             modal.style.display= 'none';
         }
     }
