@@ -7,7 +7,7 @@ th {
     text-align: left;
 }
 
-.track-container{
+.track-container {
     cursor: pointer;
 }
 
@@ -48,12 +48,12 @@ hr {
 
 #titleGenre {
     margin-left: 2%;
-    margin-bottom : 20px;
+    margin-bottom: 20px;
 }
 
 #titleTab {
     margin-left: 2%;
-    margin-bottom : 20px;
+    margin-bottom: 20px;
 }
 
 .divGenreButton {
@@ -79,31 +79,31 @@ hr {
 }
 
 #popButton {
-    background-image: linear-gradient(to right, #E596BB , #EF87B6);
+    background-image: linear-gradient(to right, #E596BB, #EF87B6);
 }
 
 #rockButton {
-    background-image: linear-gradient(to right, #E45952 , #c53c34);
+    background-image: linear-gradient(to right, #E45952, #c53c34);
 }
 
 #rnbButton {
-    background-image: linear-gradient(to right, #32498D , #5070C2);
+    background-image: linear-gradient(to right, #32498D, #5070C2);
 }
 
 #jazzButton {
-    background-image: linear-gradient(to right, #0091B9 , #00C7EE);
+    background-image: linear-gradient(to right, #0091B9, #00C7EE);
 }
 
 #classiqueButton {
-    background-image: linear-gradient(to right, #FFC740 , #FF9D06);
+    background-image: linear-gradient(to right, #FFC740, #FF9D06);
 }
 
 #varieteButton {
-    background-image: linear-gradient(to right, #F76B79 , #dc4686);
+    background-image: linear-gradient(to right, #F76B79, #dc4686);
 }
 
 #reggaeButton {
-    background-image: linear-gradient(to right, #34CB96 , #2ec369);
+    background-image: linear-gradient(to right, #34CB96, #2ec369);
 }
 
 #tableTop {
@@ -128,6 +128,91 @@ hr {
     width: 70px;
 }
 
+/*------------------modal------------------*/
+#bg-dark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.4;
+    z-index: 9;
+    background-color: #23232D;
+    display: none;
+}
+
+#modal {
+    position: absolute;
+    width: 300px;
+    /* height: 100px; */
+    border-radius: 10px;
+    background: #23232D;
+    z-index: 10;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+    border: 1px solid var(--grey-border);
+}
+
+#modal span {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    height: 75px;
+}
+
+#modal span#add_playlist_modal_header {
+    border-bottom: var(--grey-border) 1px solid;
+}
+
+#add_playlist_name {
+    justify-content: space-between;
+}
+
+#name_playlist_input {
+    background: transparent;
+    border: none;
+    color: white;
+}
+
+.arrow-button {
+    border: none;
+    color: red;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    background-image: url('/assets/images/download.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 20px 20px;
+    padding-right: 22px;
+    background-color: transparent;
+    transition: 200ms;
+}
+
+.arrow-button:hover {
+    transform: scale(1.2);
+}
+
+form {
+    display: flex;
+}
+
+#name_playlist_input:focus {
+    outline: none;
+}
+
+#add_playlist_modal_header .fa-thin.fa-plus {
+    margin: 0;
+    margin-right: 20px;
+    font-size: 30px;
+}
+
+#add_playlist_name i {
+    color: #A7A7A7;
+    cursor: pointer;
+}
 
 /* ----------RESPONSIVE---------- */
 
@@ -144,3 +229,25 @@ hr {
         min-width: 40%;
     }
 }
+
+
+/* Swipper starts*/
+
+.swiper {
+    width: 100%;
+    padding-top: 50px;
+    padding-bottom: 50px;
+  }
+  
+  .swiper-slide {
+    background-position: center;
+    background-size: cover;
+    width: 300px;
+    height: 300px;
+  }
+  
+  .swiper-slide img {
+    display: block;
+    width: 100%;
+  }
+  
