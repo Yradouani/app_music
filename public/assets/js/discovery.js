@@ -9,7 +9,7 @@ let search = document.getElementById("search");
 let newGenreTitle = "";
 let tableauTop = "";
 
-for (let i = 0; i < genreButton.length; i++) {
+for  (let i = 0; i < genreButton.length; i++) {
     genreButton[i].addEventListener("click", () => fn_loadGenre(i));
 }
 
@@ -280,3 +280,24 @@ select.addEventListener("change", function () {
     }
     selectedOption.classList.add("selected");
 });
+
+// swapper
+var swiper = new Swiper(".mySwiper", {
+    effect: "coverflow",
+    grabCursor: true,
+    centeredSlides: true,
+    slidesPerView: 3,
+    spaceBetween: 30,
+    coverflowEffect: {
+        rotate: 40,
+        stretch: 100,
+        depth: 50,
+        modifier: 1,
+        slideShadows: true
+    },
+    pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+    },
+});
+
