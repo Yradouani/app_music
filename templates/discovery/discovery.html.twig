@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block javascripts %}
-	<script src="{{ asset('assets/js/discovery.js') }}"></script>
+	<script src="{{ asset('assets/js/discovery.js') }}" defer></script>
 {% endblock %}
 
 {% block title %}Discovery
@@ -19,7 +19,6 @@
 		<div id="divSearch">
 			<i id="searchIcon" class="fa-solid fa-magnifying-glass"></i>
 			<input id="search" type="text" placeholder="Rechercher">
-
 			<hr>
 		</div>
 
@@ -51,9 +50,6 @@
 				<button id="popButton" class="genreButton" name="53362031">Pop</button>
 				<button id="rockButton" class="genreButton" name="1306931615">Rock</button>
 				<button id="rnbButton" class="genreButton" name="1384018035">R&amp;B</button>
-			</div>
-
-			<div class="divGenreButton">
 				<button id="jazzButton" class="genreButton" name="10071848282">Jazz</button>
 				<button id="classiqueButton" class="genreButton" name="747148961">Classique</button>
 				<button id="varieteButton" class="genreButton" name="788022051">Variété française</button>
@@ -67,7 +63,7 @@
 			<div id="tableTop">
 				<table style="width:94%; margin-left:3%">
 					<thead>
-						<tr>
+						<tr style="display:none">
 							<th colspan="5" style="width:50%">TITRE</th>
 							<th colspan="1" style="width:25%">ARTISTE</th>
 							<th colspan="1" style="width:25%">ALBUM</th>
@@ -75,28 +71,24 @@
 					</thead>
 					<tbody
 						id="allTracks">{# <tr id="track">
-																												<td style="width:6%">
-																													<img id="albumCover" src="assets/images/albumCover.jpg" alt="albumImg">
-																												</td>
-																												<td style="width:1%">
-																													1.
-																												</td>
-																												<td style="width:36%">
-																													Flowers
-																												</td>
-																												<td>
-																													<i id="heart" class="fa-regular fa-heart"></i>
-																												</td>
-																												<td>
-																													<i id="plus" class="fa-solid fa-plus"></i>
-																												</td>
-																												<td>Miley Cyrus</td>
-																												<td>Flowers</td>
-																											</tr> #}
+																					------------------------------------JS inject--------------------																				</tr> #}
 					</tbody>
 				</table>
 			</div>
 		</div>
+	</div>
+	{# ---------Modal add track in playlist------------------ #}
+	<div id="bg-dark"></div>
+	<div id="modal">
+		<span id="add_playlist_modal_header">
+			<span class="fa-thin fa-plus"></span>
+			Nouvelle playlist</span>
+		<span id="add_playlist_name">
+			<form action="{{ path('addplaylist.index') }}" method="POST">
+				<input id="name_playlist_input" name="name_playlist" type="text" placeholder="Nom de playlist"/>
+				<input type="submit" value="" class="arrow-button"/>
+			</form>
+		</span>
 	</div>
 	<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
 {% endblock %}

@@ -23,18 +23,21 @@
 .home_logo_content {
     display: flex;
    justify-content: center;
-    padding-bottom: 15%;
-    padding-right: 10%;
+   align-items: center;
+    margin-bottom: 75px;
+    margin-left: -30px;
 }
 
 .home_logo_img img {
-    width: 90px;
-    padding-top: 15px;
+    width: 70px;
+    padding: 0 5px;
 }
 
 .home_logo_name h2 {
     color: #fff;
-    font-size: 2em;
+    font-size: 35px;
+    font-family: 'righteous', sans-serif;
+    margin: 0;
 }
 
 .home_connexion {
@@ -43,34 +46,46 @@
 }
 .home_connexion .home_tab_link {
     text-decoration: none;
-    color: #00d98e;
-    transition: ease-in 0.5s;
+    color: var(--white);
+    border-bottom: 1px solid transparent ;
+    padding: 1px 0 ;
+    /* border-radius: 15px; */
+    font-weight: 500;
+    font-size: 20px;
 }
 
 .home_connexion .home_tab_link:hover {
-    color: #e51a98;
     cursor: pointer;
+    border-bottom: 1px solid ;
+
 }
 
 .home_connexion .home_tab_link.active {
-    color: #fff;
+    color: var(--main-color);
+    cursor: initial;
+    border: none !important;
 }
 
 .tab-body {
     display: none;  
     position: relative;
-    width: 350px;
 }
 
 .tab-body.active {
     display: block;
 }
  
+form{
+    display: flex;
+    flex-direction: column;
+    margin: 20px 0;
+}
+
 .tab-body .input_box {
     position: relative;
     width: 100%;
     height: 50px;
-    margin: 40px 0;
+    margin: 20px 0;
 }
 
 .tab-body .input_box input {
@@ -105,14 +120,14 @@
 
 .home_btn {
     border-radius: 50px;
-    padding: 10px;
+    padding: 12px 25px;
     background-color: #00d98e;
-    margin-left: 130px;
-    width: 150px;
     font-weight: 600;
     transition: all 0.5s;
+    margin: 20px auto;
 }
 .home_btn:hover {
-    background-color: #e51a98;
+    background-color: #16f8a9;
+    transform: scale(1.05);
     cursor: pointer;
 }
