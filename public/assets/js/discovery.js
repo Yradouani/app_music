@@ -29,8 +29,9 @@ function fn_top100() {
     const options = {
         method: 'GET',
         headers: {
-            'X-RapidAPI-Key': 'b824698b76mshc29d02afeecec35p15959cjsn24db764eeaad',
-            'X-RapidAPI-Host': 'deezerdevs-deezer.p.rapidapi.com'
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'GET, POST, PUT',
+            'Access-Control-Allow-Headers': 'Content-Type'
         }
     };
     getTopTracks()
