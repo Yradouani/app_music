@@ -9,6 +9,9 @@ let search = document.getElementById("search");
 let newGenreTitle = "";
 let tableauTop = "";
 
+ flowers = "flowers";
+
+
 fn_top100();
 
 for (let i = 0; i < genreButton.length; i++) {
