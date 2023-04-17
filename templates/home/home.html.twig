@@ -28,7 +28,7 @@
 				<a class="home_tab_link" data-ref="inscription" href="javascript:void(0)">Inscription</a>
 			</div>
 			<div class="tab-body" data-id="connexion">
-				<form method="post" action="{{ path('home.connexion') }}">
+				<form {#method="post" action="{{ path('home.connexion') }}"#}>
 					<div class="input_box">
 						<input type="mail" class="input" name="email" required>
 						<label>Email</label>
@@ -43,7 +43,7 @@
 			</div>
 
 			<div class="tab-body" data-id="inscription">
-				<form method="post" action="{{ path('home.inscription') }}">
+				 <form method="post" action="{{ path('home.inscription') }}"> 
 					<div class="input_box">
 						<input type="text" class="input" name="pseudo" required>
 						<label>Pseudo</label>

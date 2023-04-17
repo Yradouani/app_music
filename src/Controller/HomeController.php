@@ -26,9 +26,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
-use Symfony\Component\Security\Http\Guard\GuardAuthenticatorHandler;
-use App\Security\LoginFormAuthenticator;
+
 
 class HomeController extends AbstractController
 {
@@ -56,40 +54,28 @@ class HomeController extends AbstractController
         return $this->redirectToRoute('home.index');
     }
 
-    #[Route('/connexion', name: 'home.connexion', methods: ['POST'])]
-    public function connexion(Request $request, AuthenticationUtils $authenticationUtils, GuardAuthenticatorHandler $guardHandler, LoginFormAuthenticator $formAuthenticator): Response
-    {
-        $error = $authenticationUtils->getLastAuthenticationError();
-        $lastEmail = $authenticationUtils->getLastUsername();
+//     #[Route('/connexion', name: 'home.connexion', methods: ['POST'])]
+//     public function connexion(Request $request): Response
+//     {
+//         $email = $request->request->get('email');
+//         $password = $request->request->get('password');
 
-        if (!$error) {
-            // authentication success, redirect to home page
-            return $this->redirectToRoute('home.index');
-        }
+//         $user = $this->getDoctrine()->getRepository(User::class)->findOneBy(['email' => $email]);
 
-        // authentication failed, continue with the login form
-        $email = $request->request->get('email');
-        $password = $request->request->get('password');
+//         if (!$user || !password_verify($password, $user->getPassword())) {
+//             $error = 'Invalid email or password';
+//         } else {
+//             // authenticate the user
+//             $this->getUser($user);
+//             return $this->redirectToRoute('discovery.index');
+//         }
 
-        $user = $this->getDoctrine()->getRepository(User::class)->findOneBy(['email' => $email]);
+//         return $this->render('discovery/discovery.html.twig', [
+//             'last_email' => $email,
+//             'error' => $error ?? null,
+//         ]);
+//     }
 
-        if (!$user || !password_verify($password, $user->getPassword())) {
-            $error = 'Invalid email or password';
-        } else {
-            // authenticate the user
-            $guardHandler->authenticateUserAndHandleSuccess(
-                $user,
-                $request,
-                $formAuthenticator,
-                'main'
-            );
 
-            return $this->redirectToRoute('home.index');
-        }
-
-        return $this->render('discovery/discovery.html.twig', [
-            'last_email' => $lastEmail,
-            'error' => $error,
-        ]);
-    }
+// 
 }
