@@ -6,20 +6,46 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Playlist;
+use App\Entity\Track;
 use App\Entity\User;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 class DiscoveryController extends AbstractController
 {
     #[Route('/discovery', name: 'discovery.index')]
-    public function index(EntityManagerInterface $entityManager): Response
+    public function index(Request $request, EntityManagerInterface $entityManager): Response
     {
+        if ($request->isMethod('POST')) {
+            $track_id = $request->request->get('track_id');
+            $idPlaylist = $request->request->get('playlist');
+            $playlistRepository = $entityManager->getRepository(Playlist::class);
+            $playlist = $playlistRepository->find($idPlaylist);
+            $tracks = $entityManager->getRepository(Track::class)->findBy(['num_track' => $track_id]);
+            $isAlreadyInPlaylist = false;
+            foreach ($tracks as $track) {
+                if ($track->getIdPlaylist() == $playlist) {
+                    $isAlreadyInPlaylist = true;
+                }
+            }
+            if ($isAlreadyInPlaylist == false) {
+                $playlistRepository = $entityManager->getRepository(Playlist::class);
+                $playlist = $playlistRepository->find($idPlaylist);
+
+                $newTrack = new Track();
+                $newTrack->setIdPlaylist($playlist);
+                $newTrack->setNumTrack($track_id);
+                $entityManager->persist($newTrack);
+                $entityManager->flush();
+            }
+        }
         $userRepository = $entityManager->getRepository(User::class);
         $user = $userRepository->find(1);
         $playlists = $entityManager->getRepository(Playlist::class)->findBy(['id_user' => $user]);
 
         return $this->render('discovery/discovery.html.twig', [
-            'playlists' => $playlists
+            'playlists' => $playlists,
+            'isAlreadyInPlaylist' => $isAlreadyInPlaylist
         ]);
     }
 }

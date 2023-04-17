@@ -153,13 +153,13 @@ hr {
     transform: translate(-50%, -50%);
     display: none;
     border: 1px solid var(--grey-border);
+    padding: 20px;
 }
 
 #modal span {
     padding: 10px;
     display: flex;
     align-items: center;
-    height: 75px;
 }
 
 #modal span#add_playlist_modal_header {
@@ -167,7 +167,7 @@ hr {
 }
 
 #add_playlist_name {
-    justify-content: space-between;
+    justify-content: center;
 }
 
 #name_playlist_input {
@@ -176,27 +176,9 @@ hr {
     color: white;
 }
 
-.arrow-button {
-    border: none;
-    color: red;
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    background-image: url('/assets/images/download.svg');
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: 20px 20px;
-    padding-right: 22px;
-    background-color: transparent;
-    transition: 200ms;
-}
-
-.arrow-button:hover {
-    transform: scale(1.2);
-}
-
 form {
     display: flex;
+    flex-direction: column;
 }
 
 #name_playlist_input:focus {
@@ -213,6 +195,38 @@ form {
     color: #A7A7A7;
     cursor: pointer;
 }
+
+select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    height: 100%;
+}
+
+select::-ms-expand {
+    display: none;
+}
+
+option {
+    line-height: 30px;
+}
+
+#submit-button {
+    background-color: #00D98E;
+    color: black;
+    border: none;
+    padding: 10px;
+    border-radius: 15px;
+    margin: 20px;
+}
+
+/* .selected {
+    background-color: white;
+    color: black;
+} */
 
 /* ----------RESPONSIVE---------- */
 
