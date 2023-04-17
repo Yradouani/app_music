@@ -22,8 +22,9 @@
 		<div class="admin_general">
 
 			<p>
-				<span>3</span>
-				utilisateurs</p>
+				<span id="nbrUser">{{ numberOfUsers }}</span>
+				utilisateurs
+			</p>
 			<p>
 				<span>326</span>
 				Playlists créés</p>
@@ -34,28 +35,27 @@
 		</div>
 	</div>
 	<div class="admin_list_register">
-		<table class="admin_table_users">
-			<thead>
-				<tr>
-					<th>Pseudo</th>
-					<th>Mail</th>
-				</tr>
-			</thead>
-            
-			<tbody>
-				<tr>
-					<td>
-						<i class="fas fa-user"></i> JohnDoe</td>
-					<td>
-						<i class="fas fa-envelope"></i> johndoe@example.com</td>
-				</tr>
-				<tr>
-					<td>
-						<i class="fas fa-user"></i> JaneSmith</td>
-					<td>
-						<i class="fas fa-envelope"></i> janesmith@example.com</td>
-				</tr>
-			</tbody>
-		</table>
-	</div>
+    <table class="admin_table_users">
+        <thead>
+            <tr>
+                <th>Pseudo</th>
+                <th>Mail</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+                <tr>
+                    <td>
+                        <i class="fas fa-user"></i>
+                        {{ user.getPseudo() }}
+                    </td>
+                    <td>
+                        <i class="fas fa-envelope"></i>
+                        {{ user.getEmail() }}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
 {% endblock %}

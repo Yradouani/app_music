@@ -1,4 +1,22 @@
 <?php
+// namespace App\Controller;
+
+// use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+// use Symfony\Component\HttpFoundation\Response;
+// use Symfony\Component\Routing\Annotation\Route;
+
+// class HomeController extends AbstractController
+// {
+//     #[Route('/', name: 'home.index')]
+//     public function index(): Response
+//     {
+//         return $this->render('home/home.html.twig', [
+//             'controller_name' => 'HomeController',
+//         ]);
+//     }
+// }
+
+
 
 namespace App\Controller;
 
@@ -8,6 +26,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+
 
 class HomeController extends AbstractController
 {
@@ -22,28 +41,41 @@ class HomeController extends AbstractController
     #[Route('/inscription', name: 'home.inscription', methods: ['POST'])]
     public function inscription(Request $request, EntityManagerInterface $entityManager): Response
     {
-        $pseudo = $request->request->get('pseudo');
-        $email = $request->request->get('email');
-        $password = $request->request->get('password');
-
-        // Création d'un nouvel utilisateur
         $user = new User();
-        $user->setEmail($email);
-        $user->setPseudo($pseudo);
-        $user->setPassword(password_hash($password, PASSWORD_DEFAULT)); // Hashage du mot de passe
+        $user->setPseudo($request->request->get('pseudo'));
+        $user->setEmail($request->request->get('email'));
+        $user->setPassword(password_hash($request->request->get('password'), PASSWORD_DEFAULT));
         $user->setRoles(['ROLE_USER']);
+        $user->setIsAdmin(false);
 
-        // Enregistrement de l'utilisateur dans la base de données
         $entityManager->persist($user);
         $entityManager->flush();
 
-        // Redirection vers une page de confirmation d'inscription
-        return $this->redirectToRoute('home.confirmation');
+        return $this->redirectToRoute('home.index');
     }
 
-    #[Route('/inscription/confirmation', name: 'home.confirmation')]
-    public function confirmation(): Response
-    {
-        return $this->render('home/confirmation.html.twig');
-    }
+    //     #[Route('/connexion', name: 'home.connexion', methods: ['POST'])]
+    //     public function connexion(Request $request): Response
+    //     {
+    //         $email = $request->request->get('email');
+    //         $password = $request->request->get('password');
+
+    //         $user = $this->getDoctrine()->getRepository(User::class)->findOneBy(['email' => $email]);
+
+    //         if (!$user || !password_verify($password, $user->getPassword())) {
+    //             $error = 'Invalid email or password';
+    //         } else {
+    //             // authenticate the user
+    //             $this->getUser($user);
+    //             return $this->redirectToRoute('discovery.index');
+    //         }
+
+    //         return $this->render('discovery/discovery.html.twig', [
+    //             'last_email' => $email,
+    //             'error' => $error ?? null,
+    //         ]);
+    //     }
+
+
+    // 
 }

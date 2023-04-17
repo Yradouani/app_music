@@ -9,7 +9,6 @@
 {% endblock %}
 
 {% block main %}
-
 	{% if id is not defined %}
 		<div id="playlist-container">
 			<div id="playlist-header">
@@ -34,11 +33,17 @@
 					</div>
 					{% for playlist in playlists %}
 						<div id={{playlist.id}} class="track">
-							<div
-								class="playlist-image">
-								{# {% if %} #}
-								<img src="/assets/images/cd.jpg"/>
-							</div>
+							{% if playlistimage is defined %}
+								<div class="playlist-image">
+									<img src="/assets/images/cd.jpg"/>
+									<i class="fa-sharp fa-solid fa-xmark delete"></i>
+								</div>
+							{% else %}
+								<div class="playlist-image playlist-noimage">
+									<i class="fa-solid fa-question"></i>
+									<i class="fa-sharp fa-solid fa-xmark delete"></i>
+								</div>
+							{% endif %}
 							<span>{{ playlist.getNamePlaylist() }}</span>
 						</div>
 					{% endfor %}
@@ -101,7 +106,7 @@
 		<span id="add_playlist_modal_header">
 			<span class="fa-thin fa-plus"></span>
 			Nouvelle playlist</span>
-		<span id="add_playlist_name">
+		<span id="add_playlist_name" name="playlist">
 			<form action="{{ path('addplaylist.index') }}" method="POST">
 				<input id="name_playlist_input" name="name_playlist" type="text" placeholder="Nom de playlist"/>
 				<input type="submit" value="" class="arrow-button"/>

@@ -9,8 +9,6 @@ let search = document.getElementById("search");
 let newGenreTitle = "";
 let tableauTop = "";
 
-
-
 fn_top100();
 
 for (let i = 0; i < genreButton.length; i++) {
@@ -18,8 +16,6 @@ for (let i = 0; i < genreButton.length; i++) {
 }
 
 searchIcon.addEventListener("click", () => fn_search());
-
-
 
 function getTracks(url, fnName) {
 
@@ -144,7 +140,6 @@ function fn_search() {
         }
     }
 }
-
 //-------Music Player------//
 
 function changeMusicInPlayer(track) {
@@ -157,3 +152,72 @@ function changeMusicInPlayer(track) {
     inputPlayer.value = elapsed;
     clearInterval(intervalId);
 }
+// fetch('https://deezerdevs-deezer.p.rapidapi.com/search?q=eminem', options)
+// 	.then(response => response.json())
+// 	.then(response => {
+//         for(let i = 0; i < 1 ;i++) {
+//             console.log(response.data);
+//         }
+//     })
+// 	.catch(err => console.error(err));
+
+/*------------------modal add track in playlist-----------------------*/
+let bgDark = document.querySelector("#bg-dark");
+let modal = document.querySelector("#modal");
+
+function addTrackInPlaylist() {
+    let trackContainer = document.querySelectorAll('.track-container')
+
+    let addPlaylistBtn = document.querySelectorAll('.add_playlist');
+    for (let i = 0; i < addPlaylistBtn.length; i++) {
+        addPlaylistBtn[i].addEventListener("click", () => {
+            modal.style.display = "block";
+            bgDark.style.display = "block";
+            console.log(trackContainer[i])
+            let idTrack = trackContainer[i].getAttribute("id");
+            console.log(idTrack)
+            document.getElementById("track_id_input").value = idTrack;
+        })
+    }
+}
+
+document.onmouseup = (e) => {
+    console.log(e.target)
+    if (!modal.contains(e.target)) {
+        modal.style.display = 'none';
+        bgDark.style.display = "none";
+    }
+}
+
+const select = document.getElementById("mySelect");
+const optionCount = select.getElementsByTagName("option").length;
+select.setAttribute("size", optionCount);
+select.addEventListener("change", function () {
+    const selectedOption = this.options[this.selectedIndex];
+    const options = this.getElementsByTagName("option");
+    for (let i = 0; i < options.length; i++) {
+        options[i].classList.remove("selected");
+    }
+    selectedOption.classList.add("selected");
+});
+
+// swapper
+var swiper = new Swiper(".mySwiper", {
+    effect: "coverflow",
+    grabCursor: true,
+    centeredSlides: true,
+    slidesPerView: 3,
+    spaceBetween: 30,
+    coverflowEffect: {
+        rotate: 40,
+        stretch: 100,
+        depth: 50,
+        modifier: 1,
+        slideShadows: true
+    },
+    pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+    },
+});
+
