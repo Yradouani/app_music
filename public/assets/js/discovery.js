@@ -38,16 +38,16 @@ function fillSwiper(response, tableLength, tracks) {
 
     // swiperWrapper.innerHTML = "";
     swiper.removeAllSlides()
-    
+
     for (let i = 0; i < tableLength; i++) {
-		// swipperWrapper.innerHTML += `<div class="swiper-slide"><img src="${(tracks) ? response.tracks.data[i].album.cover_big : response.data[i].album.cover_big}" alt=""></div>`;
+        // swipperWrapper.innerHTML += `<div class="swiper-slide"><img src="${(tracks) ? response.tracks.data[i].album.cover_big : response.data[i].album.cover_big}" alt=""></div>`;
         // swiper.appendSlide(`<div class="swiper-slide"><img src="https://place-hold.it/300x300" alt=""></div>`);
         swiper.appendSlide(`<div class="swiper-slide">
                                 - ${(tracks) ? response.tracks.data[i].title : response.data[i].title} -
                                 <img src="${(tracks) ? response.tracks.data[i].album.cover_big : response.data[i].album.cover_big}" alt="">
                             </div>`);
     }
-    
+
     console.log(swiperWrapper.innerHTML);
 }
 
@@ -68,7 +68,7 @@ function createTable(response, tableLength, tracks) {
                                 <i id="heart" class="fa-regular fa-heart"></i>
                             </td>
                             <td>
-                                <i id="plus" class="fa-solid fa-plus"></i>
+                                <i id="plus" class="fa-solid fa-plus add_playlist"></i>
                             </td>
                             <td>
                                 ${(tracks) ? response.tracks.data[i].artist.name : response.data[i].artist.name}
@@ -79,6 +79,7 @@ function createTable(response, tableLength, tracks) {
                         </tr>`;
     }
     allTracks.innerHTML = tableauTop;
+    addTrackInPlaylist();
 }
 
 function fn_top100() {
@@ -127,8 +128,8 @@ function fn_loadGenre(i) {
             let tabLength = 50;
             let tracks = true;
 
-            createTable(response, tabLength, tracks);
             fillSwiper(response, tabLength, tracks);
+            createTable(response, tabLength, tracks);
         }
     }
 }
