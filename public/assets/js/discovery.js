@@ -54,7 +54,7 @@ function fillSwiper(response, tableLength, tracks) {
 function createTable(response, tableLength, tracks) {
 
     for (let i = 0; i < tableLength; i++) {
-        tableauTop += `<tr class='track-container' id="${(tracks) ? response.tracks.data[i].id : response.data[i].id}" onclick=changeMusicInPlayer(this)>
+        tableauTop += `<tr class='track-container' id="${(tracks) ? response.tracks.data[i].id : response.data[i].id}" onclick=changeMusicInPlayer(this,event)>
                             <td class="img-td">
                                 <img id="albumCover" src="${(tracks) ? response.tracks.data[i].album.cover_big : response.data[i].album.cover_big}" alt="albumImg">
                             </td>
@@ -236,8 +236,26 @@ select.addEventListener("change", function () {
     selectedOption.classList.add("selected");
 });
 
+// --------- swapper  ---------------//
 
-
+var swiper = new Swiper(".mySwiper", {
+    effect: "coverflow",
+    grabCursor: true,
+    centeredSlides: true,
+    slidesPerView: 3,
+    spaceBetween: 30,
+    coverflowEffect: {
+        rotate: 40,
+        stretch: 100,
+        depth: 50,
+        modifier: 1,
+        slideShadows: true
+    },
+    pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+    },
+});
 
 
 
