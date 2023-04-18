@@ -31,22 +31,26 @@
 						</div>
 						<span>Ajouter une playlist</span>
 					</div>
-					{% for i in range(0, playlists|length - 1) %}
-						<div id={{ playlists[i].id }} class="track">
-							{% if tracks_info[i].album.cover_big is defined %}
-								<div class="playlist-image">
-									<img src={{ tracks_info[i].album.cover_big }} alt="track_image"/>
-									<i class="fa-sharp fa-solid fa-xmark delete"></i>
-								</div>
-							{% else %}
-								<div class="playlist-image playlist-noimage">
-									<i class="fa-solid fa-question"></i>
-									<i class="fa-sharp fa-solid fa-xmark delete"></i>
-								</div>
-							{% endif %}
-							<span>{{ playlists[i].getNamePlaylist() }}</span>
-						</div>
-					{% endfor %}
+
+					{% if playlists|length != 0 %}
+						{% for i in range(0, playlists|length - 1) %}
+							<div id={{ playlists[i].id }} class="track">
+								{% if tracks_info[i].contributors[0].picture is defined %}
+									<div class="playlist-image">
+										<img src={{ tracks_info[i].contributors[0].picture }} alt="track_image"/>
+										<i class="fa-sharp fa-solid fa-xmark delete"></i>
+									</div>
+								{% else %}
+									<div class="playlist-image playlist-noimage">
+										<i class="fa-solid fa-question"></i>
+										<i class="fa-sharp fa-solid fa-xmark delete"></i>
+									</div>
+								{% endif %}
+								<span>{{ playlists[i].getNamePlaylist() }}</span>
+							</div>
+						{% endfor %}
+					{% endif %}
+
 				</div>
 			</div>
 		</div>
