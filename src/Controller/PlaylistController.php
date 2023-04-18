@@ -14,8 +14,22 @@ use Symfony\Component\Routing\Annotation\Route;
 class PlaylistController extends AbstractController
 {
     #[Route('/playlists', name: 'playlist.index')]
-    public function index(EntityManagerInterface $entityManager): Response
+    public function index(Request $request, EntityManagerInterface $entityManager): Response
     {
+        if ($request->isMethod('POST')) {
+            $playlist_id = $request->request->get('playlist_id');
+            $playlistRepository = $entityManager->getRepository(Playlist::class);
+            $playlist = $playlistRepository->find($playlist_id);
+
+            if (!$playlist) {
+                throw $this->createNotFoundException('Playlist non trouvée');
+            } else {
+                $entityManager->remove($playlist);
+                $entityManager->flush();
+            }
+        }
+
+
         $userRepository = $entityManager->getRepository(User::class);
         $user = $userRepository->find(1);
         $playlists = $entityManager->getRepository(Playlist::class)->findBy(['id_user' => $user]);
@@ -40,6 +54,7 @@ class PlaylistController extends AbstractController
                 $tracks_info[$i] = null;
             }
         }
+
 
         return $this->render('playlist/playlist.html.twig', [
             'playlists' => $playlists,

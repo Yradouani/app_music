@@ -229,10 +229,6 @@ select.addEventListener("change", function () {
 
 // --------- swapper  ---------------//
 
-
-
-
-
 var swiper = new Swiper(".mySwiper", {
     effect: "coverflow",
     grabCursor: true,
