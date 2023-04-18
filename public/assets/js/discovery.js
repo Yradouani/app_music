@@ -186,6 +186,7 @@ function changeMusicInPlayer(track) {
 /*------------------modal add track in playlist-----------------------*/
 let bgDark = document.querySelector("#bg-dark");
 let modal = document.querySelector("#modal");
+// --commentaire--
 
 function addTrackInPlaylist() {
     let trackContainer = document.querySelectorAll('.track-container')
