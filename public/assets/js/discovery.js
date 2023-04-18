@@ -38,16 +38,16 @@ function fillSwiper(response, tableLength, tracks) {
 
     // swiperWrapper.innerHTML = "";
     swiper.removeAllSlides()
-    
+
     for (let i = 0; i < tableLength; i++) {
-		// swipperWrapper.innerHTML += `<div class="swiper-slide"><img src="${(tracks) ? response.tracks.data[i].album.cover_big : response.data[i].album.cover_big}" alt=""></div>`;
+        // swipperWrapper.innerHTML += `<div class="swiper-slide"><img src="${(tracks) ? response.tracks.data[i].album.cover_big : response.data[i].album.cover_big}" alt=""></div>`;
         // swiper.appendSlide(`<div class="swiper-slide"><img src="https://place-hold.it/300x300" alt=""></div>`);
         swiper.appendSlide(`<div class="swiper-slide">
                                 - ${(tracks) ? response.tracks.data[i].title : response.data[i].title} -
                                 <img src="${(tracks) ? response.tracks.data[i].album.cover_big : response.data[i].album.cover_big}" alt="">
                             </div>`);
     }
-    
+
     console.log(swiperWrapper.innerHTML);
 }
 
@@ -238,14 +238,16 @@ var swiper = new Swiper(".mySwiper", {
     slidesPerView: 3,
     spaceBetween: 30,
     coverflowEffect: {
-        rotate: 40,
+        rotate: 20,
         stretch: 100,
         depth: 50,
         modifier: 1,
-        slideShadows: true
+        slideShadows: false
     },
     pagination: {
         el: ".swiper-pagination",
         clickable: true,
     },
+    slidesPerView: 'auto', // afficher autant de slides que possible
+    slideWidth: 200, // définir une largeur fixe pour les slides
 });
