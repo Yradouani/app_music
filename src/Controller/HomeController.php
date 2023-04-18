@@ -37,6 +37,7 @@ class HomeController extends AbstractController
             'controller_name' => 'HomeController',
         ]);
     }
+    
 
     #[Route('/inscription', name: 'home.inscription', methods: ['POST'])]
     public function inscription(Request $request, EntityManagerInterface $entityManager): Response
@@ -47,6 +48,7 @@ class HomeController extends AbstractController
         $user->setPassword(password_hash($request->request->get('password'), PASSWORD_DEFAULT));
         $user->setRoles(['ROLE_USER']);
         $user->setIsAdmin(false);
+        // Enregistrement de l'utilisateur dans la base de données
 
         $entityManager->persist($user);
         $entityManager->flush();
@@ -54,28 +56,28 @@ class HomeController extends AbstractController
         return $this->redirectToRoute('home.index');
     }
 
-//     #[Route('/connexion', name: 'home.connexion', methods: ['POST'])]
-//     public function connexion(Request $request): Response
-//     {
-//         $email = $request->request->get('email');
-//         $password = $request->request->get('password');
+    //     #[Route('/connexion', name: 'home.connexion', methods: ['POST'])]
+    //     public function connexion(Request $request): Response
+    //     {
+    //         $email = $request->request->get('email');
+    //         $password = $request->request->get('password');
 
-//         $user = $this->getDoctrine()->getRepository(User::class)->findOneBy(['email' => $email]);
+    //         $user = $this->getDoctrine()->getRepository(User::class)->findOneBy(['email' => $email]);
 
-//         if (!$user || !password_verify($password, $user->getPassword())) {
-//             $error = 'Invalid email or password';
-//         } else {
-//             // authenticate the user
-//             $this->getUser($user);
-//             return $this->redirectToRoute('discovery.index');
-//         }
+    //         if (!$user || !password_verify($password, $user->getPassword())) {
+    //             $error = 'Invalid email or password';
+    //         } else {
+    //             // authenticate the user
+    //             $this->getUser($user);
+    //             return $this->redirectToRoute('discovery.index');
+    //         }
 
-//         return $this->render('discovery/discovery.html.twig', [
-//             'last_email' => $email,
-//             'error' => $error ?? null,
-//         ]);
-//     }
+    //         return $this->render('discovery/discovery.html.twig', [
+    //             'last_email' => $email,
+    //             'error' => $error ?? null,
+    //         ]);
+    //     }
 
 
-// 
+    // 
 }

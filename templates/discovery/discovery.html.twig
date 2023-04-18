@@ -14,7 +14,7 @@
 
 {% block main %}
 	{# {{ dump(isAlreadyInPlaylist)}}
-			{{ dump(tracks)}} #}
+													{{ dump(tracks)}} #}
 	<div id="discovery">
 
 		<div id="divSearch">
@@ -25,16 +25,8 @@
 
 		<div id="divSwiper">
 			<div class="swiper mySwiper">
-				<div class="swiper-wrapper">
-					<div class="swiper-slide"><img src="https://place-hold.it/300x300" alt=""></div>
-					<div class="swiper-slide"><img src="https://place-hold.it/300x300" alt=""></div>
-					<div class="swiper-slide"><img src="https://place-hold.it/300x300" alt=""></div>
-					<div class="swiper-slide"><img src="https://place-hold.it/300x300" alt=""></div>
-					<div class="swiper-slide"><img src="https://place-hold.it/300x300" alt=""></div>
-					<div class="swiper-slide"><img src="https://place-hold.it/300x300" alt=""></div>
-					<div class="swiper-slide"><img src="https://place-hold.it/300x300" alt=""></div>
-					<div class="swiper-slide"><img src="https://place-hold.it/300x300" alt=""></div>
-					<div class="swiper-slide"><img src="https://place-hold.it/300x300" alt=""></div>
+				<div
+					class="swiper-wrapper">{# JS INJECT #}
 				</div>
 				<div class="swiper-pagination"></div>
 
@@ -61,21 +53,25 @@
 		<div>
 			<h4 id="titleTab">Top France</h4>
 			{% if isAlreadyInPlaylist is defined and isAlreadyInPlaylist == true %}
-				<div id="error_message">Ce morceau est déjà enregistré dans cette playlist</div>
+				<div id="error_message">Ce morceau est déjà enregistré dans cette playlist !</div>
+			{% endif %}
+			{% if trackAdded is defined and trackAdded == true %}
+				<div id="confirm_message">Votre morceau a bien été enregistré à vos playlists</div>
 			{% endif %}
 			<div id="tableTop">
-				<table style="width:94%; margin-left:3%">
+				<table style="margin:3%">
 					<thead>
-						<tr style="display:none">
-							<th colspan="5" style="width:50%">TITRE</th>
-							<th colspan="1" style="width:25%">ARTISTE</th>
-							<th colspan="1" style="width:25%">ALBUM</th>
+						<tr>
+							<th class='img-td'></th>
+							<th class='rank-td'></th>
+							<th class='title-td'>TITRE</th>
+							<th class='heart-td'></th>
+							<th class='plus-td'></th>
+							<th class='artist-td'>ARTISTE</th>
+							<th class='album-td'>ALBUM</th>
 						</tr>
 					</thead>
-					<tbody
-						id="allTracks">{# <tr id="track">
-																																																																																																																																																																																																																																														------------------------------------JS inject--------------------																				</tr> #}
-					</tbody>
+					<tbody id="allTracks"></tbody>
 				</table>
 			</div>
 		</div>

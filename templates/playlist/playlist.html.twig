@@ -31,25 +31,41 @@
 						</div>
 						<span>Ajouter une playlist</span>
 					</div>
-					{% for playlist in playlists %}
-						<div id={{playlist.id}} class="track">
-							<div
-								class="playlist-image">
-								{# {% if %} #}
-								<img src="/assets/images/cd.jpg"/>
+
+					{% if playlists|length != 0 %}
+						{% for i in range(0, playlists|length - 1) %}
+							<div id={{ playlists[i].id }} class="track">
+								{% if tracks_info[i].contributors[0].picture is defined %}
+									<div class="playlist-image">
+										<img src={{ tracks_info[i].contributors[0].picture }} alt="track_image"/>
+										<i class="fa-sharp fa-solid fa-xmark delete"></i>
+									</div>
+								{% else %}
+									<div class="playlist-image playlist-noimage">
+										<i class="fa-solid fa-question"></i>
+										<i class="fa-sharp fa-solid fa-xmark delete"></i>
+									</div>
+								{% endif %}
+								<span>{{ playlists[i].getNamePlaylist() }}</span>
 							</div>
-							<span>{{ playlist.getNamePlaylist() }}</span>
-						</div>
-					{% endfor %}
+						{% endfor %}
+					{% endif %}
+
 				</div>
 			</div>
 		</div>
 	{% endif %}
 	{% if id is defined %}
-		{{ dump(tracks_api_response)}}
+		{# {{ dump(tracks_api_response)}} #}
+		{% set lastTrack = tracks_api_response|last %}
+
 		<div id="oneplaylist_header">
 			<div id="oneplaylist_header_img">
-				<img src="/assets/images/cd.jpg"/>
+				{% if lastTrack.album.cover_big is defined %}
+					<img src={{ lastTrack.album.cover_big }} alt="last_picture"/>
+				{% else %}
+					<i class="fa-solid fa-question"></i>
+				{% endif %}
 			</div>
 			<div id="oneplaylist_header_text">
 				<div>
@@ -73,7 +89,7 @@
 					{% for track in tracks_api_response %}
 						<tr id="track">
 							<td style="width:6%">
-								<img id="albumCover" src={{ track.contributors[0].picture }} alt="albumImg">
+								<img id="albumCover" src={{ track.album.cover_big }} alt="albumImg">
 							</td>
 							<td style="width:1%">
 								{{ loop.index }}.

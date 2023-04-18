@@ -419,16 +419,18 @@ input[type=range]:-webkit-slider-runnable-track {
         margin-left: 5px;
     }
 
-    .top-container button i {
+    .top-container header button i,
+    .top-container nav button i {
         padding: 10px 15px;
         font-size: 25px;
     }
 
-    .top-containerbutton>i {
+    .top-container button>i {
         transition: 500ms;
     }
 
-    .top-container button:hover>i {
+    .top-container header button:hover>i,
+    .top-container nav button:hover > i{
         color: var(--main-color);
     }
 
