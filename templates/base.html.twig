@@ -22,17 +22,22 @@
 	</head>
 	<body>
 		<div class="top-container">
-			{% block panel %}
-				{% include "partials/panel.html.twig" %}
-			{% endblock %}
+			{% if app.request.pathinfo  != '/' %}
+				{% block panel %}
+					{% include "partials/panel.html.twig" %}
+				{% endblock %}
+			{% endif %}
+
 			<main>
 				{% block main %}{% endblock %}
 			</main>
 		</div>
+		{% if app.request.pathinfo  != '/' %}
+			{% block footer %}
+				{% include "partials/footer.html.twig" %}
+			{% endblock %}
+		{% endif %}
 
-		{% block footer %}
-			{% include "partials/footer.html.twig" %}
-		{% endblock %}
 
 		{% block javascripts %}
 			{{ encore_entry_script_tags('app') }}

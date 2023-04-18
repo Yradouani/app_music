@@ -55,25 +55,29 @@ function createTable(response, tableLength, tracks) {
 
     for (let i = 0; i < tableLength; i++) {
         tableauTop += `<tr class='track-container' id="${(tracks) ? response.tracks.data[i].id : response.data[i].id}" onclick=changeMusicInPlayer(this)>
-                            <td style="width:6%">
+                            <td class="img-td">
                                 <img id="albumCover" src="${(tracks) ? response.tracks.data[i].album.cover_big : response.data[i].album.cover_big}" alt="albumImg">
                             </td>
-                            <td style="width:1%">
+                            <td class="rank-td">
                                 ${i + 1}.
                             </td>
-                            <td style="width:36%">
-                                ${(tracks) ? response.tracks.data[i].title : response.data[i].title}
+                            <td class="title-td">
+                                <div>
+                                    <span>${(tracks) ? response.tracks.data[i].title : response.data[i].title}</span><br>
+                                    <span class='artist-mobile'>${(tracks) ? response.tracks.data[i].artist.name : response.data[i].artist.name}</span>
+                                </div>
                             </td>
-                            <td>
-                                <i id="heart" class="fa-regular fa-heart"></i>
+                            <td class="heart-td">
+                                <input name="heart" type="checkbox" id="heart-${(tracks) ? response.tracks.data[i].id : response.data[i].id}"/>
+                                <label for="heart-${(tracks) ? response.tracks.data[i].id : response.data[i].id}"></label>                            
                             </td>
                             <td>
                                 <i id="plus" class="fa-solid fa-plus add_playlist"></i>
                             </td>
-                            <td>
+                            <td class="artist-td">
                                 ${(tracks) ? response.tracks.data[i].artist.name : response.data[i].artist.name}
                             </td>
-                            <td>
+                            <td class="album-td">
                                 ${(tracks) ? response.tracks.data[i].album.title : response.data[i].album.title}
                             </td>
                         </tr>`;
@@ -164,15 +168,22 @@ function fn_search() {
 }
 //-------Music Player------//
 
-function changeMusicInPlayer(track) {
+function changeMusicInPlayer(track, e){
     trackId = track.id;
+    console.log(e.target);
+
+    if (e.target == track.querySelector('label') || e.target == track.querySelector('input')) {
+        console.log('error');
+        
+  }else{
     getTrack(trackId)
 
     sound.stop();
-    startStopBtn.innerHTML = "<i class='fa-solid fa-play'></i>";
+    startStopBtn.innerHTML = "<i class='fa-solid fa-play'></i>"; 
     elapsed = 0;
-    inputPlayer.value = elapsed;
+    inputPlayer.value = elapsed; 
     clearInterval(intervalId);
+  }
 }
 // fetch('https://deezerdevs-deezer.p.rapidapi.com/search?q=eminem', options)
 // 	.then(response => response.json())
@@ -182,6 +193,7 @@ function changeMusicInPlayer(track) {
 //         }
 //     })
 // 	.catch(err => console.error(err));
+
 
 /*------------------modal add track in playlist-----------------------*/
 let bgDark = document.querySelector("#bg-dark");
@@ -227,7 +239,35 @@ select.addEventListener("change", function () {
 
 
 
-// --------- swapper  ---------------//
+
+
+// <tr class='track-container' id="${ response.tracks.data[i].id }" onclick=changeMusicInPlayer(this, event)>
+//                             <td class="img-td">
+//                                 <img id="albumCover" src="${ response.tracks.data[i].album.cover_big }" alt="albumImg">
+//                             </td>
+//                             <td class='rank-td'>
+//                                 ${ i + 1 }.
+//                             </td>
+//                             <td class="title-td">
+//                                 <div>
+//                                     <span>${ response.tracks.data[i].title }</span></br>
+//                                     <span class='artist-mobile'> ${ response.tracks.data[i].artist.name }</span>
+//                                 </div>
+//                             </td>
+//                             <td class="heart-td">
+//                                 <i id="heart" class="fa-regular fa-heart"></i>
+//                             </td>
+//                             <td class="plus-td">
+//                                 <i id="plus" class="fa-solid fa-plus"></i>
+//                             </td>
+//                             <td class="artist-td">
+//                                 ${ response.tracks.data[i].artist.name }
+//                             </td>
+//                             <td class="album-td">
+//                                 ${ response.tracks.data[i].album.title }
+//                             </td>
+//                         </tr>
+
 
 var swiper = new Swiper(".mySwiper", {
     effect: "coverflow",
@@ -247,3 +287,5 @@ var swiper = new Swiper(".mySwiper", {
         clickable: true,
     },
 });
+
+

@@ -20,11 +20,15 @@ function menuBurger(screenWidth) {
 
 function mobile() {
 
-  nav.style.display = 'none';
+    nav.style.display = 'none';
+  
+    const openBtn = document.querySelector('button.menu-burger');
+    const closeBtn = document.querySelector('.menu-title button i');
+    const body = document.querySelector('body');
 
-  const openBtn = document.querySelector('button.menu-burger');
-  const closeBtn = document.querySelector('.menu-title button i');
-  const body = document.querySelector('body');
+
+
+
 
   openBtn.onclick = () => {
     toggler(100, 0, 'initial', 300, 0)
@@ -79,7 +83,7 @@ function mobile() {
 /*-------------------------------------*/
 let trackId;
 
-if (location.pathname == '/playlists' || location.pathname == '/favorite') {
+if(location.pathname == '/playlists' || location.pathname == '/favorite'){
   trackId = 3135556;
 }
 
@@ -107,7 +111,7 @@ let intervalId;
 let rotateDeg = 0;
 const startStopBtn = document.querySelector('#start-stop');
 const inputPlayer = document.querySelector("input[type='range']");
-
+playerSettings();
 
 function playMusic(data) {
   if (data.error) {
@@ -124,16 +128,12 @@ function playMusic(data) {
 
     console.log(sound);
 
-
     // musicDuration = data.duration;
     musicDuration = 30
     console.log(data.preview);
     playerSettings(musicDuration, sound)
   }
 }
-playerSettings();
-//********************************************//
-//********************************************//
 
 
 function playerSettings(musicDuration = null, sound = null) {
@@ -200,6 +200,13 @@ function playerSettings(musicDuration = null, sound = null) {
     if (sec.length < 2) sec = `0${sec}`;
     return `${min}:${sec}`;
   }
+
+
+// On simule un clique pour démarrer le lecteur  au chargement de la page
+// document.addEventListener("DOMContentLoaded", () => {
+    // startStopBtn.click();
+// });
+
 
   // Au clique du bouton start/stop
   startStopBtn.onclick = () => {

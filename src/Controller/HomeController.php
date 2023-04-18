@@ -37,6 +37,7 @@ class HomeController extends AbstractController
             'controller_name' => 'HomeController',
         ]);
     }
+    
 
     #[Route('/inscription', name: 'home.inscription', methods: ['POST'])]
     public function inscription(Request $request, EntityManagerInterface $entityManager): Response
@@ -47,6 +48,7 @@ class HomeController extends AbstractController
         $user->setPassword(password_hash($request->request->get('password'), PASSWORD_DEFAULT));
         $user->setRoles(['ROLE_USER']);
         $user->setIsAdmin(false);
+        // Enregistrement de l'utilisateur dans la base de données
 
         $entityManager->persist($user);
         $entityManager->flush();
