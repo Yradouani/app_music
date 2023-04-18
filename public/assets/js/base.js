@@ -19,7 +19,6 @@ function menuBurger(screenWidth) {
 }
 
 function mobile() {
-
     nav.style.display = 'none';
   
     const openBtn = document.querySelector('button.menu-burger');
@@ -79,6 +78,9 @@ function mobile() {
 /*-------------------------------------*/ 
 let trackId;
 
+if(location.pathname == '/playlists' || location.pathname == '/favorite'){
+  trackId = 3135556;
+}
 
 
 getTrack(trackId);
@@ -105,7 +107,7 @@ let intervalId;
 let rotateDeg = 0;
 const startStopBtn = document.querySelector('#start-stop');
 const inputPlayer = document.querySelector("input[type='range']");
-
+playerSettings();
 
 function playMusic(data) {
   if(data.error){
@@ -119,9 +121,6 @@ function playMusic(data) {
     sound = new Howl({
       src: [data.preview],
     });
-    
-    console.log(sound);
-
 
     // musicDuration = data.duration;
     musicDuration = 30
@@ -129,9 +128,6 @@ function playMusic(data) {
     playerSettings (musicDuration, sound)
   }
 }
-playerSettings();
-//********************************************//
-//********************************************//
 
 
 function playerSettings (musicDuration = null, sound = null){
@@ -247,7 +243,7 @@ startStopBtn.onclick = () => {
 };
 // On simule un clique pour démarrer le lecteur  au chargement de la page
 // document.addEventListener("DOMContentLoaded", () => {
-//     startStopBtn.click();
+    // startStopBtn.click();
 // });
 
 // const tracksTab = document.querySelectorAll('.track-container')

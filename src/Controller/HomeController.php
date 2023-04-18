@@ -32,7 +32,7 @@ class HomeController extends AbstractController
         $user->setPseudo($pseudo);
         $user->setPassword(password_hash($password, PASSWORD_DEFAULT)); // Hashage du mot de passe
         $user->setRoles(['ROLE_USER']);
-
+        $user->setIsAdmin(false);
         // Enregistrement de l'utilisateur dans la base de données
         $entityManager->persist($user);
         $entityManager->flush();
@@ -47,3 +47,4 @@ class HomeController extends AbstractController
         return $this->render('home/confirmation.html.twig');
     }
 }
+

@@ -9,6 +9,7 @@ th {
 
 .track-container{
     cursor: pointer;
+    border-bottom: 2px var(--tertiary-bg) solid
 }
 
 hr {
@@ -17,7 +18,6 @@ hr {
 }
 
 #discovery {
-    height: 100vh;
     right: 0;
     width: 100%;
 }
@@ -110,6 +110,12 @@ hr {
     width: 100%;
 }
 
+table{
+    table-layout: fixed;
+    width: 94%;
+    margin: 3%;
+}
+
 #heart:hover {
     font-weight: bold;
     color: #c53c34;
@@ -124,10 +130,91 @@ hr {
     background-color: #32323c;
 }
 
-#albumCover {
-    width: 70px;
+.img-td img{
+    width: 100%
 }
 
+.img-td{
+    /* background: red; */
+    width: 5rem
+}
+
+.rank-td{
+    width: 5%;
+    /* background: blue; */
+}
+
+.title-td{
+    /* background: yellow; */
+    width: 35%;
+    /* background: red; */
+}
+
+.heart-td{
+    width: 3rem;
+    /* background: blue; */
+}
+
+.plus-td{
+    width: rem;
+    /* background: red; */
+}
+
+.artist-td{
+    /* background: blue; */
+}
+
+.artist-mobile{
+    display: none
+}
+
+
+.album-td{
+    /* background: red; */
+}
+
+th, td{
+    padding: 3px 10px;
+}
+
+tr:hover{
+    background : var(--tertiary-bg)
+}
+
+/*Heart Button*/
+input[type="checkbox"] {
+    display: none;
+}
+
+input[type="checkbox"] + label {
+    position: relative;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+
+}
+ 
+input[type="checkbox"] + label:before {
+    content: "\1F5A4";
+    border: 1px solid transparent;    
+    border-radius: 3px;
+    display: block;
+    position: relative;
+	transition:  .5s ease;
+}
+  
+input[type="checkbox"]:checked + label:before {
+    border: 1px solid transparent;
+    background-color: transparent;
+}
+ 
+input[type="checkbox"]:checked + label:after {
+    content: '\1F49A';
+    font-size: 18px;
+    position: absolute;
+    top: 0 ;
+	transition:  .5s ease;
+}
 
 /* ----------RESPONSIVE---------- */
 
@@ -140,7 +227,46 @@ hr {
         /* height: 600px; */
     }
 
+    .divGenreButton {
+        justify-content: space-evenly;
+        /* height: 600px; */
+    }
+
     .genreButton {
-        min-width: 40%;
+        width: 45%;
+    }
+
+    .title-td{
+        /* background: yellow; */
+        width: 70%;
+        position: relative;
+        /* background: red; */
+    }
+
+    .artist-mobile{
+        display: initial;
+        font-size: 12px;
+    }
+
+    .artist-td, .album-td{
+        display: none;
+    }
+
+    .rank-td{
+        width: 2rem;
+        /* background: blue; */
+    }
+    .heart-td{
+        width: 2.5rem;
+        /* background: blue; */
+    }
+    
+    .plus-td{
+        width: 2.5rem;
+        /* background: red; */
+    }
+
+    thead{
+        display: none;
     }
 }

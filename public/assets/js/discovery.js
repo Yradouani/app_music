@@ -21,19 +21,15 @@ function fn_top100() {
     const options = {
         method: 'GET',
         headers: {
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Methods': 'GET, POST, PUT',
-            'Access-Control-Allow-Headers': 'Content-Type'
+            'X-RapidAPI-Key': 'b824698b76mshc29d02afeecec35p15959cjsn24db764eeaad',
+            'X-RapidAPI-Host': 'deezerdevs-deezer.p.rapidapi.com'
         }
     };
+    
     getTopTracks()
 
-<<<<<<< HEAD
-    fetch('https://api.deezer.com/playlist/1109890291', options)
-=======
     function getTopTracks() {
     fetch('https://deezerdevs-deezer.p.rapidapi.com/playlist/1109890291', options)
->>>>>>> b1e730070f221ba69cc8f5cd41a463028e46c646
         .then(response => response.json())
         .then(response => displayTopTracks(response))
         .catch(err => console.error(err));
@@ -47,29 +43,33 @@ function displayTopTracks(response){
     }else{
         trackId = response.tracks.data[0].id ;
     for(let i = 0; i < 100; i++) {
-            tableauTop += `<tr class='track-container' id="${ response.tracks.data[i].id }" onclick=changeMusicInPlayer(this)>
-                                <td style="width:6%">
-                                    <img id="albumCover" src="${ response.tracks.data[i].album.cover_big }" alt="albumImg">
-                                </td>
-                                <td style="width:1%">
-                                    ${ i + 1 }.
-                                </td>
-                                <td style="width:36%">
-                                    ${ response.tracks.data[i].title }
-                                </td>
-                                <td>
-                                    <i id="heart" class="fa-regular fa-heart"></i>
-                                </td>
-                                <td>
-                                    <i id="plus" class="fa-solid fa-plus"></i>
-                                </td>
-                                <td>
-                                    ${ response.tracks.data[i].artist.name }
-                                </td>
-                                <td>
-                                    ${ response.tracks.data[i].album.title }
-                                </td>
-                            </tr>`;
+        tableauTop += `<tr class='track-container' id=${ response.tracks.data[i].id } onclick=changeMusicInPlayer(this,event)>
+                            <td class="img-td">
+                                <img id="albumCover" src="${ response.tracks.data[i].album.cover_big }" alt="albumImg">
+                            </td>
+                            <td class='rank-td'>
+                                ${ i + 1 }.
+                            </td>
+                            <td class="title-td">
+                                <div>
+                                    <span>${ response.tracks.data[i].title }</span></br>
+                                    <span class='artist-mobile'> ${ response.tracks.data[i].artist.name }</span>
+                                </div>
+                            </td>
+                            <td class="heart-td">
+                                <input name="heart" type="checkbox" id="heart-${response.tracks.data[i].id}" checked/>
+                                <label for="heart-${response.tracks.data[i].id}"></label>
+                            </td>
+                            <td class="plus-td">
+                                <i id="plus" class="fa-solid fa-plus"></i>
+                            </td>
+                            <td class="artist-td">
+                                ${ response.tracks.data[i].artist.name }
+                            </td>
+                            <td class="album-td">
+                                ${ response.tracks.data[i].album.title }
+                            </td>
+                        </tr>`;
     }
     allTracks.innerHTML = tableauTop;
 }
@@ -110,38 +110,48 @@ function getTrackByGenre(idGenre) {
                 getTrackByGenre(idGenre)
             }{
                 for(let i = 0; i < 50; i++) {
-                    tableauTop += `  <tr class='track-container' id="${ response.tracks.data[i].id }" onclick=changeMusicInPlayer(this)>
-                                        <td style="width:6%">
-                                            <img id="albumCover" src="${ response.tracks.data[i].album.cover_big }" alt="albumImg">
-                                        </td>
-                                        <td style="width:1%">
-                                            ${ i + 1 }.
-                                        </td>
-                                        <td style="width:36%">
-                                            ${ response.tracks.data[i].title }
-                                        </td>
-                                        <td>
-                                            <i id="heart" class="fa-regular fa-heart"></i>
-                                        </td>
-                                        <td>
-                                            <i id="plus" class="fa-solid fa-plus"></i>
-                                        </td>
-                                        <td>
-                                            ${ response.tracks.data[i].artist.name }
-                                        </td>
-                                        <td>
-                                            ${ response.tracks.data[i].album.title }
-                                        </td>
-                                    </tr>`;
+                    tableauTop += `<tr class='track-container' id="${ response.tracks.data[i].id }" onclick=changeMusicInPlayer(this,event)>
+                    <td class="img-td">
+                        <img id="albumCover" src="${ response.tracks.data[i].album.cover_big }" alt="albumImg">
+                    </td>
+                    <td class='rank-td'>
+                        ${ i + 1 }.
+                    </td>
+                    <td class="title-td">
+                        <div>
+                            <span>${ response.tracks.data[i].title }</span></br>
+                            <span class='artist-mobile'> ${ response.tracks.data[i].artist.name }</span>
+                        </div>
+                    </td>
+                    <td class="heart-td">
+                        <input name="heart" type="checkbox" id="heart-${response.tracks.data[i].id}"/>
+                        <label for="heart-${response.tracks.data[i].id}"></label>                    
+                    </td>
+                    <td class="plus-td">
+                        <i id="plus" class="fa-solid fa-plus"></i>
+                    </td>
+                    <td class="artist-td">
+                        ${ response.tracks.data[i].artist.name }
+                    </td>
+                    <td class="album-td">
+                        ${ response.tracks.data[i].album.title }
+                    </td>
+                </tr>`;
             }
             allTracks.innerHTML = tableauTop;
             }
-            
         }
 }
 
-function changeMusicInPlayer(track){
+
+function changeMusicInPlayer(track, e){
     trackId = track.id;
+    console.log(e.target);
+
+    if (e.target == track.querySelector('label') || e.target == track.querySelector('input')) {
+        console.log('error');
+        
+  }else{
     getTrack(trackId)
 
     sound.stop();
@@ -149,8 +159,9 @@ function changeMusicInPlayer(track){
     elapsed = 0;
     inputPlayer.value = elapsed; 
     clearInterval(intervalId);
+  }
+ 
 }
-
 
 function fn_search() {
     titleTab.style.display = "none";
@@ -185,29 +196,31 @@ function fn_search() {
             getSearchResult(search)
         }else{
             for(let i = 0; i < 25; i++) {
-                tableauTop += `  <tr class='track-container' id="${ response.tracks.data[i].id }">
-                                    <td style="width:6%">
-                                        <img id="albumCover" src="${ response.data[i].album.cover_big }" alt="albumImg">
-                                    </td>
-                                    <td style="width:1%">
-                                        ${ i + 1 }.
-                                    </td>
-                                    <td style="width:36%">
-                                        ${ response.data[i].title }
-                                    </td>
-                                    <td>
-                                        <i id="heart" class="fa-regular fa-heart"></i>
-                                    </td>
-                                    <td>
-                                        <i id="plus" class="fa-solid fa-plus"></i>
-                                    </td>
-                                    <td>
-                                        ${ response.data[i].artist.name }
-                                    </td>
-                                    <td>
-                                        ${ response.data[i].album.title }
-                                    </td>
-                                </tr>`;
+                tableauTop += `<tr class='track-container' id="${ response.data[i].id }" onclick=changeMusicInPlayer(this,event)>
+                <td class="img-td">
+                    <img id="albumCover" src="${ response.data[i].album.cover_big }" alt="albumImg">
+                </td>
+                
+                <td class="title-td">
+                    <div>
+                        <span>${ response.data[i].title }</span></br>
+                        <span class='artist-mobile'> ${ response.data[i].artist.name }</span>
+                    </div>
+                </td>
+                <td class="heart-td">
+                    <input name="heart" type="checkbox" id="heart-${response.data[i].id}" checked/>
+                    <label for="heart-${response.data[i].id}"></label>                
+                </td>
+                <td class="plus-td">
+                    <i id="plus" class="fa-solid fa-plus"></i>
+                </td>
+                <td class="artist-td">
+                    ${ response.data[i].artist.name }
+                </td>
+                <td class="album-td">
+                    ${ response.data[i].album.title }
+                </td>
+            </tr>`;
         }
         allTracks.innerHTML = tableauTop;
     }
@@ -230,3 +243,33 @@ function fn_search() {
 //         }
 //     })
 // 	.catch(err => console.error(err));
+
+
+
+
+// <tr class='track-container' id="${ response.tracks.data[i].id }" onclick=changeMusicInPlayer(this, event)>
+//                             <td class="img-td">
+//                                 <img id="albumCover" src="${ response.tracks.data[i].album.cover_big }" alt="albumImg">
+//                             </td>
+//                             <td class='rank-td'>
+//                                 ${ i + 1 }.
+//                             </td>
+//                             <td class="title-td">
+//                                 <div>
+//                                     <span>${ response.tracks.data[i].title }</span></br>
+//                                     <span class='artist-mobile'> ${ response.tracks.data[i].artist.name }</span>
+//                                 </div>
+//                             </td>
+//                             <td class="heart-td">
+//                                 <i id="heart" class="fa-regular fa-heart"></i>
+//                             </td>
+//                             <td class="plus-td">
+//                                 <i id="plus" class="fa-solid fa-plus"></i>
+//                             </td>
+//                             <td class="artist-td">
+//                                 ${ response.tracks.data[i].artist.name }
+//                             </td>
+//                             <td class="album-td">
+//                                 ${ response.tracks.data[i].album.title }
+//                             </td>
+//                         </tr>

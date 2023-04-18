@@ -110,6 +110,11 @@ tbody img {
     height: 50px;
 }
 
+.track-container{
+    cursor: pointer;
+    border-bottom: 1px var(--tertiary-black) solid
+}
+
 /*------------------modal------------------*/
 #bg-dark {
     position: absolute;
