@@ -18,11 +18,32 @@ class PlaylistController extends AbstractController
     {
         $userRepository = $entityManager->getRepository(User::class);
         $user = $userRepository->find(1);
-
         $playlists = $entityManager->getRepository(Playlist::class)->findBy(['id_user' => $user]);
 
+        $tracks_info = [];
+
+        for ($i = 0; $i < count($playlists); $i++) {
+            $tracks = $entityManager->getRepository(Track::class)->findBy(['id_playlist' => $playlists[$i]->getId()]);
+            if ($tracks) {
+                $lastTrack = end($tracks);
+                $url = 'https://api.deezer.com/track/' . $lastTrack->getNumTrack();
+                $context = stream_context_create([
+                    "http" => [
+                        "header" => "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3\r\n"
+                    ]
+                ]);
+                $response = file_get_contents($url, false, $context);
+                $data = json_decode($response, true);
+                $tracks_info[$i] = $data;
+                sleep(1);
+            } else {
+                $tracks_info[$i] = null;
+            }
+        }
+
         return $this->render('playlist/playlist.html.twig', [
-            'playlists' => $playlists
+            'playlists' => $playlists,
+            'tracks_info' => $tracks_info
         ]);
     }
 
@@ -33,11 +54,7 @@ class PlaylistController extends AbstractController
             $playlists = $entityManager->getRepository(Playlist::class)->findBy(['id_user' => 1]);
             $namePlaylist = $request->request->get('name_playlist');
             $isUsed = false;
-            foreach ($playlists as $playlist) {
-                if ($playlist->getNamePlaylist() == $namePlaylist) {
-                    $isUsed = true;
-                }
-            }
+
             if ($isUsed == false) {
                 $userRepository = $entityManager->getRepository(User::class);
                 $user = $userRepository->find(1);
@@ -65,19 +82,12 @@ class PlaylistController extends AbstractController
         $playlistRepository = $entityManager->getRepository(Playlist::class);
         $playlist = $playlistRepository->find($id);
         $tracks = $entityManager->getRepository(Track::class)->findBy(['id_playlist' => $playlist]);
+        $lastTrack = end($tracks);
         $tracks_api_response = [];
         $url = "";
 
-        // echo "<pre>";
         for ($i = 0; $i < count($tracks); $i++) {
             $url = 'https://api.deezer.com/track/' . $tracks[$i]->getNumTrack();
-            // $curl = curl_init($url);
-            // curl_setopt($curl, CURLOPT_VERBOSE, true);
-            // curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-            // curl_setopt($curl, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3');
-            // curl_setopt($curl, CURLOPT_HTTPGET, true);
-            // $data = curl_exec($curl);
-
             $context = stream_context_create([
                 "http" => [
                     "header" => "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3\r\n"
@@ -86,13 +96,10 @@ class PlaylistController extends AbstractController
             $response = file_get_contents($url, false, $context);
             $data = json_decode($response, true);
             $tracks_api_response[$i] = $data;
-            // curl_close($curl);
             sleep(1);
         }
-        // echo "</pre>";
 
         return $this->render('playlist/playlist.html.twig', [
-            'controller_name' => 'PlaylistController',
             'id' => $id,
             'tracks_api_response' => $tracks_api_response,
         ]);

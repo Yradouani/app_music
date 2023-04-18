@@ -18,7 +18,7 @@ class Track
     private ?Playlist $id_playlist = null;
 
     #[ORM\Column]
-    private ?int $num_track = null;
+    private ?string $num_track = null;
 
     public function getId(): ?int
     {
@@ -37,12 +37,12 @@ class Track
         return $this;
     }
 
-    public function getNumTrack(): ?int
+    public function getNumTrack(): ?string
     {
         return $this->num_track;
     }
 
-    public function setNumTrack(int $num_track): self
+    public function setNumTrack(string $num_track): self
     {
         $this->num_track = $num_track;
 
