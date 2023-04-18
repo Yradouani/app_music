@@ -13,7 +13,8 @@
 
 
 {% block main %}
-
+	{# {{ dump(isAlreadyInPlaylist)}}
+									{{ dump(tracks)}} #}
 	<div id="discovery">
 
 		<div id="divSearch">
@@ -25,15 +26,7 @@
 		<div id="divSwiper">
 			<div class="swiper mySwiper">
 				<div class="swiper-wrapper">
-					<div class="swiper-slide"><img src="https://place-hold.it/300x300" alt=""></div>
-					<div class="swiper-slide"><img src="https://place-hold.it/300x300" alt=""></div>
-					<div class="swiper-slide"><img src="https://place-hold.it/300x300" alt=""></div>
-					<div class="swiper-slide"><img src="https://place-hold.it/300x300" alt=""></div>
-					<div class="swiper-slide"><img src="https://place-hold.it/300x300" alt=""></div>
-					<div class="swiper-slide"><img src="https://place-hold.it/300x300" alt=""></div>
-					<div class="swiper-slide"><img src="https://place-hold.it/300x300" alt=""></div>
-					<div class="swiper-slide"><img src="https://place-hold.it/300x300" alt=""></div>
-					<div class="swiper-slide"><img src="https://place-hold.it/300x300" alt=""></div>
+					{# JS INJECT #}
 				</div>
 				<div class="swiper-pagination"></div>
 
@@ -59,7 +52,12 @@
 
 		<div>
 			<h4 id="titleTab">Top France</h4>
-
+			{% if isAlreadyInPlaylist is defined and isAlreadyInPlaylist == true %}
+				<div id="error_message">Ce morceau est déjà enregistré dans cette playlist !</div>
+			{% endif %}
+			{% if trackAdded is defined and trackAdded == true %}
+				<div id="confirm_message">Votre morceau a bien été enregistré à vos playlists</div>
+			{% endif %}
 			<div id="tableTop">
 				<table style="width:94%; margin-left:3%">
 					<thead>
@@ -70,8 +68,8 @@
 						</tr>
 					</thead>
 					<tbody
-						id="allTracks">{# <tr id="track">
-																					------------------------------------JS inject--------------------																				</tr> #}
+						id="allTracks">
+						{# JS INJECT #}
 					</tbody>
 				</table>
 			</div>
@@ -82,11 +80,17 @@
 	<div id="modal">
 		<span id="add_playlist_modal_header">
 			<span class="fa-thin fa-plus"></span>
-			Nouvelle playlist</span>
+			Ajouter à une playlist</span>
 		<span id="add_playlist_name">
-			<form action="{{ path('addplaylist.index') }}" method="POST">
-				<input id="name_playlist_input" name="name_playlist" type="text" placeholder="Nom de playlist"/>
-				<input type="submit" value="" class="arrow-button"/>
+			<form action="{{ path('discovery.index') }}" method="POST">
+				<input type="hidden" name="track_id" id="track_id_input" value="">
+				<select id="mySelect" name="playlist">
+					{% for playlist in playlists %}
+						<option value={{ playlist.getId() }}>{{ playlist.getNamePlaylist() }}</option>
+						<hr>
+					{% endfor %}
+				</select>
+				<input type="submit" value="Ajouter" id="submit-button"/>
 			</form>
 		</span>
 	</div>

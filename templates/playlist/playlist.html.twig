@@ -31,14 +31,20 @@
 						</div>
 						<span>Ajouter une playlist</span>
 					</div>
-					{% for playlist in playlists %}
-						<div id={{playlist.id}} class="track">
-							<div
-								class="playlist-image">
-								{# {% if %} #}
-								<img src="/assets/images/cd.jpg"/>
-							</div>
-							<span>{{ playlist.getNamePlaylist() }}</span>
+					{% for i in range(0, playlists|length - 1) %}
+						<div id={{ playlists[i].id }} class="track">
+							{% if tracks_info[i].contributors[0].picture is defined %}
+								<div class="playlist-image">
+									<img src={{ tracks_info[i].contributors[0].picture }} alt="track_image"/>
+									<i class="fa-sharp fa-solid fa-xmark delete"></i>
+								</div>
+							{% else %}
+								<div class="playlist-image playlist-noimage">
+									<i class="fa-solid fa-question"></i>
+									<i class="fa-sharp fa-solid fa-xmark delete"></i>
+								</div>
+							{% endif %}
+							<span>{{ playlists[i].getNamePlaylist() }}</span>
 						</div>
 					{% endfor %}
 				</div>
@@ -46,10 +52,12 @@
 		</div>
 	{% endif %}
 	{% if id is defined %}
-		{{ dump(tracks_api_response)}}
+		{# {{ dump(tracks_api_response)}} #}
+		{% set lastTrack = tracks_api_response|last %}
+
 		<div id="oneplaylist_header">
 			<div id="oneplaylist_header_img">
-				<img src="/assets/images/cd.jpg"/>
+				<img src={{ lastTrack.contributors[0].picture }} alt="last_picture"/>
 			</div>
 			<div id="oneplaylist_header_text">
 				<div>
@@ -100,7 +108,7 @@
 		<span id="add_playlist_modal_header">
 			<span class="fa-thin fa-plus"></span>
 			Nouvelle playlist</span>
-		<span id="add_playlist_name">
+		<span id="add_playlist_name" name="playlist">
 			<form action="{{ path('addplaylist.index') }}" method="POST">
 				<input id="name_playlist_input" name="name_playlist" type="text" placeholder="Nom de playlist"/>
 				<input type="submit" value="" class="arrow-button"/>
