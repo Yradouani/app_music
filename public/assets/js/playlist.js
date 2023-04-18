@@ -2,15 +2,17 @@ let track = document.querySelectorAll('.track');
 let allPlaylists = document.querySelector('#playlist-container');
 let addPlaylistBtn = document.querySelector('.add_playlist_image');
 let modal = document.querySelector("#modal")
-let deleteModal = document.querySelector("#modal_delete")
+let deleteModal = document.querySelector("#modal_delete");
+let deleteButtons = document.querySelectorAll(".delete");
 let id = []
 
-// for (let i = 0; i < track.length; i++) {
-//     id.push(track[i].id)
-//     track[i].addEventListener("click", () => {
-//         window.location.href = `playlists/${id[i]}`;
-//     })
-// }
+for (let i = 0; i < track.length; i++) {
+    id.push(track[i].id)
+    track[i].addEventListener("click", (e) => {
+        if (!deleteButtons[i].contains(e.target))
+            window.location.href = `playlists/${id[i]}`;
+    })
+}
 
 /*------------------add playlist-----------------------*/
 let bgDark = document.querySelector("#bg-dark");
@@ -30,7 +32,6 @@ document.onmouseup = (e) => {
     }
 }
 
-let deleteButtons = document.querySelectorAll(".delete");
 let idPlaylist = [];
 for (let i = 0; i < deleteButtons.length; i++) {
     idPlaylist.push(deleteButtons[i].id)
