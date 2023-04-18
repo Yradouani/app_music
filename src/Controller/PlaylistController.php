@@ -14,8 +14,22 @@ use Symfony\Component\Routing\Annotation\Route;
 class PlaylistController extends AbstractController
 {
     #[Route('/playlists', name: 'playlist.index')]
-    public function index(EntityManagerInterface $entityManager): Response
+    public function index(Request $request, EntityManagerInterface $entityManager): Response
     {
+        if ($request->isMethod('POST')) {
+            $playlist_id = $request->request->get('playlist_id');
+            $playlistRepository = $entityManager->getRepository(Playlist::class);
+            $playlist = $playlistRepository->find($playlist_id);
+
+            if (!$playlist) {
+                throw $this->createNotFoundException('Playlist non trouvée');
+            } else {
+                $entityManager->remove($playlist);
+                $entityManager->flush();
+            }
+        }
+
+
         $userRepository = $entityManager->getRepository(User::class);
         $user = $userRepository->find(1);
         $playlists = $entityManager->getRepository(Playlist::class)->findBy(['id_user' => $user]);
@@ -40,6 +54,7 @@ class PlaylistController extends AbstractController
                 $tracks_info[$i] = null;
             }
         }
+
 
         return $this->render('playlist/playlist.html.twig', [
             'playlists' => $playlists,
@@ -67,10 +82,35 @@ class PlaylistController extends AbstractController
             }
         }
 
-        $playlists = $entityManager->getRepository(Playlist::class)->findBy(['id_user' => 1]);
+        $userRepository = $entityManager->getRepository(User::class);
+        $user = $userRepository->find(1);
+        $playlists = $entityManager->getRepository(Playlist::class)->findBy(['id_user' => $user]);
+
+        $tracks_info = [];
+
+        for ($i = 0; $i < count($playlists); $i++) {
+            $tracks = $entityManager->getRepository(Track::class)->findBy(['id_playlist' => $playlists[$i]->getId()]);
+            if ($tracks) {
+                $lastTrack = end($tracks);
+                $url = 'https://api.deezer.com/track/' . $lastTrack->getNumTrack();
+                $context = stream_context_create([
+                    "http" => [
+                        "header" => "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3\r\n"
+                    ]
+                ]);
+                $response = file_get_contents($url, false, $context);
+                $data = json_decode($response, true);
+                $tracks_info[$i] = $data;
+                sleep(1);
+            } else {
+                $tracks_info[$i] = null;
+            }
+        }
+
         return $this->render('playlist/playlist.html.twig', [
             'playlists' => $playlists,
-            'isUsed' => $isUsed
+            'isUsed' => $isUsed,
+            'tracks_info' => $tracks_info
         ]);
     }
 

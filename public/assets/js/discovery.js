@@ -287,6 +287,23 @@ var swiper = new Swiper(".mySwiper", {
 //                         </tr>
 
 
+var swiper = new Swiper(".mySwiper", {
+    effect: "coverflow",
+    grabCursor: true,
+    centeredSlides: true,
+    slidesPerView: 3,
+    spaceBetween: 30,
+    coverflowEffect: {
+        rotate: 40,
+        stretch: 100,
+        depth: 50,
+        modifier: 1,
+        slideShadows: true
+    },
+    pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+    },
+});
 
 
-// ---------
