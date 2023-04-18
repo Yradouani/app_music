@@ -14,7 +14,7 @@
 
 {% block main %}
 	{# {{ dump(isAlreadyInPlaylist)}}
-									{{ dump(tracks)}} #}
+										{{ dump(tracks)}} #}
 	<div id="discovery">
 
 		<div id="divSearch">
@@ -25,8 +25,8 @@
 
 		<div id="divSwiper">
 			<div class="swiper mySwiper">
-				<div class="swiper-wrapper">
-					{# JS INJECT #}
+				<div
+					class="swiper-wrapper">{# JS INJECT #}
 				</div>
 				<div class="swiper-pagination"></div>
 
@@ -37,7 +37,6 @@
 
 		<div id="divGenre">
 			<h4 id="titleGenre">Genres</h4>
-
 			<div class="divGenreButton">
 				<button id="rapButton" class="genreButton" name="1996494362">Rap</button>
 				<button id="popButton" class="genreButton" name="53362031">Pop</button>
@@ -68,8 +67,7 @@
 						</tr>
 					</thead>
 					<tbody
-						id="allTracks">
-						{# JS INJECT #}
+						id="allTracks">{# JS INJECT #}
 					</tbody>
 				</table>
 			</div>

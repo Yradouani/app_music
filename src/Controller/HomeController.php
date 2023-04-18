@@ -55,27 +55,25 @@ class HomeController extends AbstractController
     }
 
     //     #[Route('/connexion', name: 'home.connexion', methods: ['POST'])]
-    //     public function connexion(Request $request): Response
-    //     {
-    //         $email = $request->request->get('email');
-    //         $password = $request->request->get('password');
+public function connexion(Request $request): Response
+{
+    $email = $request->request->get('email');
+    $password = $request->request->get('password');
 
-    //         $user = $this->getDoctrine()->getRepository(User::class)->findOneBy(['email' => $email]);
+    $user = $this->getDoctrine()->getRepository(User::class)->findOneBy(['email' => $email]);
 
-    //         if (!$user || !password_verify($password, $user->getPassword())) {
-    //             $error = 'Invalid email or password';
-    //         } else {
-    //             // authenticate the user
-    //             $this->getUser($user);
-    //             return $this->redirectToRoute('discovery.index');
-    //         }
+    if (!$user || !password_verify($password, $user->getPassword())) {
+        $error = 'Invalid email or password';
+    } else {
+        // authenticate the user
+        $this->getUser($user);
+        return $this->redirectToRoute('discovery.index');
+    }
 
-    //         return $this->render('discovery/discovery.html.twig', [
-    //             'last_email' => $email,
-    //             'error' => $error ?? null,
-    //         ]);
-    //     }
+    return $this->render('home/home.html.twig', [
+        'last_email' => $email,
+        'error' => $error ?? null,
+    ]);
+}
 
-
-    // 
 }
