@@ -195,6 +195,50 @@ function changeMusicInPlayer(track, e){
 // 	.catch(err => console.error(err));
 
 
+/*------------------modal add track in playlist-----------------------*/
+let bgDark = document.querySelector("#bg-dark");
+let modal = document.querySelector("#modal");
+// --commentaire--
+
+function addTrackInPlaylist() {
+    let trackContainer = document.querySelectorAll('.track-container')
+
+    let addPlaylistBtn = document.querySelectorAll('.add_playlist');
+    for (let i = 0; i < addPlaylistBtn.length; i++) {
+        addPlaylistBtn[i].addEventListener("click", () => {
+            modal.style.display = "block";
+            bgDark.style.display = "block";
+            console.log(trackContainer[i])
+            let idTrack = trackContainer[i].getAttribute("id");
+            console.log(idTrack)
+            document.getElementById("track_id_input").value = idTrack;
+        })
+    }
+}
+
+document.onmouseup = (e) => {
+    console.log(e.target)
+    if (!modal.contains(e.target)) {
+        modal.style.display = 'none';
+        bgDark.style.display = "none";
+    }
+}
+
+const select = document.getElementById("mySelect");
+const optionCount = select.getElementsByTagName("option").length;
+select.setAttribute("size", optionCount);
+select.addEventListener("change", function () {
+    const selectedOption = this.options[this.selectedIndex];
+    const options = this.getElementsByTagName("option");
+    for (let i = 0; i < options.length; i++) {
+        options[i].classList.remove("selected");
+    }
+    selectedOption.classList.add("selected");
+});
+
+
+
+
 
 
 // <tr class='track-container' id="${ response.tracks.data[i].id }" onclick=changeMusicInPlayer(this, event)>
