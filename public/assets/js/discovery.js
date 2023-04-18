@@ -1,13 +1,16 @@
-let allTracks = document.getElementById("allTracks");
-let genreButton = document.getElementsByClassName("genreButton");
-let titleTab = document.getElementById("titleTab");
-let divGenre = document.getElementById("divGenre");
-let searchIcon = document.getElementById("searchIcon");
-let divSwiper = document.getElementById("divSwiper");
-let divSearch = document.getElementById("divSearch");
-let search = document.getElementById("search");
+const allTracks = document.getElementById("allTracks");
+const genreButton = document.getElementsByClassName("genreButton");
+const titleTab = document.getElementById("titleTab");
+const divGenre = document.getElementById("divGenre");
+const searchIcon = document.getElementById("searchIcon");
+const divSwiper = document.getElementById("divSwiper");
+const divSearch = document.getElementById("divSearch");
+const search = document.getElementById("search");
+const swiperWrapper = document.getElementsByClassName("swiper-wrapper");
 let newGenreTitle = "";
 let tableauTop = "";
+
+console.log(swiperWrapper);
 
 fn_top100();
 
@@ -31,7 +34,22 @@ function getTracks(url, fnName) {
         .catch(err => console.error(err));
 }
 
+function fillSwiper(response, tableLength, tracks) {
 
+    // swiperWrapper.innerHTML = "";
+    swiper.removeAllSlides()
+    
+    for (let i = 0; i < tableLength; i++) {
+		// swipperWrapper.innerHTML += `<div class="swiper-slide"><img src="${(tracks) ? response.tracks.data[i].album.cover_big : response.data[i].album.cover_big}" alt=""></div>`;
+        // swiper.appendSlide(`<div class="swiper-slide"><img src="https://place-hold.it/300x300" alt=""></div>`);
+        swiper.appendSlide(`<div class="swiper-slide">
+                                - ${(tracks) ? response.tracks.data[i].title : response.data[i].title} -
+                                <img src="${(tracks) ? response.tracks.data[i].album.cover_big : response.data[i].album.cover_big}" alt="">
+                            </div>`);
+    }
+    
+    console.log(swiperWrapper.innerHTML);
+}
 
 function createTable(response, tableLength, tracks) {
 
@@ -82,6 +100,7 @@ function fn_top100() {
             let tracks = true;
 
             createTable(response, tabLength, tracks);
+            fillSwiper(response, tabLength, tracks);
         }
     }
 }
@@ -109,6 +128,7 @@ function fn_loadGenre(i) {
             let tracks = true;
 
             createTable(response, tabLength, tracks);
+            fillSwiper(response, tabLength, tracks);
         }
     }
 }
@@ -137,6 +157,7 @@ function fn_search() {
             let tracks = false;
 
             createTable(response, tabLength, tracks);
+            fillSwiper(response, tabLength, tracks);
         }
     }
 }
@@ -201,7 +222,15 @@ select.addEventListener("change", function () {
     selectedOption.classList.add("selected");
 });
 
-// swapper
+
+
+
+// --------- swapper  ---------------//
+
+
+
+
+
 var swiper = new Swiper(".mySwiper", {
     effect: "coverflow",
     grabCursor: true,
@@ -220,4 +249,3 @@ var swiper = new Swiper(".mySwiper", {
         clickable: true,
     },
 });
-
