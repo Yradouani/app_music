@@ -31,6 +31,7 @@
 						</div>
 						<span>Ajouter une playlist</span>
 					</div>
+
 					{% if playlists|length != 0 %}
 						{% for i in range(0, playlists|length - 1) %}
 							<div id={{ playlists[i].id }} class="track">
@@ -49,6 +50,7 @@
 							</div>
 						{% endfor %}
 					{% endif %}
+
 				</div>
 			</div>
 		</div>
@@ -59,7 +61,11 @@
 
 		<div id="oneplaylist_header">
 			<div id="oneplaylist_header_img">
-				<img src={{ lastTrack.contributors[0].picture }} alt="last_picture"/>
+				{% if lastTrack.album.cover_big is defined %}
+					<img src={{ lastTrack.album.cover_big }} alt="last_picture"/>
+				{% else %}
+					<i class="fa-solid fa-question"></i>
+				{% endif %}
 			</div>
 			<div id="oneplaylist_header_text">
 				<div>
@@ -83,7 +89,7 @@
 					{% for track in tracks_api_response %}
 						<tr id="track">
 							<td style="width:6%">
-								<img id="albumCover" src={{ track.contributors[0].picture }} alt="albumImg">
+								<img id="albumCover" src={{ track.album.cover_big }} alt="albumImg">
 							</td>
 							<td style="width:1%">
 								{{ loop.index }}.
