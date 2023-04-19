@@ -85,13 +85,13 @@ public function connexion(Request $request, UserRepository $userRepository): Res
     ]);
 }
 
-#[Route('/discovery', name: 'discovery')]
-public function discovery(Request $request): Response
-{
-    $pseudo = $request->query->get('pseudo');
-    return $this->render('discovery.html.twig', [
-        'pseudo' => $pseudo,
-    ]);
-}
+// #[Route('/discovery', name: 'discovery')]
+// public function discovery(Request $request): Response
+// {
+//     $pseudo = $request->query->get('pseudo');
+//     return $this->render('discovery.html.twig', [
+//         'pseudo' => $pseudo,
+//     ]);
+// }
 
 }
