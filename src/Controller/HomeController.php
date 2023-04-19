@@ -28,6 +28,14 @@ class HomeController extends AbstractController
     $email = $request->request->get('email');
     $password = $request->request->get('password');
 
+    // Vérification de la complexité du mot de passe
+    if (!preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/', $password)) {
+        // Le mot de passe ne répond pas aux exigences de complexité
+        $this->addFlash('error', 'Le mot de passe doit contenir au minimum une lettre minuscule, une lettre majuscule, un chiffre et un caractère spécial et minimum 8 caractères.');
+        return $this->redirectToRoute('home.index');
+    }
+
+
     $user = $userRepository->findOneBy(['email' => $email]);
 
     if ($user) {
@@ -54,34 +62,35 @@ class HomeController extends AbstractController
 
     
     
-    #[Route('/connexion', name: 'home.connexion', methods: ['POST'])]
-    public function connexion(Request $request, UserRepository $userRepository): Response
-    {
-        $email = $request->request->get('email');
-        $password = $request->request->get('password');
+#[Route('/connexion', name: 'home.connexion', methods: ['POST'])]
+public function connexion(Request $request, UserRepository $userRepository): Response
+{
+    $email = $request->request->get('email');
+    $password = $request->request->get('password');
 
-        $user = $userRepository->findOneBy(['email' => $email]);
+    $user = $userRepository->findOneBy(['email' => $email]);
 
-        if (!$user || !password_verify($password, $user->getPassword())) {
-            // Email ou mot de passe invalide
-            return $this->render('home/home.html.twig', [
-                'controller_name' => 'HomeController',
-                'error' => "Email ou mot de passe invalide.",
-            ]);
-        }
-
-        // Connexion réussie
-        return $this->redirectToRoute('discovery', [
-            'pseudo' => $user->getPseudo(),
+    if (!$user || !password_verify($password, $user->getPassword())) {
+        // Email ou mot de passe invalide
+        return $this->render('home/home.html.twig', [
+            'controller_name' => 'HomeController',
+            'error' => "Email ou mot de passe invalide.",
         ]);
     }
 
-    #[Route('/discovery', name: 'discovery')]
-    public function discovery(Request $request): Response
-    {
-        $pseudo = $request->query->get('pseudo');
-        return $this->render('discovery.html.twig', [
-            'pseudo' => $pseudo,
-        ]);
-    }
+    // Connexion réussie
+    return $this->redirectToRoute('discovery', [
+        'pseudo' => $user->getPseudo(),
+    ]);
+}
+
+#[Route('/discovery', name: 'discovery')]
+public function discovery(Request $request): Response
+{
+    $pseudo = $request->query->get('pseudo');
+    return $this->render('discovery.html.twig', [
+        'pseudo' => $pseudo,
+    ]);
+}
+
 }
