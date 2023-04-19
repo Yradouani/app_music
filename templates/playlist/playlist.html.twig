@@ -110,7 +110,7 @@
 							<td class="album-td">{{ track.album.title }}
 							</td>
 							<td>
-								<i class="fa-solid fa-trash"></i>
+								<i id={{ track.id ~ '|' ~ id }} class="fa-solid fa-trash trash_icon"></i>
 							</td>
 						</tr>
 					{% endfor %}
@@ -118,7 +118,9 @@
 			</table>
 		</div>
 	{% endif %}
-	<div id="bg-dark"></div>{# --------------Add playlist Modal--------------------- #}<div id="modal">
+	{# --------------Add playlist Modal--------------------- #}
+	<div id="bg-dark"></div>
+	<div id="modal_add_playlist">
 		<span id="add_playlist_modal_header">
 			<span class="fa-thin fa-plus"></span>
 			Nouvelle playlist</span>
@@ -135,6 +137,28 @@
 				<span>Êtes-vous sûr de vouloir supprimer cette playlist ?</span>
 				<input type="hidden" name="playlist_id" id="playlist_id_input" value="">
 				<input type="submit" value="Confirmer"/>
+			</form>
+		</span>
+	</div>
+
+	{# ---------Modal add track in playlist------------------ #}
+	<div id="bg-dark"></div>
+	<div id="modal">
+		<span id="add_playlist_modal_header">
+			<span class="fa-thin fa-plus"></span>
+			Ajouter à une playlist</span>
+		<span id="add_playlist_name">
+			<form action="{{ path('discovery.index') }}" method="POST">
+				<input type="hidden" name="track_id" id="track_id_input" value="">
+				<select id="mySelect" name="playlist">
+					{% if playlists is defined %}
+						{% for playlist in playlists %}
+							<option value={{ playlist.getId() }}>{{ playlist.getNamePlaylist() }}</option>
+							<hr>
+						{% endfor %}
+					{% endif %}
+				</select>
+				<input type="submit" value="Ajouter" id="submit-button"/>
 			</form>
 		</span>
 	</div>

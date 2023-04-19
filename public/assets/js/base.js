@@ -20,11 +20,11 @@ function menuBurger(screenWidth) {
 
 function mobile() {
 
-    nav.style.display = 'none';
-  
-    const openBtn = document.querySelector('button.menu-burger');
-    const closeBtn = document.querySelector('.menu-title button i');
-    const body = document.querySelector('body');
+  nav.style.display = 'none';
+
+  const openBtn = document.querySelector('button.menu-burger');
+  const closeBtn = document.querySelector('.menu-title button i');
+  const body = document.querySelector('body');
 
 
 
@@ -82,6 +82,7 @@ function mobile() {
 /*------------MUSIC PLAYER-------------*/
 /*-------------------------------------*/
 let trackId;
+
 
   trackId = 3135556;
 
@@ -201,10 +202,10 @@ function playerSettings(musicDuration = null, sound = null) {
   }
 
 
-// On simule un clique pour démarrer le lecteur  au chargement de la page
-// document.addEventListener("DOMContentLoaded", () => {
-    // startStopBtn.click();
-// });
+  // On simule un clique pour démarrer le lecteur  au chargement de la page
+  // document.addEventListener("DOMContentLoaded", () => {
+  // startStopBtn.click();
+  // });
 
 
   // Au clique du bouton start/stop
@@ -300,7 +301,38 @@ switch (location.pathname) {
     break;
 }
 
+
+// -------------------------------Player add in playlist------------------
+let playerBtnAddPlaylist = document.querySelector(".playlist-btn");
+let bgDark = document.querySelector("#bg-dark");
+let modal = document.querySelector("#modal");
+
+playerBtnAddPlaylist.addEventListener("click", () => {
+  modal.style.display = "block";
+  bgDark.style.display = "block";
+})
+document.onmouseup = (e) => {
+  console.log(e.target)
+  if (!modal.contains(e.target)) {
+    modal.style.display = "none";
+    bgDark.style.display = "none";
+  }
+}
+const select = document.getElementById("mySelect");
+const optionCount = select.getElementsByTagName("option").length;
+select.setAttribute("size", optionCount);
+select.addEventListener("change", function () {
+  const selectedOption = this.options[this.selectedIndex];
+  const options = this.getElementsByTagName("option");
+  for (let i = 0; i < options.length; i++) {
+    options[i].classList.remove("selected");
+  }
+  selectedOption.classList.add("selected");
+});
+
+
 if(location.pathname.includes('/playlists/')){
   document.querySelector('#mobile-nav .top-links a:nth-child(2)').classList.add('selected')
   document.querySelector('#desktop-nav .top-links a:nth-child(2)').classList.add('selected')
 }
+
