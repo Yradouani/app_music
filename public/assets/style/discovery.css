@@ -110,7 +110,7 @@ hr {
     width: 100%;
 }
 
-table{
+table {
     table-layout: fixed;
     width: 94%;
     margin: 3%;
@@ -130,25 +130,26 @@ table{
     background-color: #32323c;
 }
 
-.img-td img{
+.img-td img {
     width: 100%
 }
 
-.img-td{
+.img-td {
     /* background: red; */
     width: 5rem
 }
 
-.rank-td{
+.rank-td {
     width: 5%;
     /* background: blue; */
 }
 
-.title-td{
+.title-td {
     /* background: yellow; */
     width: 35%;
     /* background: red; */
 }
+
 
 .heart-td{
     width: 2rem;
@@ -165,23 +166,24 @@ table{
     text-overflow: ellipsis;
 }
 
-.artist-mobile{
+.artist-mobile {
     display: none
 }
 
 
-.album-td{
+.album-td {
     /* background: red; */
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
-th, td{
+th,
+td {
     padding: 3px 10px;
 }
 
-tr:hover{
-    background : var(--tertiary-bg)
+tr:hover {
+    background: var(--tertiary-bg)
 }
 
 /*Heart Button*/
@@ -189,29 +191,29 @@ input[type="checkbox"] {
     display: none;
 }
 
-input[type="checkbox"] + label {
+input[type="checkbox"]+label {
     position: relative;
     display: inline-block;
     font-size: 16px;
     cursor: pointer;
 
 }
- 
-input[type="checkbox"] + label:before {
+
+input[type="checkbox"]+label:before {
     content: "\1F5A4";
-    border: 1px solid transparent;    
+    border: 1px solid transparent;
     border-radius: 3px;
     display: block;
     position: relative;
-	transition:  .5s ease;
+    transition: .5s ease;
 }
-  
-input[type="checkbox"]:checked + label:before {
+
+input[type="checkbox"]:checked+label:before {
     border: 1px solid transparent;
     background-color: transparent;
 }
- 
-input[type="checkbox"]:checked + label:after {
+
+input[type="checkbox"]:checked+label:after {
     content: '\1F49A';
     font-size: 18px;
     position: absolute;
@@ -351,37 +353,39 @@ option {
         width: 45%;
     }
 
-    .title-td{
+    .title-td {
         /* background: yellow; */
         width: 50%;
         position: relative;
         /* background: red; */
     }
 
-    .artist-mobile{
+    .artist-mobile {
         display: initial;
         font-size: 12px;
     }
 
-    .artist-td, .album-td{
+    .artist-td,
+    .album-td {
         display: none;
     }
 
-    .rank-td{
+    .rank-td {
         width: 2rem;
         /* background: blue; */
     }
-    .heart-td{
+
+    .heart-td {
         width: 2.5rem;
         /* background: blue; */
     }
-    
-    .plus-td{
+
+    .plus-td {
         width: 2.5rem;
         /* background: red; */
     }
 
-    thead{
+    thead {
         display: none;
     }
 
