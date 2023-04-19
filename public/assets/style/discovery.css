@@ -395,7 +395,7 @@ option {
 /* Swipper starts*/
 
 .swiper {
-    width: 100%;
+    width: 80%;
     padding-top: 50px;
     padding-bottom: 50px;
     margin-bottom: 50px;
@@ -409,10 +409,8 @@ option {
 }
 
 .swiper-slide img {
-    display: block;
+    object-fit: contain;
+    /* display: block; */
     width: 100%;
-}
-
-.swiper-pagination {
-    display: none;
+    height: 100%;
 }
