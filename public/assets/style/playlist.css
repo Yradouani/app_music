@@ -147,9 +147,13 @@ tbody img {
     height: 50px;
 }
 
-.track-container{
+.track-container {
     cursor: pointer;
-    border-bottom: 1px var(--tertiary-black) solid
+    border-bottom: 1px var(--tertiary-black) solid;
+}
+
+#track:hover {
+    background-color: #32323c;
 }
 
 /*------------------modal------------------*/

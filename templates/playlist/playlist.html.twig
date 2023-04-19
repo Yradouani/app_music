@@ -85,7 +85,7 @@
 				</thead>
 				<tbody id="allTracks">
 					{% for track in tracks_api_response %}
-						<tr id="track">
+						<tr id={{ track.id }} class="track-container" onclick="changeMusicInPlayer(this,event)">
 							<td style="width:6%">
 								<img id="albumCover" src={{ track.album.cover_big }} alt="albumImg">
 							</td>
