@@ -17,32 +17,72 @@ for (let i = 0; i < track.length; i++) {
 
 /*------------------add playlist-----------------------*/
 
+if (addPlaylistBtn) {
+    addPlaylistBtn.addEventListener("click", () => {
+        modalAddPlaylist.style.display = "block";
+        bgDark.style.display = "block";
+    })
+    document.onmouseup = (e) => {
+        console.log(e.target)
+        if (!modalAddPlaylist.contains(e.target)) {
+            modalAddPlaylist.style.display = "none";
+            bgDark.style.display = "none";
+        } else if (!deleteModal.contains(e.target)) {
+            deleteModal.style.display = "none";
+            bgDark.style.display = "none";
+        }
+    }
 
-addPlaylistBtn.addEventListener("click", () => {
-    modalAddPlaylist.style.display = "block";
-    bgDark.style.display = "block";
-})
-document.onmouseup = (e) => {
-    console.log(e.target)
-    if (!modalAddPlaylist.contains(e.target)) {
-        modalAddPlaylist.style.display = "none";
-        bgDark.style.display = "none";
-    } else if (!deleteModal.contains(e.target)) {
-        deleteModal.style.display = "none";
-        bgDark.style.display = "none";
+    let idPlaylist = [];
+    for (let i = 0; i < deleteButtons.length; i++) {
+        idPlaylist.push(deleteButtons[i].id)
+        deleteButtons[i].addEventListener("click", () => {
+            deleteModal.style.display = "block";
+            bgDark.style.display = "block";
+            document.getElementById("playlist_id_input").value = idPlaylist[i];
+        })
     }
 }
+// -----------------------delete track on playlist---------------------
+let trashButtons = document.querySelectorAll('.trash_icon');
+let idPlaylistToDelete;
+let idTrackToDelete;
 
-let idPlaylist = [];
-for (let i = 0; i < deleteButtons.length; i++) {
-    idPlaylist.push(deleteButtons[i].id)
-    deleteButtons[i].addEventListener("click", () => {
-        deleteModal.style.display = "block";
-        bgDark.style.display = "block";
-        document.getElementById("playlist_id_input").value = idPlaylist[i];
+console.log(trashButtons)
+for (let i = 0; i < trashButtons.length; i++) {
+    trashButtons[i].addEventListener("click", () => {
+        let infos = trashButtons[i].id;
+        let infosArray = infos.split('|');
+        idTrackToDelete = infosArray[0];
+        idPlaylistToDelete = infosArray[1];
+        console.log(idTrackToDelete)
+        console.log(idPlaylistToDelete)
+
+
+        const url = '/deleteplaylist';
+        const data = {
+            idPlaylistToDelete: idPlaylistToDelete,
+            idTrackToDelete: idTrackToDelete
+        };
+
+        fetch(url, {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(response => {
+            const rowToDelete = document.getElementById(`${idTrackToDelete}`);
+            console.log(rowToDelete);
+            if (rowToDelete) {
+                rowToDelete.remove();
+            }
+        }).catch(error => {
+            console.log(error)
+        });
+
     })
 }
-
 //-------Music Player------//
 
 function changeMusicInPlayer(track, e) {
@@ -62,3 +102,4 @@ function changeMusicInPlayer(track, e) {
         clearInterval(intervalId);
     }
 }
+

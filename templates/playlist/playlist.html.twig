@@ -99,7 +99,7 @@
 								<i id="heart" class="fa-regular fa-heart"></i>
 							</td>
 							<td>
-								<i class="fa-solid fa-trash"></i>
+								<i id={{ track.id ~ '|' ~ id }} class="fa-solid fa-trash trash_icon"></i>
 							</td>
 							<td>{{ track.artist.name}}</td>
 							<td>{{ track.album.title}}</td>
@@ -142,10 +142,12 @@
 			<form action="{{ path('discovery.index') }}" method="POST">
 				<input type="hidden" name="track_id" id="track_id_input" value="">
 				<select id="mySelect" name="playlist">
-					{% for playlist in playlists %}
-						<option value={{ playlist.getId() }}>{{ playlist.getNamePlaylist() }}</option>
-						<hr>
-					{% endfor %}
+					{% if playlists is defined %}
+						{% for playlist in playlists %}
+							<option value={{ playlist.getId() }}>{{ playlist.getNamePlaylist() }}</option>
+							<hr>
+						{% endfor %}
+					{% endif %}
 				</select>
 				<input type="submit" value="Ajouter" id="submit-button"/>
 			</form>

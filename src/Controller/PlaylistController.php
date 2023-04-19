@@ -7,6 +7,7 @@ use App\Entity\Track;
 use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -171,5 +172,27 @@ class PlaylistController extends AbstractController
             'id' => $id,
             'tracks_api_response' => $tracks_api_response,
         ]);
+    }
+
+    #[Route('/deleteplaylist', name: 'deleteplaylist.index')]
+    public function deletePlaylist(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $data = json_decode($request->getContent(), true);
+        $idPlaylistToDelete = $data['idPlaylistToDelete'];
+        $idTrackToDelete = $data['idTrackToDelete'];
+
+        $track = $entityManager->getRepository(Track::class)->findOneBy([
+            'num_track' => $idTrackToDelete,
+            'id_playlist' => $idPlaylistToDelete
+        ]);
+
+        if (!$track) {
+            throw $this->createNotFoundException('Track non trouvée');
+        } else {
+            $entityManager->remove($track);
+            $entityManager->flush();
+        }
+
+        return new JsonResponse(['message' => 'Success!']);
     }
 }
