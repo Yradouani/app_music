@@ -20,6 +20,7 @@ class HomeController extends AbstractController
             'controller_name' => 'HomeController',
         ]);
     }
+    
 
     #[Route('/inscription', name: 'home.inscription', methods: ['POST'])]
     public function inscription(Request $request, EntityManagerInterface $entityManager, UserRepository $userRepository): Response

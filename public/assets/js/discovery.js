@@ -18,7 +18,7 @@ for (let i = 0; i < genreButton.length; i++) {
     genreButton[i].addEventListener("click", () => fn_loadGenre(i));
 }
 
-searchIcon.addEventListener("click", () => fn_search());
+search.addEventListener("input", () => fn_search());
 
 function getTracks(url, fnName) {
 
@@ -39,7 +39,9 @@ function fillSwiper(response, tableLength, tracks) {
     // swiperWrapper.innerHTML = "";
     swiper.removeAllSlides()
 
+
     for (let i = 0; i < tableLength; i++) {
+        // swipperWrapper.innerHTML += `<div class="swiper-slide"><img src="${(tracks) ? response.tracks.data[i].album.cover_big : response.data[i].album.cover_big}" alt=""></div>`;
         // swipperWrapper.innerHTML += `<div class="swiper-slide"><img src="${(tracks) ? response.tracks.data[i].album.cover_big : response.data[i].album.cover_big}" alt=""></div>`;
         // swiper.appendSlide(`<div class="swiper-slide"><img src="https://place-hold.it/300x300" alt=""></div>`);
         swiper.appendSlide(`<div class="swiper-slide">
@@ -54,31 +56,40 @@ function fillSwiper(response, tableLength, tracks) {
 function createTable(response, tableLength, tracks) {
 
     for (let i = 0; i < tableLength; i++) {
-        tableauTop += `<tr class='track-container' id="${(tracks) ? response.tracks.data[i].id : response.data[i].id}" onclick=changeMusicInPlayer(this)>
-                            <td style="width:6%">
+        tableauTop += `<tr class=${(tracks) ? 'track-container ranked' :  'track-container' } id="${(tracks) ? response.tracks.data[i].id : response.data[i].id}" onclick=changeMusicInPlayer(this,event)>
+
+                            <td class="img-td">
                                 <img id="albumCover" src="${(tracks) ? response.tracks.data[i].album.cover_big : response.data[i].album.cover_big}" alt="albumImg">
                             </td>
-                            <td style="width:1%">
+                            <td class="rank-td" style="${(tracks) ? '' : 'display : none'}">
                                 ${i + 1}.
                             </td>
-                            <td style="width:36%">
-                                ${(tracks) ? response.tracks.data[i].title : response.data[i].title}
+                            <td class="title-td">
+                                <div>
+                                    <span>${(tracks) ? response.tracks.data[i].title : response.data[i].title}</span><br>
+                                    <span class='artist-mobile'>${(tracks) ? response.tracks.data[i].artist.name : response.data[i].artist.name}</span>
+                                </div>
                             </td>
-                            <td>
-                                <i id="heart" class="fa-regular fa-heart"></i>
+                            <td class="heart-td">
+                                <input name="heart" type="checkbox" id="heart-${(tracks) ? response.tracks.data[i].id : response.data[i].id}"/>
+                                <label for="heart-${(tracks) ? response.tracks.data[i].id : response.data[i].id}"></label>                            
                             </td>
-                            <td>
-                                <i id="plus" class="fa-solid fa-plus"></i>
+                            <td  class="plus-td">
+                                <i id="plus" class="fa-solid fa-plus add_playlist"></i>
                             </td>
-                            <td>
+                            <td class="artist-td">
                                 ${(tracks) ? response.tracks.data[i].artist.name : response.data[i].artist.name}
                             </td>
-                            <td>
+                            <td class="album-td">
                                 ${(tracks) ? response.tracks.data[i].album.title : response.data[i].album.title}
                             </td>
                         </tr>`;
     }
+    if(tracks){
+        document.querySelector('th.rank-td').remove()
+    }
     allTracks.innerHTML = tableauTop;
+    addTrackInPlaylist();
 }
 
 function fn_top100() {
@@ -127,8 +138,8 @@ function fn_loadGenre(i) {
             let tabLength = 50;
             let tracks = true;
 
-            createTable(response, tabLength, tracks);
             fillSwiper(response, tabLength, tracks);
+            createTable(response, tabLength, tracks);
         }
     }
 }
@@ -163,15 +174,22 @@ function fn_search() {
 }
 //-------Music Player------//
 
-function changeMusicInPlayer(track) {
+function changeMusicInPlayer(track, e){
     trackId = track.id;
+    console.log(e.target);
+
+    if (e.target == track.querySelector('label') || e.target == track.querySelector('input') || e.target == track.querySelector('label') || e.target == track.querySelector('.add_playlist')) {
+        console.log('error');
+        
+  }else{
     getTrack(trackId)
 
     sound.stop();
-    startStopBtn.innerHTML = "<i class='fa-solid fa-play'></i>";
+    startStopBtn.innerHTML = "<i class='fa-solid fa-play'></i>"; 
     elapsed = 0;
-    inputPlayer.value = elapsed;
+    inputPlayer.value = elapsed; 
     clearInterval(intervalId);
+  }
 }
 // fetch('https://deezerdevs-deezer.p.rapidapi.com/search?q=eminem', options)
 // 	.then(response => response.json())
@@ -181,6 +199,7 @@ function changeMusicInPlayer(track) {
 //         }
 //     })
 // 	.catch(err => console.error(err));
+
 
 /*------------------modal add track in playlist-----------------------*/
 let bgDark = document.querySelector("#bg-dark");
@@ -203,7 +222,6 @@ function addTrackInPlaylist() {
 }
 
 document.onmouseup = (e) => {
-    console.log(e.target)
     if (!modal.contains(e.target)) {
         modal.style.display = 'none';
         bgDark.style.display = "none";
@@ -221,9 +239,6 @@ select.addEventListener("change", function () {
     }
     selectedOption.classList.add("selected");
 });
-
-
-
 
 // --------- swapper  ---------------//
 

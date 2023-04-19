@@ -31,22 +31,24 @@
 						</div>
 						<span>Ajouter une playlist</span>
 					</div>
-					{% for i in range(0, playlists|length - 1) %}
-						<div id={{ playlists[i].id }} class="track">
-							{% if tracks_info[i].contributors[0].picture is defined %}
-								<div class="playlist-image">
-									<img src={{ tracks_info[i].contributors[0].picture }} alt="track_image"/>
-									<i class="fa-sharp fa-solid fa-xmark delete"></i>
-								</div>
-							{% else %}
-								<div class="playlist-image playlist-noimage">
-									<i class="fa-solid fa-question"></i>
-									<i class="fa-sharp fa-solid fa-xmark delete"></i>
-								</div>
-							{% endif %}
-							<span>{{ playlists[i].getNamePlaylist() }}</span>
-						</div>
-					{% endfor %}
+					{% if playlists is not same as [] %}
+						{% for i in range(0, playlists|length - 1) %}
+							<div id={{ playlists[i].id }} class="track">
+								{% if tracks_info[i].album.cover_big is defined %}
+									<div class="playlist-image">
+										<img src={{ tracks_info[i].album.cover_big }} alt="track_image"/>
+										<i id={{ playlists[i].id }} class="fa-sharp fa-solid fa-xmark delete"></i>
+									</div>
+								{% else %}
+									<div class="playlist-image playlist-noimage">
+										<i class="fa-solid fa-question"></i>
+										<i id={{ playlists[i].id }} class="fa-sharp fa-solid fa-xmark delete"></i>
+									</div>
+								{% endif %}
+								<span>{{ playlists[i].getNamePlaylist() }}</span>
+							</div>
+						{% endfor %}
+					{% endif %}
 				</div>
 			</div>
 		</div>
@@ -57,7 +59,11 @@
 
 		<div id="oneplaylist_header">
 			<div id="oneplaylist_header_img">
-				<img src={{ lastTrack.contributors[0].picture }} alt="last_picture"/>
+				{% if lastTrack.album.cover_big is defined %}
+					<img src={{ lastTrack.album.cover_big }} alt="last_picture"/>
+				{% else %}
+					<i class="fa-solid fa-question"></i>
+				{% endif %}
 			</div>
 			<div id="oneplaylist_header_text">
 				<div>
@@ -69,42 +75,50 @@
 			</div>
 		</div>
 		<div id="oneplaylist_table">
-			<table style="width:94%; margin-left:3%">
+			<table style="margin:3%">
 				<thead>
 					<tr>
-						<th colspan="5" style="width:50%">TITRE</th>
-						<th colspan="1" style="width:25%">ARTISTE</th>
-						<th colspan="1" style="width:25%">ALBUM</th>
+						<th class='img-td'></th>
+						<th class='title-td'>TITRE</th>
+						<th class='heart-td'></th>
+						<th class='plus-td'></th>
+						<th class='artist-td'>ARTISTE</th>
+						<th class='album-td'>ALBUM</th>
 					</tr>
 				</thead>
 				<tbody id="allTracks">
 					{% for track in tracks_api_response %}
-						<tr id="track">
-							<td style="width:6%">
-								<img id="albumCover" src={{ track.contributors[0].picture }} alt="albumImg">
+						<tr class="track-container" id="{{ track.id }}" onclick="changeMusicInPlayer(this,event)">
+							<td class="img-td">
+
+								<img id="albumCover" src={{ track.album.cover_big }} alt="albumImg">
 							</td>
-							<td style="width:1%">
-								{{ loop.index }}.
+							<td class="title-td">
+								<div>
+									<span>{{track.title}}</span><br>
+									<span class='artist-mobile'>{{track.artist.name}}</span>
+								</div>
 							</td>
-							<td style="width:36%">
-								{{ track.title}}
+							<td class="heart-td">
+								<input name="heart" type="checkbox" id={{'heart-' ~ track.id}}>
+								<label for={{'heart-' ~ track.id}}></label>
+							</td>
+							<td class="plus-td">
+								<i id="plus" class="fa-solid fa-plus add_playlist"></i>
+							</td>
+							<td class="artist-td">{{track.artist.name}}</td>
+							<td class="album-td">{{ track.album.title }}
 							</td>
 							<td>
-								<i id="heart" class="fa-regular fa-heart"></i>
+								<i class="fa-solid fa-trash"></i>
 							</td>
-							<td>
-								<i id="plus" class="fa-solid fa-plus"></i>
-							</td>
-							<td>{{ track.artist.name}}</td>
-							<td>{{ track.album.title}}</td>
 						</tr>
 					{% endfor %}
 				</tbody>
 			</table>
 		</div>
 	{% endif %}
-	<div id="bg-dark"></div>
-	<div id="modal">
+	<div id="bg-dark"></div>{# --------------Add playlist Modal--------------------- #}<div id="modal">
 		<span id="add_playlist_modal_header">
 			<span class="fa-thin fa-plus"></span>
 			Nouvelle playlist</span>
@@ -112,6 +126,15 @@
 			<form action="{{ path('addplaylist.index') }}" method="POST">
 				<input id="name_playlist_input" name="name_playlist" type="text" placeholder="Nom de playlist"/>
 				<input type="submit" value="" class="arrow-button"/>
+			</form>
+		</span>
+	</div>
+	<div id="modal_delete">
+		<span id="delete_playlist_name" name="playlist">
+			<form action="{{ path('playlist.index') }}" method="POST">
+				<span>Êtes-vous sûr de vouloir supprimer cette playlist ?</span>
+				<input type="hidden" name="playlist_id" id="playlist_id_input" value="">
+				<input type="submit" value="Confirmer"/>
 			</form>
 		</span>
 	</div>

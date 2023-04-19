@@ -2,12 +2,15 @@ let track = document.querySelectorAll('.track');
 let allPlaylists = document.querySelector('#playlist-container');
 let addPlaylistBtn = document.querySelector('.add_playlist_image');
 let modal = document.querySelector("#modal")
+let deleteModal = document.querySelector("#modal_delete");
+let deleteButtons = document.querySelectorAll(".delete");
 let id = []
 
 for (let i = 0; i < track.length; i++) {
     id.push(track[i].id)
-    track[i].addEventListener("click", () => {
-        window.location.href = `playlists/${id[i]}`;
+    track[i].addEventListener("click", (e) => {
+        if (!deleteButtons[i].contains(e.target))
+            window.location.href = `playlists/${id[i]}`;
     })
 }
 
@@ -21,7 +24,40 @@ addPlaylistBtn.addEventListener("click", () => {
 document.onmouseup = (e) => {
     console.log(e.target)
     if (!modal.contains(e.target)) {
-        modal.style.display = 'none';
+        modal.style.display = "none";
         bgDark.style.display = "none";
+    } else if (!deleteModal.contains(e.target)) {
+        deleteModal.style.display = "none";
+        bgDark.style.display = "none";
+    }
+}
+
+/*------------------music player-----------------------*/
+
+let idPlaylist = [];
+for (let i = 0; i < deleteButtons.length; i++) {
+    idPlaylist.push(deleteButtons[i].id)
+    deleteButtons[i].addEventListener("click", () => {
+        deleteModal.style.display = "block";
+        bgDark.style.display = "block";
+        document.getElementById("playlist_id_input").value = idPlaylist[i];
+    })
+}
+//-------Music Player------//
+function changeMusicInPlayer(track, e) {
+    trackId = track.id;
+    console.log(e.target);
+
+    if (e.target == track.querySelector('label') || e.target == track.querySelector('input') || e.target == track.querySelector('.add_playlist')) {
+        console.log('like');
+
+    } else {
+        getTrack(trackId)
+
+        sound.stop();
+        startStopBtn.innerHTML = "<i class='fa-solid fa-play'></i>";
+        elapsed = 0;
+        inputPlayer.value = elapsed;
+        clearInterval(intervalId);
     }
 }

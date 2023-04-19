@@ -13,7 +13,7 @@
 {% endblock %}
 
 {% block main %}
-{{ parent() }}
+	{{ parent() }}
 	<div class="favorite_container">
 		<div class="favorite_title">
 			<i class="fa-solid fa-heart"></i>
@@ -23,59 +23,88 @@
 		<div class="favorite_general">
 
 			<p>
-				<span>2</span> 
+				<span>2</span>
 				coups de coeur</p>
-	<button class="favorite_btn" type="button"><i class="fa-solid fa-play"></i> Écouter</button>
+			<button class="favorite_btn" type="button">
+				<i class="fa-solid fa-play"></i>
+				Écouter</button>
 		</div>
-	</div>
-	<div class="favorite_list_register">
-		<table class="favorite_table_users">
-			<thead>
-				<tr>
-					<th>Titre</th>
-					<th></th>
-					<th></th>
-					<th>Artiste</th>
-					<th>Album</th>
-					<th>Ajouté</th>
-					<th><i class="fas fa-clock"></th>
-				</tr>
-			</thead>
-            
-			<tbody>
-				<tr>
-					<td>
-						<img src="http://via.placeholder.com/30x30" alt="#"> Meu Nego</td>
-					<td>
-						<i class="fa-solid fa-heart" style="color:#00d98e;"></i>
-						</td>
-					<td>
-						<i class="fa-solid fa-plus"></i>
-						</td>
-						<td><p>Thievery Corporation, Karina Ze...</p></td>
-						<td><p>Saudade</p></td>
-						<td><p>Hier</p></td>
-						<td><p>03:21</p></td>
-				</tr>
-				<tr>
-					<td>
-					<img src="http://via.placeholder.com/30x30" alt="#"> I Feel Blue</td>
-						
-					<td>
-						<i class="fa-solid fa-heart" style="color:#00d98e;"></i>
-						</td>
-					<td>
-						<i class="fa-solid fa-plus"></i>
-						</td>
-					
-						<td><p>Alif Tree</p></td>
-						<td><p>French Cuisine</p></td>
-						<td><p>Hier</p></td>
-						<td><p>04:53</p></td>
-				</tr>
-			</tbody>
-		</table>
-	</div>
 
+	</div>
+	<table style="margin:3%">
 
-{% endblock %}
+		<thead>
+			<tr>
+				<th class="img-td"></th>
+				<th class="rank-td"></th>
+				<th class="title-td">TITRE</th>
+				<th class="heart-td"></th>
+				<th class="plus-td"></th>
+				<th class="artist-td">ARTISTE</th>
+				<th class="album-td">ALBUM</th>
+			</tr>
+		</thead>
+		<tbody id="allTracks">
+			<tr class="track-container" id="2222984647" onclick="changeMusicInPlayer(this, event)">
+				<td class="img-td">
+					<img id="albumCover" src="https://e-cdns-images.dzcdn.net/images/cover/52449c0fc4c0bfe15fea9f0936085cfe/500x500-000000-80-0-0.jpg" alt="albumImg">
+				</td>
+				<td class="rank-td">
+					1.
+				</td>
+				<td class="title-td">
+
+					<div>
+						<span>Demain</span><br>
+						<span class="artist-mobile">
+							PLK</span>
+					</div>
+				</td>
+				<td class="heart-td">
+					<input name="heart" type="checkbox" id="heart-2222984647"/>
+					<label for="heart-2222984647"></label>
+				</td>
+				<td class="plus-td">
+					<i id="plus" class="fa-solid fa-plus add_playlist"></i>
+				</td>
+
+				<td class="artist-td">
+					PLK
+				</td>
+				<td class="album-td">
+					2069'
+				</td>
+			</tr>
+
+			<tr class="track-container" id="2105158337" onclick="changeMusicInPlayer(this, event)">
+				<td class="img-td">
+					<img id="albumCover" src="https://e-cdns-images.dzcdn.net/images/cover/98610629a40996b61b3d24bd5ab8c2e1/500x500-000000-80-0-0.jpg" alt="albumImg">
+				</td>
+				<td class="rank-td">
+					2.
+				</td>
+				<td class="title-td">
+					<div>
+						<span>Flowers</span><br>
+						<span class="artist-mobile">
+							Miley Cyrus</span>
+					</div>
+				</td>
+				<td class="heart-td">
+					<input name="heart" type="checkbox" id="heart-2105158337" checked/>
+					<label for="heart-2105158337"></label>
+				</td>
+				<td class="plus-td">
+					<i id="plus" class="fa-solid fa-plus add_playlist"></i>
+				</td>
+				<td class="artist-td">
+					Miley Cyrus
+				</td>
+				<td class="album-td">
+					Flowers
+				</td>
+			</tr>
+		</tbody>
+	</table>
+
+</div>{% endblock %}

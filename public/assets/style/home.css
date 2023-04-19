@@ -11,7 +11,8 @@
 
 .home_container {
     position: relative;
-    width: 420px;
+    width: 100%;
+    max-width: 450px;
     min-height: 490px;
     height: auto;
     max-height: 520px;
@@ -24,7 +25,7 @@
     display: flex;
    justify-content: center;
    align-items: center;
-    margin-bottom: 75px;
+    margin-bottom: 125px;
     margin-left: -30px;
 }
 
