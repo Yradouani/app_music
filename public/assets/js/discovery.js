@@ -49,7 +49,6 @@ function fillSwiper(response, tableLength, tracks) {
                                 <img src="${(tracks) ? response.tracks.data[i].album.cover_big : response.data[i].album.cover_big}" alt="">
                             </div>`);
     }
-
     console.log(swiperWrapper.innerHTML);
 }
 
@@ -85,7 +84,9 @@ function createTable(response, tableLength, tracks) {
                             </td>
                         </tr>`;
     }
-    if (tracks) {
+
+    if(!tracks){
+
         document.querySelector('th.rank-td').remove()
     }
     allTracks.innerHTML = tableauTop;
@@ -202,8 +203,7 @@ function changeMusicInPlayer(track, e) {
 
 
 /*------------------modal add track in playlist-----------------------*/
-let bgDark = document.querySelector("#bg-dark");
-let modal = document.querySelector("#modal");
+
 
 function addTrackInPlaylist() {
     let trackContainer = document.querySelectorAll('.track-container')
@@ -227,18 +227,6 @@ document.onmouseup = (e) => {
         bgDark.style.display = "none";
     }
 }
-
-const select = document.getElementById("mySelect");
-const optionCount = select.getElementsByTagName("option").length;
-select.setAttribute("size", optionCount);
-select.addEventListener("change", function () {
-    const selectedOption = this.options[this.selectedIndex];
-    const options = this.getElementsByTagName("option");
-    for (let i = 0; i < options.length; i++) {
-        options[i].classList.remove("selected");
-    }
-    selectedOption.classList.add("selected");
-});
 
 // --------- swapper  ---------------//
 

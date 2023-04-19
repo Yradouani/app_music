@@ -10,11 +10,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class DiscoveryController extends AbstractController
 {
     #[Route('/discovery', name: 'discovery.index')]
-    public function index(Request $request, EntityManagerInterface $entityManager): Response
+    public function index(Request $request, EntityManagerInterface $entityManager, SessionInterface $session): Response
     {
         $isAlreadyInPlaylist = false;
         $trackAdded = false;
@@ -41,8 +42,9 @@ class DiscoveryController extends AbstractController
                 $trackAdded = true;
             }
         }
+        $idUser = $session->get('idUser');
         $userRepository = $entityManager->getRepository(User::class);
-        $user = $userRepository->find(1);
+        $user = $userRepository->find($idUser);
         $playlists = $entityManager->getRepository(Playlist::class)->findBy(['id_user' => $user]);
 
         return $this->render('discovery/discovery.html.twig', [

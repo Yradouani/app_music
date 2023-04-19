@@ -252,7 +252,7 @@ input[type="checkbox"]:checked + label:after {
 }
 
 
-#modal,
+#modal_add_playlist,
 #modal_delete {
     position: fixed;
     width: 300px;
@@ -286,14 +286,14 @@ input[type="checkbox"]:checked + label:after {
     text-align: center;
 }
 
-#modal span,
+#modal_add_playlist span,
 #modal_delete span {
     padding: 10px;
     display: flex;
     align-items: center;
 }
 
-#modal span#add_playlist_modal_header,
+#modal_add_playlist span#add_playlist_modal_header,
 #delete_playlist_modal_header {
     border-bottom: var(--grey-border) 1px solid;
 }
