@@ -45,7 +45,7 @@ function fillSwiper(response, tableLength, tracks) {
         // swipperWrapper.innerHTML += `<div class="swiper-slide"><img src="${(tracks) ? response.tracks.data[i].album.cover_big : response.data[i].album.cover_big}" alt=""></div>`;
         // swiper.appendSlide(`<div class="swiper-slide"><img src="https://place-hold.it/300x300" alt=""></div>`);
         swiper.appendSlide(`<div class="swiper-slide">
-                                - ${(tracks) ? response.tracks.data[i].title : response.data[i].title} -
+        ${i + 1} - ${(tracks) ? response.tracks.data[i].title : response.data[i].title} 
                                 <img src="${(tracks) ? response.tracks.data[i].album.cover_big : response.data[i].album.cover_big}" alt="">
                             </div>`);
     }

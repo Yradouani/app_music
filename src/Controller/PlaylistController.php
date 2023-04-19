@@ -78,11 +78,14 @@ class PlaylistController extends AbstractController
             }
         }
 
-
-        return $this->render('playlist/playlist.html.twig', [
-            'playlists' => $playlists,
-            'tracks_info' => $tracks_info
-        ]);
+        if (isset($idUser)) {
+            return $this->render('playlist/playlist.html.twig', [
+                'playlists' => $playlists,
+                'tracks_info' => $tracks_info
+            ]);
+        } else {
+            return $this->redirectToRoute('home.index');
+        }
     }
 
     #[Route('/addplaylists', name: 'addplaylist.index')]

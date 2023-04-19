@@ -85,6 +85,7 @@ let trackId;
 
 trackId = 3135556;
 
+getTrack(trackId);
 
 function getTrack(trackId) {
   const options = {

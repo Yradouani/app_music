@@ -14,11 +14,16 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 class HomeController extends AbstractController
 {
     #[Route('/', name: 'home.index')]
-    public function index(): Response
+    public function index(SessionInterface $session): Response
     {
-        return $this->render('home/home.html.twig', [
-            'controller_name' => 'HomeController',
-        ]);
+        $idUser = $session->get('idUser');
+        if (isset($idUser)) {
+            return $this->redirectToRoute('discovery.index');
+        } else {
+            return $this->render('home/home.html.twig', [
+                'controller_name' => 'HomeController',
+            ]);
+        }
     }
 
 
