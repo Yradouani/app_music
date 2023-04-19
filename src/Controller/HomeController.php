@@ -83,12 +83,21 @@ class HomeController extends AbstractController
         ]);
     }
 
-    #[Route('/discovery', name: 'discovery')]
-    public function discovery(Request $request): Response
-    {
-        $pseudo = $request->query->get('pseudo');
-        return $this->render('discovery.html.twig', [
-            'pseudo' => $pseudo,
-        ]);
-    }
+
+    // Connexion réussie
+    return $this->redirectToRoute('discovery', [
+        'pseudo' => $user->getPseudo(),
+    ]);
+}
+
+// #[Route('/discovery', name: 'discovery')]
+// public function discovery(Request $request): Response
+// {
+//     $pseudo = $request->query->get('pseudo');
+//     return $this->render('discovery.html.twig', [
+//         'pseudo' => $pseudo,
+//     ]);
+// }
+
+
 }
