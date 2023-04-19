@@ -251,7 +251,9 @@ input[type="checkbox"]:checked + label:after {
     display: none;
 }
 
-#modal {
+
+#modal,
+#modal_delete {
     position: fixed;
     width: 300px;
     /* height: 100px; */
@@ -265,14 +267,34 @@ input[type="checkbox"]:checked + label:after {
     border: 1px solid var(--grey-border);
 }
 
-#modal span {
+#modal_delete form {
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+#modal_delete input {
+    background-color: #00D98E;
+    color: black;
+    border: none;
+    padding: 10px;
+    border-radius: 15px;
+    margin: 20px;
+}
+
+#modal_delete span {
+    text-align: center;
+}
+
+#modal span,
+#modal_delete span {
     padding: 10px;
     display: flex;
     align-items: center;
-    height: 75px;
 }
 
-#modal span#add_playlist_modal_header {
+#modal span#add_playlist_modal_header,
+#delete_playlist_modal_header {
     border-bottom: var(--grey-border) 1px solid;
 }
 

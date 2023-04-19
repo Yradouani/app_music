@@ -83,9 +83,8 @@ function mobile() {
 /*-------------------------------------*/
 let trackId;
 
-if(location.pathname == '/playlists' || location.pathname == '/favorite'){
   trackId = 3135556;
-}
+
 
 getTrack(trackId);
 

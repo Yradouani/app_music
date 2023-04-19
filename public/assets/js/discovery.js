@@ -47,14 +47,13 @@ function fillSwiper(response, tableLength, tracks) {
                                 <img src="${(tracks) ? response.tracks.data[i].album.cover_big : response.data[i].album.cover_big}" alt="">
                             </div>`);
     }
-
-    console.log(swiperWrapper.innerHTML);
 }
 
 function createTable(response, tableLength, tracks) {
 
     for (let i = 0; i < tableLength; i++) {
         tableauTop += `<tr class=${(tracks) ? 'track-container ranked' :  'track-container' } id="${(tracks) ? response.tracks.data[i].id : response.data[i].id}" onclick=changeMusicInPlayer(this,event)>
+
                             <td class="img-td">
                                 <img id="albumCover" src="${(tracks) ? response.tracks.data[i].album.cover_big : response.data[i].album.cover_big}" alt="albumImg">
                             </td>
@@ -201,7 +200,6 @@ function changeMusicInPlayer(track, e){
 /*------------------modal add track in playlist-----------------------*/
 let bgDark = document.querySelector("#bg-dark");
 let modal = document.querySelector("#modal");
-// --commentaire--
 
 function addTrackInPlaylist() {
     let trackContainer = document.querySelectorAll('.track-container')
@@ -220,7 +218,6 @@ function addTrackInPlaylist() {
 }
 
 document.onmouseup = (e) => {
-    console.log(e.target)
     if (!modal.contains(e.target)) {
         modal.style.display = 'none';
         bgDark.style.display = "none";
@@ -261,7 +258,24 @@ var swiper = new Swiper(".mySwiper", {
 });
 
 
-
+var swiper = new Swiper(".mySwiper", {
+    effect: "coverflow",
+    grabCursor: true,
+    centeredSlides: true,
+    slidesPerView: 3,
+    spaceBetween: 30,
+    coverflowEffect: {
+        rotate: 50,
+        stretch: 100,
+        depth: 50,
+        modifier: 1,
+        slideShadows: false
+    },
+    pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+    },
+});
 
 
 
@@ -293,6 +307,23 @@ var swiper = new Swiper(".mySwiper", {
 //                         </tr>
 
 
+var swiper = new Swiper(".mySwiper", {
+    effect: "coverflow",
+    grabCursor: true,
+    centeredSlides: true,
+    slidesPerView: 3,
+    spaceBetween: 30,
+    coverflowEffect: {
+        rotate: 40,
+        stretch: 100,
+        depth: 50,
+        modifier: 1,
+        slideShadows: true
+    },
+    pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+    },
+});
 
 
-// ---------
