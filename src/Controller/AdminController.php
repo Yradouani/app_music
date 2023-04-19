@@ -23,7 +23,8 @@
 // src/Controller/AdminController.php
 
 namespace App\Controller;
-
+use App\Entity\User;
+use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\UserRepository;
 use App\Repository\PlaylistRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -45,5 +46,16 @@ class AdminController extends AbstractController
             'numberOfPlaylists' => $numberOfPlaylists,
             'users' => $users,
         ]);
+    }
+    
+    #[Route("/admin/user/{id}/delete", name:"admin.delete_user")]
+    public function deleteUser(User $user, EntityManagerInterface $entityManager): Response
+    {
+        $entityManager->remove($user);
+        $entityManager->flush();
+
+        $this->addFlash('success', 'User deleted successfully.');
+
+        return $this->redirectToRoute('admin.index');
     }
 }
