@@ -11,11 +11,12 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class PlaylistController extends AbstractController
 {
     #[Route('/playlists', name: 'playlist.index')]
-    public function index(Request $request, EntityManagerInterface $entityManager): Response
+    public function index(Request $request, EntityManagerInterface $entityManager, SessionInterface $session): Response
     {
         if ($request->isMethod('POST')) {
             if ($request->request->get('track_id') !== null) {
@@ -77,7 +78,7 @@ class PlaylistController extends AbstractController
                 $tracks_info[$i] = null;
             }
         }
-
+        $idUser = $session->get('idUser');
         if (isset($idUser)) {
             return $this->render('playlist/playlist.html.twig', [
                 'playlists' => $playlists,

@@ -83,17 +83,13 @@ class HomeController extends AbstractController
         }
         $session->set('idUser', $user->getId());
         // Connexion réussie
-        return $this->redirectToRoute('discovery.index', [
-            'pseudo' => $user->getPseudo(),
-        ]);
+        return $this->redirectToRoute('discovery.index');
     }
 
     #[Route('/discovery', name: 'discovery')]
     public function discovery(Request $request): Response
     {
         $pseudo = $request->query->get('pseudo');
-        return $this->render('discovery.html.twig', [
-            'pseudo' => $pseudo,
-        ]);
+        return $this->render('discovery.html.twig');
     }
 }

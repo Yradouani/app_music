@@ -42,10 +42,8 @@ class DiscoveryController extends AbstractController
                 $trackAdded = true;
             }
         }
+        $idUser = $session->get('idUser');
         if (isset($idUser)) {
-
-
-            $idUser = $session->get('idUser');
             $userRepository = $entityManager->getRepository(User::class);
             $user = $userRepository->find($idUser);
             $playlists = $entityManager->getRepository(Playlist::class)->findBy(['id_user' => $user]);
@@ -65,8 +63,6 @@ class DiscoveryController extends AbstractController
     public function discovery(Request $request): Response
     {
         $pseudo = $request->query->get('pseudo');
-        return $this->render('discovery.html.twig', [
-            'pseudo' => $pseudo,
-        ]);
+        return $this->render('discovery.html.twig');
     }
 }
