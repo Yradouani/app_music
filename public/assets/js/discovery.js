@@ -168,22 +168,22 @@ function fn_search() {
 }
 //-------Music Player------//
 
-function changeMusicInPlayer(track, e){
+function changeMusicInPlayer(track, e) {
     trackId = track.id;
     console.log(e.target);
 
     if (e.target == track.querySelector('label') || e.target == track.querySelector('input')) {
         console.log('error');
-        
-  }else{
-    getTrack(trackId)
 
-    sound.stop();
-    startStopBtn.innerHTML = "<i class='fa-solid fa-play'></i>"; 
-    elapsed = 0;
-    inputPlayer.value = elapsed; 
-    clearInterval(intervalId);
-  }
+    } else {
+        getTrack(trackId)
+
+        sound.stop();
+        startStopBtn.innerHTML = "<i class='fa-solid fa-play'></i>";
+        elapsed = 0;
+        inputPlayer.value = elapsed;
+        clearInterval(intervalId);
+    }
 }
 // fetch('https://deezerdevs-deezer.p.rapidapi.com/search?q=eminem', options)
 // 	.then(response => response.json())
@@ -196,8 +196,7 @@ function changeMusicInPlayer(track, e){
 
 
 /*------------------modal add track in playlist-----------------------*/
-let bgDark = document.querySelector("#bg-dark");
-let modal = document.querySelector("#modal");
+
 
 function addTrackInPlaylist() {
     let trackContainer = document.querySelectorAll('.track-container')
@@ -222,18 +221,6 @@ document.onmouseup = (e) => {
         bgDark.style.display = "none";
     }
 }
-
-const select = document.getElementById("mySelect");
-const optionCount = select.getElementsByTagName("option").length;
-select.setAttribute("size", optionCount);
-select.addEventListener("change", function () {
-    const selectedOption = this.options[this.selectedIndex];
-    const options = this.getElementsByTagName("option");
-    for (let i = 0; i < options.length; i++) {
-        options[i].classList.remove("selected");
-    }
-    selectedOption.classList.add("selected");
-});
 
 // --------- swapper  ---------------//
 
