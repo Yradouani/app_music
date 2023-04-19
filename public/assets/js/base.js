@@ -82,10 +82,7 @@ function mobile() {
 /*------------MUSIC PLAYER-------------*/
 /*-------------------------------------*/
 let trackId;
-
-  trackId = 3135556;
-
-
+trackId = 3135556;
 getTrack(trackId);
 
 function getTrack(trackId) {

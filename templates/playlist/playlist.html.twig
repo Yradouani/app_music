@@ -81,7 +81,6 @@
 						<th class='img-td'></th>
 						<th class='title-td'>TITRE</th>
 						<th class='heart-td'></th>
-						<th class='plus-td'></th>
 						<th class='artist-td'>ARTISTE</th>
 						<th class='album-td'>ALBUM</th>
 					</tr>
@@ -103,15 +102,13 @@
 								<input name="heart" type="checkbox" id={{'heart-' ~ track.id}}>
 								<label for={{'heart-' ~ track.id}}></label>
 							</td>
-							<td class="plus-td">
-								<i id="plus" class="fa-solid fa-plus add_playlist"></i>
+							<td>
+								<i class="fa-solid fa-trash"></i>
 							</td>
 							<td class="artist-td">{{track.artist.name}}</td>
 							<td class="album-td">{{ track.album.title }}
 							</td>
-							<td>
-								<i class="fa-solid fa-trash"></i>
-							</td>
+
 						</tr>
 					{% endfor %}
 				</tbody>

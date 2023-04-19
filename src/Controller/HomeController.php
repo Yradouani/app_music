@@ -1,4 +1,5 @@
 <?php
+
 // namespace App\Controller;
 
 // use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -26,7 +27,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-
+use Symfony\Component\Security\Core\Exception\AuthenticationException;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class HomeController extends AbstractController
 {
@@ -37,7 +40,7 @@ class HomeController extends AbstractController
             'controller_name' => 'HomeController',
         ]);
     }
-    
+
 
     #[Route('/inscription', name: 'home.inscription', methods: ['POST'])]
     public function inscription(Request $request, EntityManagerInterface $entityManager): Response
@@ -55,6 +58,37 @@ class HomeController extends AbstractController
 
         return $this->redirectToRoute('home.index');
     }
+
+
+    #[Route('/connexion', name: 'home.connexion', methods: ['POST'])]
+    public function connexion(Request $request, EntityManagerInterface $entityManager, SessionInterface $session): Response
+    {
+        // on recupère le post
+        $email = $request->request->get('email');
+        $password = $request->request->get('password');
+
+        // on recupère les donnés de l'utilisateur possédant le mail
+        $user = $entityManager->getRepository(User::class)->findOneBy(['email' => $email]);
+
+        // Si l'utilisateur n'existe pas, on renvoie une erreur
+        if (!$user) {
+            throw new AuthenticationException('Email ou mot de passe invalide.');
+        }
+
+        // Si le mot de passe ne correspond pas, renvoyer une erreur
+        if (!password_verify($password, $user->getPassword())) {
+            throw new AuthenticationException('Email ou mot de passe invalide.');
+        }
+
+        // Si tout est ok, connecter l'utilisateur et démarrer une session utilisateur
+        $token = new UsernamePasswordToken($user, null, 'main', $user->getRoles());
+        $session->set('_security_main', serialize($token));
+
+        return $this->redirectToRoute('home.index');
+    }
+
+
+
 
     //     #[Route('/connexion', name: 'home.connexion', methods: ['POST'])]
     //     public function connexion(Request $request): Response

@@ -29,7 +29,6 @@ class PlaylistController extends AbstractController
             }
         }
 
-
         $userRepository = $entityManager->getRepository(User::class);
         $user = $userRepository->find(1);
         $playlists = $entityManager->getRepository(Playlist::class)->findBy(['id_user' => $user]);
