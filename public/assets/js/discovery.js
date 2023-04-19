@@ -49,7 +49,6 @@ function fillSwiper(response, tableLength, tracks) {
                                 <img src="${(tracks) ? response.tracks.data[i].album.cover_big : response.data[i].album.cover_big}" alt="">
                             </div>`);
     }
-
     console.log(swiperWrapper.innerHTML);
 }
 

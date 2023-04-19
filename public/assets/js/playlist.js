@@ -6,7 +6,6 @@ let deleteModal = document.querySelector("#modal_delete");
 let deleteButtons = document.querySelectorAll(".delete");
 let id = [];
 
-
 for (let i = 0; i < track.length; i++) {
     id.push(track[i].id)
     track[i].addEventListener("click", (e) => {
@@ -21,27 +20,11 @@ for (let i = 0; i < track.length; i++) {
 if (addPlaylistBtn) {
     addPlaylistBtn.addEventListener("click", () => {
         modalAddPlaylist.style.display = "block";
-
-/*------------------music player-----------------------*/
-
-let idPlaylist = [];
-for (let i = 0; i < deleteButtons.length; i++) {
-    idPlaylist.push(deleteButtons[i].id)
-    deleteButtons[i].addEventListener("click", () => {
-        deleteModal.style.display = "block";
         bgDark.style.display = "block";
     })
-    document.onmouseup = (e) => {
-        console.log(e.target)
-        if (!modalAddPlaylist.contains(e.target)) {
-            modalAddPlaylist.style.display = "none";
-            bgDark.style.display = "none";
-        } else if (!deleteModal.contains(e.target)) {
-            deleteModal.style.display = "none";
-            bgDark.style.display = "none";
-        }
-    }
+}
 
+for (let i = 0; i < deleteButtons.length; i++) {
     let idPlaylist = [];
     for (let i = 0; i < deleteButtons.length; i++) {
         idPlaylist.push(deleteButtons[i].id)
@@ -53,6 +36,16 @@ for (let i = 0; i < deleteButtons.length; i++) {
     }
 }
 
+document.onmouseup = (e) => {
+    console.log(e.target)
+    if (!modalAddPlaylist.contains(e.target)) {
+        modalAddPlaylist.style.display = "none";
+        bgDark.style.display = "none";
+    } else if (!deleteModal.contains(e.target)) {
+        deleteModal.style.display = "none";
+        bgDark.style.display = "none";
+    }
+}
 // -----------------------delete track on playlist---------------------
 let trashButtons = document.querySelectorAll('.trash_icon');
 let idPlaylistToDelete;
