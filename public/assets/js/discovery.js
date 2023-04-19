@@ -39,7 +39,9 @@ function fillSwiper(response, tableLength, tracks) {
     // swiperWrapper.innerHTML = "";
     swiper.removeAllSlides()
 
+
     for (let i = 0; i < tableLength; i++) {
+        // swipperWrapper.innerHTML += `<div class="swiper-slide"><img src="${(tracks) ? response.tracks.data[i].album.cover_big : response.data[i].album.cover_big}" alt=""></div>`;
         // swipperWrapper.innerHTML += `<div class="swiper-slide"><img src="${(tracks) ? response.tracks.data[i].album.cover_big : response.data[i].album.cover_big}" alt=""></div>`;
         // swiper.appendSlide(`<div class="swiper-slide"><img src="https://place-hold.it/300x300" alt=""></div>`);
         swiper.appendSlide(`<div class="swiper-slide">
@@ -47,6 +49,8 @@ function fillSwiper(response, tableLength, tracks) {
                                 <img src="${(tracks) ? response.tracks.data[i].album.cover_big : response.data[i].album.cover_big}" alt="">
                             </div>`);
     }
+
+    console.log(swiperWrapper.innerHTML);
 }
 
 function createTable(response, tableLength, tracks) {
@@ -238,24 +242,8 @@ select.addEventListener("change", function () {
 
 // --------- swapper  ---------------//
 
-var swiper = new Swiper(".mySwiper", {
-    effect: "coverflow",
-    grabCursor: true,
-    centeredSlides: true,
-    slidesPerView: 3,
-    spaceBetween: 30,
-    coverflowEffect: {
-        rotate: 40,
-        stretch: 100,
-        depth: 50,
-        modifier: 1,
-        slideShadows: true
-    },
-    pagination: {
-        el: ".swiper-pagination",
-        clickable: true,
-    },
-});
+
+
 
 
 var swiper = new Swiper(".mySwiper", {
@@ -265,7 +253,7 @@ var swiper = new Swiper(".mySwiper", {
     slidesPerView: 3,
     spaceBetween: 30,
     coverflowEffect: {
-        rotate: 50,
+        rotate: 20,
         stretch: 100,
         depth: 50,
         modifier: 1,
@@ -275,55 +263,6 @@ var swiper = new Swiper(".mySwiper", {
         el: ".swiper-pagination",
         clickable: true,
     },
+    slidesPerView: 'auto', // afficher autant de slides que possible
+    slideWidth: 200, // définir une largeur fixe pour les slides
 });
-
-
-
-// <tr class='track-container' id="${ response.tracks.data[i].id }" onclick=changeMusicInPlayer(this, event)>
-//                             <td class="img-td">
-//                                 <img id="albumCover" src="${ response.tracks.data[i].album.cover_big }" alt="albumImg">
-//                             </td>
-//                             <td class='rank-td'>
-//                                 ${ i + 1 }.
-//                             </td>
-//                             <td class="title-td">
-//                                 <div>
-//                                     <span>${ response.tracks.data[i].title }</span></br>
-//                                     <span class='artist-mobile'> ${ response.tracks.data[i].artist.name }</span>
-//                                 </div>
-//                             </td>
-//                             <td class="heart-td">
-//                                 <i id="heart" class="fa-regular fa-heart"></i>
-//                             </td>
-//                             <td class="plus-td">
-//                                 <i id="plus" class="fa-solid fa-plus"></i>
-//                             </td>
-//                             <td class="artist-td">
-//                                 ${ response.tracks.data[i].artist.name }
-//                             </td>
-//                             <td class="album-td">
-//                                 ${ response.tracks.data[i].album.title }
-//                             </td>
-//                         </tr>
-
-
-var swiper = new Swiper(".mySwiper", {
-    effect: "coverflow",
-    grabCursor: true,
-    centeredSlides: true,
-    slidesPerView: 3,
-    spaceBetween: 30,
-    coverflowEffect: {
-        rotate: 40,
-        stretch: 100,
-        depth: 50,
-        modifier: 1,
-        slideShadows: true
-    },
-    pagination: {
-        el: ".swiper-pagination",
-        clickable: true,
-    },
-});
-
-

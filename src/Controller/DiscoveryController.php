@@ -2,13 +2,13 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
-use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Playlist;
 use App\Entity\Track;
 use App\Entity\User;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class DiscoveryController extends AbstractController
@@ -48,7 +48,17 @@ class DiscoveryController extends AbstractController
         return $this->render('discovery/discovery.html.twig', [
             'playlists' => $playlists,
             'isAlreadyInPlaylist' => $isAlreadyInPlaylist,
-            'trackAdded' => $trackAdded
+            'trackAdded' => $trackAdded,
+            'pseudo' => $user->getPseudo()
+        ]);
+    }
+
+    #[Route('/discovery', name: 'discovery')]
+    public function discovery(Request $request): Response
+    {
+        $pseudo = $request->query->get('pseudo');
+        return $this->render('discovery.html.twig', [
+            'pseudo' => $pseudo,
         ]);
     }
 }

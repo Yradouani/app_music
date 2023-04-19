@@ -13,6 +13,15 @@
 
 
 {% block main %}
+	{% for message in app.flashes('success') %}
+		<div class="alert alert-success">{{ message }}</div>
+	{% endfor %}
+	{% for message in app.flashes('error') %}
+		<div class="alert alert-danger">{{ message }}</div>
+	{% endfor %}
+	{% for message in app.flashes('pass') %}
+		<div class="alert alert-danger">{{ message }}</div>
+	{% endfor %}
 	<div class="home_main">
 		<div class="home_container">
 
@@ -22,14 +31,16 @@
 				</div>
 				<div class="home_logo_name">
 					<h2>SoundWave</h2>
+
 				</div>
 			</div>
 			<div class="home_connexion">
+
 				<a class="home_tab_link active" data-ref="connexion" href="javascript:void(0)">Connexion</a>
 				<a class="home_tab_link" data-ref="inscription" href="javascript:void(0)">Inscription</a>
 			</div>
 			<div class="tab-body" data-id="connexion">
-				<form {#method="post" action="{{ path('home.connexion') }}"#}>
+				<form method="post" action="{{ path('home.connexion') }}">
 					<div class="input_box">
 						<input type="mail" class="input" name="email" required>
 						<label>Email</label>
@@ -40,11 +51,10 @@
 					</div>
 					<button class="home_btn" type="submit">Se connecter</button>
 				</form>
-
 			</div>
 
 			<div class="tab-body" data-id="inscription">
-				 <form method="post" action="{{ path('home.inscription') }}"> 
+				<form method="post" action="{{ path('home.inscription') }}">
 					<div class="input_box">
 						<input type="text" class="input" name="pseudo" required>
 						<label>Pseudo</label>
