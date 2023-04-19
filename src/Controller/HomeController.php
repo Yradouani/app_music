@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\UserRepository;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class HomeController extends AbstractController
 {
@@ -62,11 +63,10 @@ class HomeController extends AbstractController
 
 
     #[Route('/connexion', name: 'home.connexion', methods: ['POST'])]
-    public function connexion(Request $request, UserRepository $userRepository): Response
+    public function connexion(Request $request, UserRepository $userRepository, SessionInterface $session): Response
     {
         $email = $request->request->get('email');
         $password = $request->request->get('password');
-
         $user = $userRepository->findOneBy(['email' => $email]);
 
         if (!$user || !password_verify($password, $user->getPassword())) {
@@ -76,9 +76,9 @@ class HomeController extends AbstractController
                 'error' => "Email ou mot de passe invalide.",
             ]);
         }
-
+        $session->set('idUser', $user->getId());
         // Connexion réussie
-        return $this->redirectToRoute('discovery', [
+        return $this->redirectToRoute('discovery.index', [
             'pseudo' => $user->getPseudo(),
         ]);
     }

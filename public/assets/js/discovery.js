@@ -85,7 +85,7 @@ function createTable(response, tableLength, tracks) {
                             </td>
                         </tr>`;
     }
-    if(tracks){
+    if(!tracks){
         document.querySelector('th.rank-td').remove()
     }
     allTracks.innerHTML = tableauTop;
