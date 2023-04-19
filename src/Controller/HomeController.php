@@ -1,22 +1,4 @@
 <?php
-// namespace App\Controller;
-
-// use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-// use Symfony\Component\HttpFoundation\Response;
-// use Symfony\Component\Routing\Annotation\Route;
-
-// class HomeController extends AbstractController
-// {
-//     #[Route('/', name: 'home.index')]
-//     public function index(): Response
-//     {
-//         return $this->render('home/home.html.twig', [
-//             'controller_name' => 'HomeController',
-//         ]);
-//     }
-// }
-
-
 
 namespace App\Controller;
 
@@ -26,6 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Repository\UserRepository;
 
 
 class HomeController extends AbstractController
@@ -40,44 +23,75 @@ class HomeController extends AbstractController
     
 
     #[Route('/inscription', name: 'home.inscription', methods: ['POST'])]
-    public function inscription(Request $request, EntityManagerInterface $entityManager): Response
-    {
-        $user = new User();
-        $user->setPseudo($request->request->get('pseudo'));
-        $user->setEmail($request->request->get('email'));
-        $user->setPassword(password_hash($request->request->get('password'), PASSWORD_DEFAULT));
-        $user->setRoles(['ROLE_USER']);
-        $user->setIsAdmin(false);
-        // Enregistrement de l'utilisateur dans la base de données
+    public function inscription(Request $request, EntityManagerInterface $entityManager, UserRepository $userRepository): Response
+{
+    $pseudo = $request->request->get('pseudo');
+    $email = $request->request->get('email');
+    $password = $request->request->get('password');
 
-        $entityManager->persist($user);
-        $entityManager->flush();
-
+    // Vérification de la complexité du mot de passe
+    if (!preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/', $password)) {
+        // Le mot de passe ne répond pas aux exigences de complexité
+        $this->addFlash('error', 'Le mot de passe doit contenir au minimum une lettre minuscule, une lettre majuscule, un chiffre et un caractère spécial et minimum 8 caractères.');
         return $this->redirectToRoute('home.index');
     }
 
-    //     #[Route('/connexion', name: 'home.connexion', methods: ['POST'])]
-    //     public function connexion(Request $request): Response
-    //     {
-    //         $email = $request->request->get('email');
-    //         $password = $request->request->get('password');
 
-    //         $user = $this->getDoctrine()->getRepository(User::class)->findOneBy(['email' => $email]);
+    $user = $userRepository->findOneBy(['email' => $email]);
 
-    //         if (!$user || !password_verify($password, $user->getPassword())) {
-    //             $error = 'Invalid email or password';
-    //         } else {
-    //             // authenticate the user
-    //             $this->getUser($user);
-    //             return $this->redirectToRoute('discovery.index');
-    //         }
+    if ($user) {
+        // Un utilisateur avec le même email existe déjà
+        $this->addFlash('error', 'Cet email est déjà utilisé.');
+        return $this->redirectToRoute('home.index');
+    }
 
-    //         return $this->render('discovery/discovery.html.twig', [
-    //             'last_email' => $email,
-    //             'error' => $error ?? null,
-    //         ]);
-    //     }
+    $user = new User();
+    $user->setPseudo($pseudo);
+    $user->setEmail($email);
+    $user->setPassword(password_hash($password, PASSWORD_DEFAULT));
+    $user->setRoles(['ROLE_USER']);
+    $user->setIsAdmin(false);
 
+    $entityManager->persist($user);
+    $entityManager->flush();
 
-    // 
+    // Redirection vers la page d'accueil
+    $this->addFlash('success', 'Inscription réussie !');
+
+    return $this->redirectToRoute('home.index');
+}
+
+    
+    
+#[Route('/connexion', name: 'home.connexion', methods: ['POST'])]
+public function connexion(Request $request, UserRepository $userRepository): Response
+{
+    $email = $request->request->get('email');
+    $password = $request->request->get('password');
+
+    $user = $userRepository->findOneBy(['email' => $email]);
+
+    if (!$user || !password_verify($password, $user->getPassword())) {
+        // Email ou mot de passe invalide
+        return $this->render('home/home.html.twig', [
+            'controller_name' => 'HomeController',
+            'error' => "Email ou mot de passe invalide.",
+        ]);
+    }
+
+    // Connexion réussie
+    return $this->redirectToRoute('discovery', [
+        'pseudo' => $user->getPseudo(),
+    ]);
+}
+
+#[Route('/discovery', name: 'discovery')]
+public function discovery(Request $request): Response
+{
+    $pseudo = $request->query->get('pseudo');
+    return $this->render('discovery.html.twig', [
+        'pseudo' => $pseudo,
+    ]);
+}
+
 }

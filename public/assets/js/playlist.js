@@ -17,9 +17,18 @@ for (let i = 0; i < track.length; i++) {
 
 /*------------------add playlist-----------------------*/
 
+
 if (addPlaylistBtn) {
     addPlaylistBtn.addEventListener("click", () => {
         modalAddPlaylist.style.display = "block";
+
+/*------------------music player-----------------------*/
+
+let idPlaylist = [];
+for (let i = 0; i < deleteButtons.length; i++) {
+    idPlaylist.push(deleteButtons[i].id)
+    deleteButtons[i].addEventListener("click", () => {
+        deleteModal.style.display = "block";
         bgDark.style.display = "block";
     })
     document.onmouseup = (e) => {
@@ -43,6 +52,7 @@ if (addPlaylistBtn) {
         })
     }
 }
+
 // -----------------------delete track on playlist---------------------
 let trashButtons = document.querySelectorAll('.trash_icon');
 let idPlaylistToDelete;
@@ -83,14 +93,14 @@ for (let i = 0; i < trashButtons.length; i++) {
 
     })
 }
-//-------Music Player------//
 
+//-------Music Player------//
 function changeMusicInPlayer(track, e) {
     trackId = track.id;
     console.log(e.target);
 
-    if (e.target == track.querySelector('label') || e.target == track.querySelector('input')) {
-        console.log('error');
+    if (e.target == track.querySelector('label') || e.target == track.querySelector('input') || e.target == track.querySelector('.add_playlist')) {
+        console.log('like');
 
     } else {
         getTrack(trackId)

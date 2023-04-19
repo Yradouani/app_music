@@ -75,34 +75,43 @@
 			</div>
 		</div>
 		<div id="oneplaylist_table">
-			<table style="width:94%; margin-left:3%">
+			<table style="margin:3%">
 				<thead>
 					<tr>
-						<th colspan="5" style="width:50%">TITRE</th>
-						<th colspan="1" style="width:25%">ARTISTE</th>
-						<th colspan="1" style="width:25%">ALBUM</th>
+						<th class='img-td'></th>
+						<th class='title-td'>TITRE</th>
+						<th class='heart-td'></th>
+						<th class='plus-td'></th>
+						<th class='artist-td'>ARTISTE</th>
+						<th class='album-td'>ALBUM</th>
 					</tr>
 				</thead>
 				<tbody id="allTracks">
 					{% for track in tracks_api_response %}
-						<tr id={{ track.id }} class="track-container" onclick="changeMusicInPlayer(this,event)">
-							<td style="width:6%">
+						<tr class="track-container" id="{{ track.id }}" onclick="changeMusicInPlayer(this,event)">
+							<td class="img-td">
+
 								<img id="albumCover" src={{ track.album.cover_big }} alt="albumImg">
 							</td>
-							<td style="width:1%">
-								{{ loop.index }}.
+							<td class="title-td">
+								<div>
+									<span>{{track.title}}</span><br>
+									<span class='artist-mobile'>{{track.artist.name}}</span>
+								</div>
 							</td>
-							<td style="width:36%">
-								{{ track.title}}
+							<td class="heart-td">
+								<input name="heart" type="checkbox" id={{'heart-' ~ track.id}}>
+								<label for={{'heart-' ~ track.id}}></label>
 							</td>
-							<td>
-								<i id="heart" class="fa-regular fa-heart"></i>
+							<td class="plus-td">
+								<i id="plus" class="fa-solid fa-plus add_playlist"></i>
+							</td>
+							<td class="artist-td">{{track.artist.name}}</td>
+							<td class="album-td">{{ track.album.title }}
 							</td>
 							<td>
 								<i id={{ track.id ~ '|' ~ id }} class="fa-solid fa-trash trash_icon"></i>
 							</td>
-							<td>{{ track.artist.name}}</td>
-							<td>{{ track.album.title}}</td>
 						</tr>
 					{% endfor %}
 				</tbody>
