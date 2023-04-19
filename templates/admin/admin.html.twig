@@ -12,6 +12,9 @@
 {% endblock %}
 
 {% block main %}
+{% for message in app.flashes('erase') %}
+		<div class="alert alert-success">{{ message }}</div>
+	{% endfor %}
 	{{ parent() }}
 	<div class="admin_container">
 		<div class="admin_title">
