@@ -56,7 +56,7 @@ function fillSwiper(response, tableLength, tracks) {
 function createTable(response, tableLength, tracks) {
 
     for (let i = 0; i < tableLength; i++) {
-        tableauTop += `<tr class=${(tracks) ? 'track-container ranked' :  'track-container' } id="${(tracks) ? response.tracks.data[i].id : response.data[i].id}" onclick=changeMusicInPlayer(this,event)>
+        tableauTop += `<tr class=${(tracks) ? 'track-container ranked' : 'track-container'} id="${(tracks) ? response.tracks.data[i].id : response.data[i].id}" onclick=changeMusicInPlayer(this,event)>
 
                             <td class="img-td">
                                 <img id="albumCover" src="${(tracks) ? response.tracks.data[i].album.cover_big : response.data[i].album.cover_big}" alt="albumImg">
@@ -85,7 +85,7 @@ function createTable(response, tableLength, tracks) {
                             </td>
                         </tr>`;
     }
-    if(tracks){
+    if (tracks) {
         document.querySelector('th.rank-td').remove()
     }
     allTracks.innerHTML = tableauTop;
@@ -174,22 +174,22 @@ function fn_search() {
 }
 //-------Music Player------//
 
-function changeMusicInPlayer(track, e){
+function changeMusicInPlayer(track, e) {
     trackId = track.id;
     console.log(e.target);
 
     if (e.target == track.querySelector('label') || e.target == track.querySelector('input') || e.target == track.querySelector('label') || e.target == track.querySelector('.add_playlist')) {
         console.log('error');
-        
-  }else{
-    getTrack(trackId)
 
-    sound.stop();
-    startStopBtn.innerHTML = "<i class='fa-solid fa-play'></i>"; 
-    elapsed = 0;
-    inputPlayer.value = elapsed; 
-    clearInterval(intervalId);
-  }
+    } else {
+        getTrack(trackId)
+
+        sound.stop();
+        startStopBtn.innerHTML = "<i class='fa-solid fa-play'></i>";
+        elapsed = 0;
+        inputPlayer.value = elapsed;
+        clearInterval(intervalId);
+    }
 }
 // fetch('https://deezerdevs-deezer.p.rapidapi.com/search?q=eminem', options)
 // 	.then(response => response.json())
@@ -265,4 +265,10 @@ var swiper = new Swiper(".mySwiper", {
     },
     slidesPerView: 'auto', // afficher autant de slides que possible
     slideWidth: 200, // définir une largeur fixe pour les slides
+});
+
+swiper.on('click', function (e) {
+    // Récupère l'index de la slide cliquée
+    var clickedIndex = swiper.activeIndex;
+    console.log('Slide cliquée : ' + clickedIndex);
 });
