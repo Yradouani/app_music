@@ -400,3 +400,7 @@ option {
     display: block;
     width: 100%;
 }
+
+.swiper-pagination {
+    display: none;
+}
