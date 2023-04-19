@@ -151,17 +151,18 @@ table{
 }
 
 .heart-td{
-    width: 3rem;
+    width: 2rem;
     /* background: blue; */
 }
 
 .plus-td{
-    width: rem;
+    width: 2rem;
     /* background: red; */
 }
 
 .artist-td{
-    /* background: blue; */
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .artist-mobile{
@@ -171,6 +172,8 @@ table{
 
 .album-td{
     /* background: red; */
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 th, td{
@@ -217,7 +220,7 @@ input[type="checkbox"]:checked + label:after {
 }
 /*------------------modal------------------*/
 #bg-dark {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
@@ -229,7 +232,7 @@ input[type="checkbox"]:checked + label:after {
 }
 
 #modal {
-    position: absolute;
+    position: fixed;
     width: 300px;
     /* height: 100px; */
     border-radius: 10px;
@@ -287,26 +290,29 @@ select {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
-    background: transparent;
+    background: var(--main-bg);
     border: none;
     cursor: pointer;
-    height: 100%;
+    padding: 10px 0;
+    text-align: center;
+    border-radius: 5px;
 }
 
-select::-ms-expand {
+/* select::-ms-expand {
     display: none;
-}
+} */
 
 option {
     line-height: 30px;
 }
 
 #submit-button {
+    font-weight: 600;
     background-color: #00D98E;
     color: black;
     border: none;
-    padding: 10px;
-    border-radius: 15px;
+    padding: 10px 25px;
+    border-radius: 30px;
     margin: 20px;
 }
 
@@ -347,7 +353,7 @@ option {
 
     .title-td{
         /* background: yellow; */
-        width: 70%;
+        width: 50%;
         position: relative;
         /* background: red; */
     }
@@ -378,6 +384,11 @@ option {
     thead{
         display: none;
     }
+
+    .swiper{
+        padding-bottom: 0px !important;
+        margin-bottom: 0px !important;
+    }
 }
 
 
@@ -387,6 +398,7 @@ option {
     width: 100%;
     padding-top: 50px;
     padding-bottom: 50px;
+    margin-bottom: 50px;
 }
 
 .swiper-slide {
@@ -400,3 +412,8 @@ option {
     display: block;
     width: 100%;
 }
+
+.swiper-pagination{
+    display: none;
+}
+

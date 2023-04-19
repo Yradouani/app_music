@@ -87,7 +87,7 @@ if(location.pathname == '/playlists' || location.pathname == '/favorite'){
   trackId = 3135556;
 }
 
-// getTrack(trackId);
+getTrack(trackId);
 
 function getTrack(trackId) {
   const options = {
@@ -299,4 +299,9 @@ switch (location.pathname) {
     break;
   default:
     break;
+}
+
+if(location.pathname.includes('/playlists/')){
+  document.querySelector('#mobile-nav .top-links a:nth-child(2)').classList.add('selected')
+  document.querySelector('#desktop-nav .top-links a:nth-child(2)').classList.add('selected')
 }

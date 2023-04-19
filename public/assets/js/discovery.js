@@ -18,7 +18,7 @@ for (let i = 0; i < genreButton.length; i++) {
     genreButton[i].addEventListener("click", () => fn_loadGenre(i));
 }
 
-searchIcon.addEventListener("click", () => fn_search());
+search.addEventListener("input", () => fn_search());
 
 function getTracks(url, fnName) {
 
@@ -54,11 +54,11 @@ function fillSwiper(response, tableLength, tracks) {
 function createTable(response, tableLength, tracks) {
 
     for (let i = 0; i < tableLength; i++) {
-        tableauTop += `<tr class='track-container' id="${(tracks) ? response.tracks.data[i].id : response.data[i].id}" onclick=changeMusicInPlayer(this,event)>
+        tableauTop += `<tr class=${(tracks) ? 'track-container ranked' :  'track-container' } id="${(tracks) ? response.tracks.data[i].id : response.data[i].id}" onclick=changeMusicInPlayer(this,event)>
                             <td class="img-td">
                                 <img id="albumCover" src="${(tracks) ? response.tracks.data[i].album.cover_big : response.data[i].album.cover_big}" alt="albumImg">
                             </td>
-                            <td class="rank-td">
+                            <td class="rank-td" style="${(tracks) ? '' : 'display : none'}">
                                 ${i + 1}.
                             </td>
                             <td class="title-td">
@@ -71,7 +71,7 @@ function createTable(response, tableLength, tracks) {
                                 <input name="heart" type="checkbox" id="heart-${(tracks) ? response.tracks.data[i].id : response.data[i].id}"/>
                                 <label for="heart-${(tracks) ? response.tracks.data[i].id : response.data[i].id}"></label>                            
                             </td>
-                            <td>
+                            <td  class="plus-td">
                                 <i id="plus" class="fa-solid fa-plus add_playlist"></i>
                             </td>
                             <td class="artist-td">
@@ -81,6 +81,9 @@ function createTable(response, tableLength, tracks) {
                                 ${(tracks) ? response.tracks.data[i].album.title : response.data[i].album.title}
                             </td>
                         </tr>`;
+    }
+    if(tracks){
+        document.querySelector('th.rank-td').remove()
     }
     allTracks.innerHTML = tableauTop;
     addTrackInPlaylist();
@@ -172,7 +175,7 @@ function changeMusicInPlayer(track, e){
     trackId = track.id;
     console.log(e.target);
 
-    if (e.target == track.querySelector('label') || e.target == track.querySelector('input')) {
+    if (e.target == track.querySelector('label') || e.target == track.querySelector('input') || e.target == track.querySelector('label') || e.target == track.querySelector('.add_playlist')) {
         console.log('error');
         
   }else{
@@ -234,6 +237,27 @@ select.addEventListener("change", function () {
         options[i].classList.remove("selected");
     }
     selectedOption.classList.add("selected");
+});
+
+// --------- swapper  ---------------//
+
+var swiper = new Swiper(".mySwiper", {
+    effect: "coverflow",
+    grabCursor: true,
+    centeredSlides: true,
+    slidesPerView: 3,
+    spaceBetween: 30,
+    coverflowEffect: {
+        rotate: 40,
+        stretch: 100,
+        depth: 50,
+        modifier: 1,
+        slideShadows: true
+    },
+    pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+    },
 });
 
 
