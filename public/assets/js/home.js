@@ -22,3 +22,4 @@ function unSelectAll() {
 }
 
 document.querySelector(".home_tab_link.active").click();
+

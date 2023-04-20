@@ -43,24 +43,26 @@ class DiscoveryController extends AbstractController
             }
         }
         $idUser = $session->get('idUser');
-        $userRepository = $entityManager->getRepository(User::class);
-        $user = $userRepository->find($idUser);
-        $playlists = $entityManager->getRepository(Playlist::class)->findBy(['id_user' => $user]);
+        if (isset($idUser)) {
+            $userRepository = $entityManager->getRepository(User::class);
+            $user = $userRepository->find($idUser);
+            $playlists = $entityManager->getRepository(Playlist::class)->findBy(['id_user' => $user]);
 
-        return $this->render('discovery/discovery.html.twig', [
-            'playlists' => $playlists,
-            'isAlreadyInPlaylist' => $isAlreadyInPlaylist,
-            'trackAdded' => $trackAdded,
-            'pseudo' => $user->getPseudo()
-        ]);
+            return $this->render('discovery/discovery.html.twig', [
+                'playlists' => $playlists,
+                'isAlreadyInPlaylist' => $isAlreadyInPlaylist,
+                'trackAdded' => $trackAdded,
+                'pseudo' => $user->getPseudo()
+            ]);
+        } else {
+            return $this->redirectToRoute('home.index');
+        }
     }
 
     #[Route('/discovery', name: 'discovery')]
     public function discovery(Request $request): Response
     {
         $pseudo = $request->query->get('pseudo');
-        return $this->render('discovery.html.twig', [
-            'pseudo' => $pseudo,
-        ]);
+        return $this->render('discovery.html.twig');
     }
 }

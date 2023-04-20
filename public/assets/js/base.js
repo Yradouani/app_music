@@ -85,6 +85,7 @@ let trackId;
 
 trackId = 3135556;
 
+getTrack(trackId);
 
 function getTrack(trackId) {
   const options = {
@@ -332,4 +333,3 @@ if(location.pathname.includes('/playlists/')){
   document.querySelector('#mobile-nav .top-links a:nth-child(2)').classList.add('selected')
   document.querySelector('#desktop-nav .top-links a:nth-child(2)').classList.add('selected')
 }
-

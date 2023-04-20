@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class PlaylistController extends AbstractController
 {
@@ -79,12 +80,15 @@ class PlaylistController extends AbstractController
                 $tracks_info[$i] = null;
             }
         }
-
-
-        return $this->render('playlist/playlist.html.twig', [
-            'playlists' => $playlists,
-            'tracks_info' => $tracks_info
-        ]);
+        $idUser = $session->get('idUser');
+        if (isset($idUser)) {
+            return $this->render('playlist/playlist.html.twig', [
+                'playlists' => $playlists,
+                'tracks_info' => $tracks_info
+            ]);
+        } else {
+            return $this->redirectToRoute('home.index');
+        }
     }
 
     #[Route('/addplaylists', name: 'addplaylist.index')]

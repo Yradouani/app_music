@@ -39,24 +39,24 @@ function fillSwiper(response, tableLength, tracks) {
     // swiperWrapper.innerHTML = "";
     swiper.removeAllSlides()
 
-
+if (tracks) {
     for (let i = 0; i < tableLength; i++) {
         // swipperWrapper.innerHTML += `<div class="swiper-slide"><img src="${(tracks) ? response.tracks.data[i].album.cover_big : response.data[i].album.cover_big}" alt=""></div>`;
         // swipperWrapper.innerHTML += `<div class="swiper-slide"><img src="${(tracks) ? response.tracks.data[i].album.cover_big : response.data[i].album.cover_big}" alt=""></div>`;
         // swiper.appendSlide(`<div class="swiper-slide"><img src="https://place-hold.it/300x300" alt=""></div>`);
-        swiper.appendSlide(`<div class="swiper-slide">
-                                - ${(tracks) ? response.tracks.data[i].title : response.data[i].title} -
+        swiper.appendSlide(`<div class="swiper-slide" id="swiper-${response.tracks.data[i].id}" onclick=changeMusicSwiper(this) >
+        ${i + 1} - ${(tracks) ? response.tracks.data[i].title : response.data[i].title} 
                                 <img src="${(tracks) ? response.tracks.data[i].album.cover_big : response.data[i].album.cover_big}" alt="">
                             </div>`);
     }
-    console.log(swiperWrapper.innerHTML);
+}
+
 }
 
 function createTable(response, tableLength, tracks) {
 
     for (let i = 0; i < tableLength; i++) {
-        tableauTop += `<tr class=${(tracks) ? 'track-container ranked' :  'track-container' } id="${(tracks) ? response.tracks.data[i].id : response.data[i].id}" onclick=changeMusicInPlayer(this,event)>
-
+       tableauTop += `<tr class=${(tracks) ? 'track-container ranked' : 'track-container'} id="${(tracks) ? response.tracks.data[i].id : response.data[i].id}" onclick=changeMusicInPlayer(this,event)>
                             <td class="img-td">
                                 <img id="albumCover" src="${(tracks) ? response.tracks.data[i].album.cover_big : response.data[i].album.cover_big}" alt="albumImg">
                             </td>
@@ -84,7 +84,9 @@ function createTable(response, tableLength, tracks) {
                             </td>
                         </tr>`;
     }
-    if(!tracks){
+
+    if(!tracks && document.querySelector('th.rank-td')){
+
         document.querySelector('th.rank-td').remove()
     }
     allTracks.innerHTML = tableauTop;
@@ -100,7 +102,6 @@ function fn_top100() {
     getTracks(url, fnName);
 
     function displayTopTracks(response, url, fnName) {
-        console.log(response);
         if (response.error) {
             console.log("error" + response);
             getTracks(url, fnName);
@@ -252,3 +253,20 @@ var swiper = new Swiper(".mySwiper", {
     slidesPerView: 'auto', // afficher autant de slides que possible
     slideWidth: 200, // définir une largeur fixe pour les slides
 });
+
+swiper.on('click', function (e) {
+    // Récupère l'index de la slide cliquée
+    var clickedIndex = swiper.activeIndex;
+    console.log('Slide cliquée : ' + clickedIndex);
+});
+console.log(swiper.id);
+
+function changeMusicSwiper(slide){
+    trackId = slide.id.split('-')[1]
+    getTrack(trackId)
+    sound.stop();
+    startStopBtn.innerHTML = "<i class='fa-solid fa-play'></i>";
+    elapsed = 0;
+    inputPlayer.value = elapsed;
+    clearInterval(intervalId);
+}

@@ -9,9 +9,10 @@
 		</button>
 	</div>
 	{# <div class="logo">
-				<img src='../assets/images/logo.png/'/>
-				<span class="brand">SoundWave</span>
-			</div> #}
+
+								<img src='../assets/images/logo.png/'/>
+								<span class="brand">SoundWave</span>
+							</div> #}
 	<div class="top-links">
 		<a href={{ path('discovery.index') }}>
 			<i class="fa-solid fa-headphones"></i>
@@ -27,11 +28,16 @@
 		</a>
 	</div>
 	<div class="bottom-links">
-		<a href={{ path('admin.index') }}>
-			<i class="fa-solid fa-lock"></i>
-			<span>Admin</span>
-		</a>
-		<a href="#">
+
+		{% if app.user and 'ROLE_ADMIN' in app.user.getRoles() %}
+			<a href="{{ path('admin.index') }}">
+				<i class="fa-solid fa-lock"></i>
+				<span>Admin</span>
+			</a>
+		{% endif %}
+
+
+		<a href={{ path('logout') }}>
 			<i class="fa-solid fa-power-off"></i>
 			<span>Déconnexion</span>
 		</a>
@@ -75,7 +81,7 @@
 			<i class="fa-solid fa-lock"></i>
 			<span>Admin</span>
 		</a>
-		<a href="#">
+		<a href={{ path('logout') }}>
 			<i class="fa-solid fa-power-off"></i>
 			<span>Déconnexion</span>
 		</a>

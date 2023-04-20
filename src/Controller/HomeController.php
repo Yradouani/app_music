@@ -14,11 +14,16 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 class HomeController extends AbstractController
 {
     #[Route('/', name: 'home.index')]
-    public function index(): Response
+    public function index(SessionInterface $session): Response
     {
-        return $this->render('home/home.html.twig', [
-            'controller_name' => 'HomeController',
-        ]);
+        $idUser = $session->get('idUser');
+        if (isset($idUser)) {
+            return $this->redirectToRoute('discovery.index');
+        } else {
+            return $this->render('home/home.html.twig', [
+                'controller_name' => 'HomeController',
+            ]);
+        }
     }
 
 
@@ -78,17 +83,13 @@ class HomeController extends AbstractController
         }
         $session->set('idUser', $user->getId());
         // Connexion réussie
-        return $this->redirectToRoute('discovery.index', [
-            'pseudo' => $user->getPseudo(),
-        ]);
+        return $this->redirectToRoute('discovery.index');
     }
 
     #[Route('/discovery', name: 'discovery')]
     public function discovery(Request $request): Response
     {
         $pseudo = $request->query->get('pseudo');
-        return $this->render('discovery.html.twig', [
-            'pseudo' => $pseudo,
-        ]);
+        return $this->render('discovery.html.twig');
     }
 }
