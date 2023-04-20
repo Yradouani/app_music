@@ -76,9 +76,9 @@ class HomeController extends AbstractController
 
         if (!$user || !password_verify($password, $user->getPassword())) {
             // Email ou mot de passe invalide
+            $this->addFlash('error', 'Email ou mot de passe invalide.');
             return $this->render('home/home.html.twig', [
                 'controller_name' => 'HomeController',
-                'error' => "Email ou mot de passe invalide.",
             ]);
         }
         $session->set('idUser', $user->getId());
