@@ -19,10 +19,10 @@
 			</div>
 			<div id="playlist-content">
 				<h2>
-
 					{% if playlists|length == 0 %}
 						Vous n'avez pas encore de playlist créée
 					{% endif %}
+
 					{% if playlists|length == 1 %}
 						{{ playlists|length }}
 						Playlist
@@ -32,6 +32,9 @@
 						Playlists
 					{% endif %}
 				</h2>
+				{% if isValidPlaylistName is defined and isValidPlaylistName == false %}
+					<p id="error_name_playlist">Veuillez entrer un nom de playlist valide</p>
+				{% endif %}
 				{% if isUsed is defined and isUsed == true %}
 					<div id="error_message">Le nom de la playlist est déjà utilisé, veuillez en choisir un autre</div>
 				{% endif %}

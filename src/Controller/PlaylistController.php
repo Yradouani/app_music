@@ -96,33 +96,38 @@ class PlaylistController extends AbstractController
     public function addPlaylist(Request $request, EntityManagerInterface $entityManager, SessionInterface $session): Response
     {
         $idUser = $session->get('idUser');
+        $isUsed = false;
+        $isValidPlaylistName = true;
+        $tracks_info = [];
         if ($request->isMethod('POST')) {
             $playlists = $entityManager->getRepository(Playlist::class)->findBy(['id_user' => $idUser]);
             $namePlaylist = $request->request->get('name_playlist');
-            $isUsed = false;
+            if ($namePlaylist == "") {
+                $isValidPlaylistName = false;
+            } else {
+                foreach ($playlists as $playlist) {
+                    if ($playlist->getNamePlaylist() == $namePlaylist) {
+                        $isUsed = true;
+                        break;
+                    }
+                }
+                if (($isUsed == false) && ($isValidPlaylistName == true)) {
+                    $userRepository = $entityManager->getRepository(User::class);
+                    $user = $userRepository->find($idUser);
 
-            foreach ($playlists as $playlist) {
-                if ($playlist->getNamePlaylist() == $namePlaylist) {
-                    $isUsed = true;
+                    $playlist = new Playlist();
+                    $playlist->setNamePlaylist($namePlaylist);
+                    $playlist->setIdUser($user);
+                    $entityManager->persist($playlist);
+                    $entityManager->flush();
                 }
             }
-            if ($isUsed == false) {
-                $userRepository = $entityManager->getRepository(User::class);
-                $user = $userRepository->find($idUser);
-
-                $playlist = new Playlist();
-                $playlist->setNamePlaylist($namePlaylist);
-                $playlist->setIdUser($user);
-                $entityManager->persist($playlist);
-                $entityManager->flush();
-            }
+            // return $this->redirectToRoute('playlist.index');
         }
 
         $userRepository = $entityManager->getRepository(User::class);
         $user = $userRepository->find($idUser);
         $playlists = $entityManager->getRepository(Playlist::class)->findBy(['id_user' => $user]);
-
-        $tracks_info = [];
 
         for ($i = 0; $i < count($playlists); $i++) {
             $tracks = $entityManager->getRepository(Track::class)->findBy(['id_playlist' => $playlists[$i]->getId()]);
@@ -146,7 +151,8 @@ class PlaylistController extends AbstractController
         return $this->render('playlist/playlist.html.twig', [
             'playlists' => $playlists,
             'isUsed' => $isUsed,
-            'tracks_info' => $tracks_info
+            'tracks_info' => $tracks_info,
+            'isValidPlaylistName' => $isValidPlaylistName
         ]);
     }
 
@@ -199,8 +205,10 @@ class PlaylistController extends AbstractController
         } else {
             $entityManager->remove($track);
             $entityManager->flush();
-        }
+            $response = $this->redirectToRoute('playlist.index');
+            $response->headers->set('Cache-Control', 'no-store');
 
-        return new JsonResponse(['message' => 'Success!']);
+            return $response;
+        }
     }
 }
