@@ -263,7 +263,7 @@ swiper.on('click', function (e) {
     var clickedIndex = swiper.activeIndex;
     console.log('Slide cliquée : ' + clickedIndex);
 });
-console.log(swiper.id);
+
 
 
 // --------Favorite------------//

@@ -62,7 +62,6 @@ class DiscoveryController extends AbstractController
     #[Route('/discovery', name: 'discovery')]
     public function discovery(Request $request): Response
     {
-        $pseudo = $request->query->get('pseudo');
         return $this->render('discovery.html.twig');
     }
 }

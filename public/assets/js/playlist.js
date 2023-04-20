@@ -37,7 +37,6 @@ for (let i = 0; i < deleteButtons.length; i++) {
 }
 
 document.onmouseup = (e) => {
-    console.log(e.target)
     if (!modalAddPlaylist.contains(e.target)) {
         modalAddPlaylist.style.display = "none";
         bgDark.style.display = "none";
@@ -90,8 +89,6 @@ for (let i = 0; i < trashButtons.length; i++) {
 //-------Music Player------//
 function changeMusicInPlayer(track, e) {
     trackId = track.id;
-    console.log(e.target);
-
     if (e.target == track.querySelector('label') || e.target == track.querySelector('input') || e.target == track.querySelector('.add_playlist')) {
         console.log('like');
 

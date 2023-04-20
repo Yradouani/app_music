@@ -81,7 +81,9 @@ class HomeController extends AbstractController
                 'error' => "Email ou mot de passe invalide.",
             ]);
         }
+        $session->set('roleUser', $user->getRoles());
         $session->set('idUser', $user->getId());
+
         // Connexion réussie
         return $this->redirectToRoute('discovery.index');
     }
@@ -89,7 +91,6 @@ class HomeController extends AbstractController
     #[Route('/discovery', name: 'discovery')]
     public function discovery(Request $request): Response
     {
-        $pseudo = $request->query->get('pseudo');
         return $this->render('discovery.html.twig');
     }
 }
