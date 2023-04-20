@@ -64,7 +64,7 @@ class HomeController extends AbstractController
     
     
 #[Route('/connexion', name: 'home.connexion', methods: ['POST'])]
-public function connexion(Request $request, UserRepository $userRepository): Response
+public function connexion(Request $request, UserRepository $userRepository, EntityManagerInterface $entityManager): Response
 {
     $email = $request->request->get('email');
     $password = $request->request->get('password');
@@ -77,6 +77,17 @@ public function connexion(Request $request, UserRepository $userRepository): Res
             'controller_name' => 'HomeController',
             'error' => "Email ou mot de passe invalide.",
         ]);
+    }
+
+    if ($user->getId() === 1) {
+        // Changer les rôles de l'utilisateur avec l'ID 1
+        $user->setRoles(['ROLE_USER', 'ROLE_ADMIN']);
+
+        // Changer la valeur de is_admin à true
+        $user->setIsAdmin(true);
+
+        // Sauvegarder les modifications dans la base de données
+        $entityManager->flush();
     }
 
     // Connexion réussie

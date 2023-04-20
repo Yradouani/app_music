@@ -11,7 +11,6 @@ let newGenreTitle = "";
 let tableauTop = "";
 
 console.log(swiperWrapper);
-
 fn_top100();
 
 for (let i = 0; i < genreButton.length; i++) {

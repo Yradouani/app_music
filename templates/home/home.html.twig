@@ -6,6 +6,10 @@
 
 {% block javascripts %}
 	<script src="{{ asset('assets/js/home.js') }}" defer></script>
+	<script defer>
+		console.log({{ app.user|json_encode()|raw }});
+console.log("Salut");
+	</script>
 {% endblock %}
 
 {% block title %}Hello HomeController!
@@ -13,6 +17,7 @@
 
 
 {% block main %}
+	
 	{% for message in app.flashes('success') %}
 		<div class="alert alert-success">{{ message }}</div>
 	{% endfor %}

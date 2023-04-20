@@ -6,6 +6,11 @@
 
 {% block javascripts %}
 	<script src="{{ asset('assets/js/discovery.js') }}" defer></script>
+	<script defer>
+		console.log({{ app.user|json_encode()|raw }});
+console.log("Salut");
+
+	</script>
 {% endblock %}
 
 {% block title %}Discovery
@@ -13,8 +18,9 @@
 
 
 {% block main %}
+
 	{# {{ dump(isAlreadyInPlaylist)}}
-												{{ dump(tracks)}} #}
+														{{ dump(tracks)}} #}
 	<div id="discovery">
 
 		<div id="divSearch">

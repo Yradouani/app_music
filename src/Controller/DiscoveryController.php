@@ -10,12 +10,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Security;
 
 class DiscoveryController extends AbstractController
 {
     #[Route('/discovery', name: 'discovery.index')]
-    public function index(Request $request, EntityManagerInterface $entityManager): Response
+    public function index(Request $request, EntityManagerInterface $entityManager, Security $security): Response
     {
+
         $isAlreadyInPlaylist = false;
         $trackAdded = false;
         if ($request->isMethod('POST')) {
@@ -49,7 +51,6 @@ class DiscoveryController extends AbstractController
             'playlists' => $playlists,
             'isAlreadyInPlaylist' => $isAlreadyInPlaylist,
             'trackAdded' => $trackAdded,
-            'pseudo' => $user->getPseudo()
         ]);
     }
 
@@ -57,6 +58,7 @@ class DiscoveryController extends AbstractController
     public function discovery(Request $request): Response
     {
         $pseudo = $request->query->get('pseudo');
+        var_dump($pseudo);
         return $this->render('discovery.html.twig', [
             'pseudo' => $pseudo,
         ]);
