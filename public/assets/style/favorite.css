@@ -114,6 +114,7 @@ table{
     border-bottom: 1px var(--grey-border) solid
 }
 
+
 /*Heart Button*/
 input[type="checkbox"] {
     display: none;
@@ -199,7 +200,7 @@ tr:hover{
 
     .title-td{
         /* background: yellow; */
-        width: 70%;
+        width: 50%;
         position: relative;
         /* background: red; */
     }

@@ -7,16 +7,43 @@ use App\Entity\Track;
 use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class PlaylistController extends AbstractController
 {
     #[Route('/playlists', name: 'playlist.index')]
-    public function index(Request $request, EntityManagerInterface $entityManager): Response
+    public function index(Request $request, EntityManagerInterface $entityManager, SessionInterface $session): Response
     {
+        $idUser = $session->get('idUser');
         if ($request->isMethod('POST')) {
+            if ($request->request->get('track_id') !== null) {
+                $track_id = $request->request->get('track_id');
+                $idPlaylist = $request->request->get('playlist');
+                $playlistRepository = $entityManager->getRepository(Playlist::class);
+                $playlist = $playlistRepository->find($idPlaylist);
+                $tracks = $entityManager->getRepository(Track::class)->findBy(['num_track' => $track_id]);
+                foreach ($tracks as $track) {
+                    if ($track->getIdPlaylist() == $playlist) {
+                        $isAlreadyInPlaylist = true;
+                    }
+                }
+                if ($isAlreadyInPlaylist == false) {
+                    $playlistRepository = $entityManager->getRepository(Playlist::class);
+                    $playlist = $playlistRepository->find($idPlaylist);
+
+                    $newTrack = new Track();
+                    $newTrack->setIdPlaylist($playlist);
+                    $newTrack->setNumTrack($track_id);
+                    $entityManager->persist($newTrack);
+                    $entityManager->flush();
+                    $trackAdded = true;
+                }
+            }
             $playlist_id = $request->request->get('playlist_id');
             $playlistRepository = $entityManager->getRepository(Playlist::class);
             $playlist = $playlistRepository->find($playlist_id);
@@ -29,9 +56,8 @@ class PlaylistController extends AbstractController
             }
         }
 
-
         $userRepository = $entityManager->getRepository(User::class);
-        $user = $userRepository->find(1);
+        $user = $userRepository->find($idUser);
         $playlists = $entityManager->getRepository(Playlist::class)->findBy(['id_user' => $user]);
 
         $tracks_info = [];
@@ -54,25 +80,34 @@ class PlaylistController extends AbstractController
                 $tracks_info[$i] = null;
             }
         }
-
-
-        return $this->render('playlist/playlist.html.twig', [
-            'playlists' => $playlists,
-            'tracks_info' => $tracks_info
-        ]);
+        $idUser = $session->get('idUser');
+        if (isset($idUser)) {
+            return $this->render('playlist/playlist.html.twig', [
+                'playlists' => $playlists,
+                'tracks_info' => $tracks_info
+            ]);
+        } else {
+            return $this->redirectToRoute('home.index');
+        }
     }
 
     #[Route('/addplaylists', name: 'addplaylist.index')]
-    public function addPlaylist(Request $request, EntityManagerInterface $entityManager): Response
+    public function addPlaylist(Request $request, EntityManagerInterface $entityManager, SessionInterface $session): Response
     {
+        $idUser = $session->get('idUser');
         if ($request->isMethod('POST')) {
-            $playlists = $entityManager->getRepository(Playlist::class)->findBy(['id_user' => 1]);
+            $playlists = $entityManager->getRepository(Playlist::class)->findBy(['id_user' => $idUser]);
             $namePlaylist = $request->request->get('name_playlist');
             $isUsed = false;
 
+            foreach ($playlists as $playlist) {
+                if ($playlist->getNamePlaylist() == $namePlaylist) {
+                    $isUsed = true;
+                }
+            }
             if ($isUsed == false) {
                 $userRepository = $entityManager->getRepository(User::class);
-                $user = $userRepository->find(1);
+                $user = $userRepository->find($idUser);
 
                 $playlist = new Playlist();
                 $playlist->setNamePlaylist($namePlaylist);
@@ -83,7 +118,7 @@ class PlaylistController extends AbstractController
         }
 
         $userRepository = $entityManager->getRepository(User::class);
-        $user = $userRepository->find(1);
+        $user = $userRepository->find($idUser);
         $playlists = $entityManager->getRepository(Playlist::class)->findBy(['id_user' => $user]);
 
         $tracks_info = [];
@@ -143,5 +178,27 @@ class PlaylistController extends AbstractController
             'id' => $id,
             'tracks_api_response' => $tracks_api_response,
         ]);
+    }
+
+    #[Route('/deleteplaylist', name: 'deleteplaylist.index')]
+    public function deletePlaylist(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $data = json_decode($request->getContent(), true);
+        $idPlaylistToDelete = $data['idPlaylistToDelete'];
+        $idTrackToDelete = $data['idTrackToDelete'];
+
+        $track = $entityManager->getRepository(Track::class)->findOneBy([
+            'num_track' => $idTrackToDelete,
+            'id_playlist' => $idPlaylistToDelete
+        ]);
+
+        if (!$track) {
+            throw $this->createNotFoundException('Track non trouvée');
+        } else {
+            $entityManager->remove($track);
+            $entityManager->flush();
+        }
+
+        return new JsonResponse(['message' => 'Success!']);
     }
 }

@@ -13,11 +13,13 @@
 
 
 {% block main %}
+
 	{# {{ dump(isAlreadyInPlaylist)}}
-													{{ dump(tracks)}} #}
+												{{ dump(tracks)}} #}
 	<div id="discovery">
 
 		<div id="divSearch">
+
 			<i id="searchIcon" class="fa-solid fa-magnifying-glass"></i>
 			<input id="search" type="text" placeholder="Rechercher">
 			<hr>
@@ -37,7 +39,6 @@
 
 		<div id="divGenre">
 			<h4 id="titleGenre">Genres</h4>
-
 			<div class="divGenreButton">
 				<button id="rapButton" class="genreButton" name="1996494362">Rap</button>
 				<button id="popButton" class="genreButton" name="53362031">Pop</button>
@@ -71,7 +72,9 @@
 							<th class='album-td'>ALBUM</th>
 						</tr>
 					</thead>
-					<tbody id="allTracks"></tbody>
+					<tbody
+						id="allTracks">{# JS INJECT #}
+					</tbody>
 				</table>
 			</div>
 		</div>

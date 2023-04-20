@@ -12,6 +12,9 @@
 {% endblock %}
 
 {% block main %}
+{% for message in app.flashes('erase') %}
+		<div class="alert alert-success">{{ message }}</div>
+	{% endfor %}
 	{{ parent() }}
 	<div class="admin_container">
 		<div class="admin_title">
@@ -20,39 +23,50 @@
 		</div>
 
 		<div class="admin_general">
-    <p>
-        <span id="nbrUser">{{ numberOfUsers }}</span> utilisateurs
-    </p>
-    <p>
-        <span>{{ numberOfPlaylists }}</span> Playlists créées
-    </p>
-    <p>
-        <span>1326</span> musiques likées
-    </p>
-</div>
+			<p>
+				<span id="nbrUser">{{ numberOfUsers }}</span>
+				utilisateurs
+			</p>
+			<p>
+				<span>{{ numberOfPlaylists }}</span>
+				Playlists créées
+			</p>
+			<p>
+				<span>1326</span>
+				musiques likées
+			</p>
+		</div>
 	</div>
 	<div class="admin_list_register">
-    <table class="admin_table_users">
-        <thead>
-            <tr>
-                <th>Pseudo</th>
-                <th>Mail</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for user in users %}
-                <tr>
-                    <td>
-                        <i class="fas fa-user"></i>
-                        {{ user.getPseudo() }}
-                    </td>
-                    <td>
-                        <i class="fas fa-envelope"></i>
-                        {{ user.getEmail() }}
-                    </td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-</div>
-{% endblock %}
+		<table class="admin_table_users">
+			<thead>
+				<tr>
+					<th>Pseudo</th>
+					<th>Mail</th>
+					<th>Suppression de compte</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for user in users %}
+					<tr>
+						<td>
+							<i class="fas fa-user"></i>
+							{{ user.getPseudo() }}
+						</td>
+						<td>
+							<i class="fas fa-envelope"></i>
+							{{ user.getEmail() }}
+						</td>
+
+						<td>
+							<a href="{{ path('admin.delete_user', {'id': user.id}) }}" onclick="return confirm('Are you sure you want to delete this user?')">
+								<i class="fa fa-trash"></i>
+							</a>
+						</td>
+
+					</tr>
+				</td>
+			</tbody>
+		</tr>
+	{% endfor %}
+</tbody></table></div>{% endblock %}

@@ -18,7 +18,7 @@ for (let i = 0; i < genreButton.length; i++) {
     genreButton[i].addEventListener("click", () => fn_loadGenre(i));
 }
 
-searchIcon.addEventListener("click", () => fn_search());
+search.addEventListener("input", () => fn_search());
 
 function getTracks(url, fnName) {
 
@@ -39,26 +39,28 @@ function fillSwiper(response, tableLength, tracks) {
     // swiperWrapper.innerHTML = "";
     swiper.removeAllSlides()
 
+if (tracks) {
     for (let i = 0; i < tableLength; i++) {
         // swipperWrapper.innerHTML += `<div class="swiper-slide"><img src="${(tracks) ? response.tracks.data[i].album.cover_big : response.data[i].album.cover_big}" alt=""></div>`;
+        // swipperWrapper.innerHTML += `<div class="swiper-slide"><img src="${(tracks) ? response.tracks.data[i].album.cover_big : response.data[i].album.cover_big}" alt=""></div>`;
         // swiper.appendSlide(`<div class="swiper-slide"><img src="https://place-hold.it/300x300" alt=""></div>`);
-        swiper.appendSlide(`<div class="swiper-slide">
-                                - ${(tracks) ? response.tracks.data[i].title : response.data[i].title} -
+        swiper.appendSlide(`<div class="swiper-slide" id="swiper-${response.tracks.data[i].id}" onclick=changeMusicSwiper(this) >
+        ${i + 1} - ${(tracks) ? response.tracks.data[i].title : response.data[i].title} 
                                 <img src="${(tracks) ? response.tracks.data[i].album.cover_big : response.data[i].album.cover_big}" alt="">
                             </div>`);
     }
+}
 
-    // console.log(swiperWrapper.innerHTML);
 }
 
 function createTable(response, tableLength, tracks) {
 
     for (let i = 0; i < tableLength; i++) {
-        tableauTop += `<tr class='track-container' id="${(tracks) ? response.tracks.data[i].id : response.data[i].id}" onclick=changeMusicInPlayer(this,event)>
+       tableauTop += `<tr class=${(tracks) ? 'track-container ranked' : 'track-container'} id="${(tracks) ? response.tracks.data[i].id : response.data[i].id}" onclick=changeMusicInPlayer(this,event)>
                             <td class="img-td">
                                 <img id="albumCover" src="${(tracks) ? response.tracks.data[i].album.cover_big : response.data[i].album.cover_big}" alt="albumImg">
                             </td>
-                            <td class="rank-td">
+                            <td class="rank-td" style="${(tracks) ? '' : 'display : none'}">
                                 ${i + 1}.
                             </td>
                             <td class="title-td">
@@ -71,7 +73,7 @@ function createTable(response, tableLength, tracks) {
                                 <input name="heart" type="checkbox" id="heart-${(tracks) ? response.tracks.data[i].id : response.data[i].id}" onchange="updateFavorite(this, event)"/>
                                 <label for="heart-${(tracks) ? response.tracks.data[i].id : response.data[i].id}"></label>
                             </td>
-                            <td>
+                            <td  class="plus-td">
                                 <i id="plus" class="fa-solid fa-plus add_playlist"></i>
                             </td>
                             <td class="artist-td">
@@ -81,6 +83,11 @@ function createTable(response, tableLength, tracks) {
                                 ${(tracks) ? response.tracks.data[i].album.title : response.data[i].album.title}
                             </td>
                         </tr>`;
+    }
+
+    if(!tracks && document.querySelector('th.rank-td')){
+
+        document.querySelector('th.rank-td').remove()
     }
     allTracks.innerHTML = tableauTop;
     addTrackInPlaylist();
@@ -185,20 +192,20 @@ function changeMusicInPlayer(track, e) {
         clearInterval(intervalId);
     }
 }
-// fetch('https://deezerdevs-deezer.p.rapidapi.com/search?q=eminem', options)
-// 	.then(response => response.json())
-// 	.then(response => {
-//         for(let i = 0; i < 1 ;i++) {
-//             console.log(response.data);
-//         }
-//     })
-// 	.catch(err => console.error(err));
+
+function changeMusicSwiper(slide){
+    trackId = slide.id.split('-')[1]
+    getTrack(trackId)
+    sound.stop();
+    startStopBtn.innerHTML = "<i class='fa-solid fa-play'></i>";
+    elapsed = 0;
+    inputPlayer.value = elapsed;
+    clearInterval(intervalId);
+}
 
 
 /*------------------modal add track in playlist-----------------------*/
-let bgDark = document.querySelector("#bg-dark");
-let modal = document.querySelector("#modal");
-// --commentaire--
+
 
 function addTrackInPlaylist() {
     let trackContainer = document.querySelectorAll('.track-container')
@@ -224,19 +231,11 @@ document.onmouseup = (e) => {
     }
 }
 
-const select = document.getElementById("mySelect");
-const optionCount = select.getElementsByTagName("option").length;
-select.setAttribute("size", optionCount);
-select.addEventListener("change", function () {
-    const selectedOption = this.options[this.selectedIndex];
-    const options = this.getElementsByTagName("option");
-    for (let i = 0; i < options.length; i++) {
-        options[i].classList.remove("selected");
-    }
-    selectedOption.classList.add("selected");
-});
-
 // --------- swapper  ---------------//
+
+
+
+
 
 var swiper = new Swiper(".mySwiper", {
     effect: "coverflow",
@@ -245,7 +244,7 @@ var swiper = new Swiper(".mySwiper", {
     slidesPerView: 3,
     spaceBetween: 30,
     coverflowEffect: {
-        rotate: 50,
+        rotate: 20,
         stretch: 100,
         depth: 50,
         modifier: 1,
@@ -255,56 +254,16 @@ var swiper = new Swiper(".mySwiper", {
         el: ".swiper-pagination",
         clickable: true,
     },
+    slidesPerView: 'auto', // afficher autant de slides que possible
+    slideWidth: 200, // définir une largeur fixe pour les slides
 });
 
-
-
-// <tr class='track-container' id="${ response.tracks.data[i].id }" onclick=changeMusicInPlayer(this, event)>
-//                             <td class="img-td">
-//                                 <img id="albumCover" src="${ response.tracks.data[i].album.cover_big }" alt="albumImg">
-//                             </td>
-//                             <td class='rank-td'>
-//                                 ${ i + 1 }.
-//                             </td>
-//                             <td class="title-td">
-//                                 <div>
-//                                     <span>${ response.tracks.data[i].title }</span></br>
-//                                     <span class='artist-mobile'> ${ response.tracks.data[i].artist.name }</span>
-//                                 </div>
-//                             </td>
-//                             <td class="heart-td">
-//                                 <i id="heart" class="fa-regular fa-heart"></i>
-//                             </td>
-//                             <td class="plus-td">
-//                                 <i id="plus" class="fa-solid fa-plus"></i>
-//                             </td>
-//                             <td class="artist-td">
-//                                 ${ response.tracks.data[i].artist.name }
-//                             </td>
-//                             <td class="album-td">
-//                                 ${ response.tracks.data[i].album.title }
-//                             </td>
-//                         </tr>
-
-
-var swiper = new Swiper(".mySwiper", {
-    effect: "coverflow",
-    grabCursor: true,
-    centeredSlides: true,
-    slidesPerView: 3,
-    spaceBetween: 30,
-    coverflowEffect: {
-        rotate: 40,
-        stretch: 100,
-        depth: 50,
-        modifier: 1,
-        slideShadows: true
-    },
-    pagination: {
-        el: ".swiper-pagination",
-        clickable: true,
-    },
+swiper.on('click', function (e) {
+    // Récupère l'index de la slide cliquée
+    var clickedIndex = swiper.activeIndex;
+    console.log('Slide cliquée : ' + clickedIndex);
 });
+console.log(swiper.id);
 
 
 // --------Favorite------------//
