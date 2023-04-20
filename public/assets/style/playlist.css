@@ -104,6 +104,13 @@
 #oneplaylist_header_img {
     height: 190px;
     width: 190px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#oneplaylist_header_img i {
+    font-size: 50px;
 }
 
 #oneplaylist_header_img img {
@@ -133,7 +140,13 @@
     width: 100%;
 }
 
-table{
+#notrack {
+    font-size: 30px;
+    font-weight: bold;
+    text-align: center;
+}
+
+table {
     table-layout: fixed;
     width: 94%;
     margin: 3%;
@@ -153,84 +166,86 @@ table{
     background-color: #32323c;
 }
 
-.img-td img{
+.img-td img {
     width: 100%
 }
 
-.img-td{
+.img-td {
     width: 5rem
 }
 
-.rank-td{
+.rank-td {
     width: 5%;
 }
 
-.title-td{
+.title-td {
     width: 35%;
 }
 
-.heart-td{
+.heart-td {
     width: 3rem;
 }
 
-.plus-td{
+.plus-td {
     width: rem;
 }
 
-.artist-mobile{
+.artist-mobile {
     display: none
 }
 
-th, td{
+th,
+td {
     padding: 3px 10px;
 }
 
-tr:hover{
-    background : var(--tertiary-bg)
+tr:hover {
+    background: var(--tertiary-bg)
 }
 
-.trash_icon{
+.trash_icon {
     transition: 500ms;
     cursor: pointer;
 }
 
-.trash_icon:hover{
+.trash_icon:hover {
     color: rgb(128, 2, 2);
 }
+
 /*Heart Button*/
 input[type="checkbox"] {
     display: none;
     transition: 500ms;
 }
 
-input[type="checkbox"] + label {
+input[type="checkbox"]+label {
     position: relative;
     display: inline-block;
     font-size: 16px;
     cursor: pointer;
     transition: 500ms;
 }
- 
-input[type="checkbox"] + label:before {
+
+input[type="checkbox"]+label:before {
     content: "\1F5A4";
-    border: 1px solid transparent;    
+    border: 1px solid transparent;
     border-radius: 3px;
     display: block;
     position: relative;
-	transition:  .5s ease;
+    transition: .5s ease;
 }
-  
-input[type="checkbox"]:checked + label:before {
+
+input[type="checkbox"]:checked+label:before {
     border: 1px solid transparent;
     background-color: transparent;
 }
- 
-input[type="checkbox"]:checked + label:after{
+
+input[type="checkbox"]:checked+label:after {
     content: '\1F49A';
     font-size: 18px;
     position: absolute;
-    top: 0 ;
-	transition:  .5s ease;
+    top: 0;
+    transition: .5s ease;
 }
 
 /*------------------modal------------------*/
@@ -246,10 +261,11 @@ input[type="checkbox"]:checked + label:after{
     display: none;
 }
 
-h1{
+h1 {
     font-size: 26px;
 }
-h2{
+
+h2 {
     font-size: 16px;
     color: #A7A7A7;
 }
@@ -377,37 +393,39 @@ hr {
         width: 45%;
     }
 
-    .title-td{
+    .title-td {
         /* background: yellow; */
         width: 50%;
         position: relative;
         /* background: red; */
     }
 
-    .artist-mobile{
+    .artist-mobile {
         display: initial;
         font-size: 12px;
     }
 
-    .artist-td, .album-td{
+    .artist-td,
+    .album-td {
         display: none;
     }
 
-    .rank-td{
+    .rank-td {
         width: 2rem;
         /* background: blue; */
     }
-    .heart-td{
+
+    .heart-td {
         width: 2.5rem;
         /* background: blue; */
     }
-    
-    .plus-td{
+
+    .plus-td {
         width: 2.5rem;
         /* background: red; */
     }
 
-    thead{
+    thead {
         display: none;
     }
 
