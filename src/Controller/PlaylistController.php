@@ -10,6 +10,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
@@ -18,6 +19,7 @@ class PlaylistController extends AbstractController
     #[Route('/playlists', name: 'playlist.index')]
     public function index(Request $request, EntityManagerInterface $entityManager, SessionInterface $session): Response
     {
+        $idUser = $session->get('idUser');
         if ($request->isMethod('POST')) {
             if ($request->request->get('track_id') !== null) {
                 $track_id = $request->request->get('track_id');
@@ -55,7 +57,7 @@ class PlaylistController extends AbstractController
         }
 
         $userRepository = $entityManager->getRepository(User::class);
-        $user = $userRepository->find(1);
+        $user = $userRepository->find($idUser);
         $playlists = $entityManager->getRepository(Playlist::class)->findBy(['id_user' => $user]);
 
         $tracks_info = [];
@@ -90,10 +92,11 @@ class PlaylistController extends AbstractController
     }
 
     #[Route('/addplaylists', name: 'addplaylist.index')]
-    public function addPlaylist(Request $request, EntityManagerInterface $entityManager): Response
+    public function addPlaylist(Request $request, EntityManagerInterface $entityManager, SessionInterface $session): Response
     {
+        $idUser = $session->get('idUser');
         if ($request->isMethod('POST')) {
-            $playlists = $entityManager->getRepository(Playlist::class)->findBy(['id_user' => 1]);
+            $playlists = $entityManager->getRepository(Playlist::class)->findBy(['id_user' => $idUser]);
             $namePlaylist = $request->request->get('name_playlist');
             $isUsed = false;
 
@@ -104,7 +107,7 @@ class PlaylistController extends AbstractController
             }
             if ($isUsed == false) {
                 $userRepository = $entityManager->getRepository(User::class);
-                $user = $userRepository->find(1);
+                $user = $userRepository->find($idUser);
 
                 $playlist = new Playlist();
                 $playlist->setNamePlaylist($namePlaylist);
@@ -115,7 +118,7 @@ class PlaylistController extends AbstractController
         }
 
         $userRepository = $entityManager->getRepository(User::class);
-        $user = $userRepository->find(1);
+        $user = $userRepository->find($idUser);
         $playlists = $entityManager->getRepository(Playlist::class)->findBy(['id_user' => $user]);
 
         $tracks_info = [];
