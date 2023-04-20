@@ -103,6 +103,7 @@ table{
     border-bottom: 1px var(--grey-border) solid
 }
 
+
 /*Heart Button*/
 input[type="checkbox"] {
     display: none;
