@@ -122,7 +122,7 @@ class PlaylistController extends AbstractController
                     $entityManager->flush();
                 }
             }
-            return $this->redirectToRoute('addplaylist.index');
+            // return $this->redirectToRoute('playlist.index');
         }
 
         $userRepository = $entityManager->getRepository(User::class);
