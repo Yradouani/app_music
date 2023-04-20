@@ -19,8 +19,22 @@
 			</div>
 			<div id="playlist-content">
 				<h2>
-					Playlists
+					{% if playlists|length == 0 %}
+						Vous n'avez pas encore de playlist créée
+					{% endif %}
+
+					{% if playlists|length == 1 %}
+						{{ playlists|length }}
+						Playlist
+					{% endif %}
+					{% if playlists|length > 1 %}
+						{{ playlists|length }}
+						Playlists
+					{% endif %}
 				</h2>
+				{% if isValidPlaylistName is defined and isValidPlaylistName == false %}
+					<p id="error_name_playlist">Veuillez entrer un nom de playlist valide</p>
+				{% endif %}
 				{% if isUsed is defined and isUsed == true %}
 					<div id="error_message">Le nom de la playlist est déjà utilisé, veuillez en choisir un autre</div>
 				{% endif %}
@@ -68,54 +82,58 @@
 			<div id="oneplaylist_header_text">
 				<div>
 					<h2>Playlist</h2>
-					<h1>Ma playlist</h1>
+					<h1>{{ playlist.getNamePlaylist() }}</h1>
 				</div>
 				<button>
 					<i class="fa-solid fa-play"></i>Écouter</button>
 			</div>
 		</div>
-		<div id="oneplaylist_table">
-			<table style="margin:3%">
-				<thead>
-					<tr>
-						<th class='img-td'></th>
-						<th class='title-td'>TITRE</th>
-						<th class='heart-td'></th>
-						<th class='plus-td'></th>
-						<th class='artist-td'>ARTISTE</th>
-						<th class='album-td'>ALBUM</th>
-					</tr>
-				</thead>
-				<tbody id="allTracks">
-					{% for track in tracks_api_response %}
-						<tr class="track-container" id="{{ track.id }}" onclick="changeMusicInPlayer(this,event)">
-							<td class="img-td">
-
-								<img id="albumCover" src={{ track.album.cover_big }} alt="albumImg">
-							</td>
-							<td class="title-td">
-								<div>
-									<span>{{track.title}}</span><br>
-									<span class='artist-mobile'>{{track.artist.name}}</span>
-								</div>
-							</td>
-							<td class="heart-td">
-								<input name="heart" type="checkbox" id={{'heart-' ~ track.id}}>
-								<label for={{'heart-' ~ track.id}}></label>
-							</td>
-							<td>
-								<i id={{ track.id ~ '|' ~ id }} class="fa-solid fa-trash trash_icon"></i>
-							</td>
-							<td class="artist-td">{{track.artist.name}}</td>
-							<td class="album-td">{{ track.album.title }}
-							</td>
-
-
+		{% if tracks_api_response|length > 0 %}
+			<div id="oneplaylist_table">
+				<table style="margin:3%">
+					<thead>
+						<tr>
+							<th class='img-td'></th>
+							<th class='title-td'>TITRE</th>
+							<th class='heart-td'></th>
+							<th class='plus-td'></th>
+							<th class='artist-td'>ARTISTE</th>
+							<th class='album-td'>ALBUM</th>
 						</tr>
-					{% endfor %}
-				</tbody>
-			</table>
-		</div>
+					</thead>
+					<tbody id="allTracks">
+						{% for track in tracks_api_response %}
+							<tr class="track-container" id="{{ track.id }}" onclick="changeMusicInPlayer(this,event)">
+								<td class="img-td">
+
+									<img id="albumCover" src={{ track.album.cover_big }} alt="albumImg">
+								</td>
+								<td class="title-td">
+									<div>
+										<span>{{track.title}}</span><br>
+										<span class='artist-mobile'>{{track.artist.name}}</span>
+									</div>
+								</td>
+								<td class="heart-td">
+									<input name="heart" type="checkbox" id={{'heart-' ~ track.id}}>
+									<label for={{'heart-' ~ track.id}}></label>
+								</td>
+								<td>
+									<i id={{ track.id ~ '|' ~ id }} class="fa-solid fa-trash trash_icon"></i>
+								</td>
+								<td class="artist-td">{{track.artist.name}}</td>
+								<td class="album-td">{{ track.album.title }}
+								</td>
+
+
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		{% else %}
+			<p id="notrack">Vous n'avez aucun morceau dans cette playlist</p>
+		{% endif %}
 	{% endif %}
 	{# --------------Add playlist Modal--------------------- #}
 	<div id="bg-dark"></div>
