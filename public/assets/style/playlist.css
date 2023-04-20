@@ -98,7 +98,7 @@
 /*----------------------------------------------------*/
 #oneplaylist_header {
     display: flex;
-    margin: 80px 10%;
+    margin: 80px 8%;
 }
 
 #oneplaylist_header_img {
@@ -120,7 +120,7 @@
     background: #00D98E;
     color: black;
     border-radius: 20px;
-    padding: 10px 25px;
+    padding: 10px 15px;
     font-weight: 500;
 }
 
@@ -158,42 +158,27 @@ table{
 }
 
 .img-td{
-    /* background: red; */
     width: 5rem
 }
 
 .rank-td{
     width: 5%;
-    /* background: blue; */
 }
 
 .title-td{
-    /* background: yellow; */
     width: 35%;
-    /* background: red; */
 }
 
 .heart-td{
     width: 3rem;
-    /* background: blue; */
 }
 
 .plus-td{
     width: rem;
-    /* background: red; */
-}
-
-.artist-td{
-    /* background: blue; */
 }
 
 .artist-mobile{
     display: none
-}
-
-
-.album-td{
-    /* background: red; */
 }
 
 th, td{
@@ -204,9 +189,18 @@ tr:hover{
     background : var(--tertiary-bg)
 }
 
+.trash_icon{
+    transition: 500ms;
+    cursor: pointer;
+}
+
+.trash_icon:hover{
+    color: rgb(128, 2, 2);
+}
 /*Heart Button*/
 input[type="checkbox"] {
     display: none;
+    transition: 500ms;
 }
 
 input[type="checkbox"] + label {
@@ -214,6 +208,7 @@ input[type="checkbox"] + label {
     display: inline-block;
     font-size: 16px;
     cursor: pointer;
+    transition: 500ms;
 }
  
 input[type="checkbox"] + label:before {
@@ -230,7 +225,7 @@ input[type="checkbox"]:checked + label:before {
     background-color: transparent;
 }
  
-input[type="checkbox"]:checked + label:after {
+input[type="checkbox"]:checked + label:after{
     content: '\1F49A';
     font-size: 18px;
     position: absolute;
@@ -251,8 +246,15 @@ input[type="checkbox"]:checked + label:after {
     display: none;
 }
 
+h1{
+    font-size: 26px;
+}
+h2{
+    font-size: 16px;
+    color: #A7A7A7;
+}
 
-#modal,
+#modal_add_playlist,
 #modal_delete {
     position: fixed;
     width: 300px;
@@ -286,14 +288,14 @@ input[type="checkbox"]:checked + label:after {
     text-align: center;
 }
 
-#modal span,
+#modal_add_playlist span,
 #modal_delete span {
     padding: 10px;
     display: flex;
     align-items: center;
 }
 
-#modal span#add_playlist_modal_header,
+#modal_add_playlist span#add_playlist_modal_header,
 #delete_playlist_modal_header {
     border-bottom: var(--grey-border) 1px solid;
 }

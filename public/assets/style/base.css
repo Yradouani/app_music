@@ -136,7 +136,7 @@ footer {
     border-top: var(--grey-border) 1px solid;
 }
 
-footer .player-btn-group{
+footer .player-btn-group {
     height: 100%;
     width: 27%;
     max-width: 250px;
@@ -146,7 +146,7 @@ footer .player-btn-group{
     align-items: center;
 }
 
-footer .player-btn-group button{
+footer .player-btn-group button {
     width: 35px;
     height: 35px;
     padding: 1%;
@@ -157,16 +157,16 @@ footer .player-btn-group button{
     align-items: center;
 }
 
-footer .player-btn-group button:hover{
+footer .player-btn-group button:hover {
     background: var(--grey-border);
     transform: scale(1.15);
 }
 
-footer .player-btn-group button i{
+footer .player-btn-group button i {
     font-size: 25px;
 }
 
-footer .player-main{
+footer .player-main {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -176,7 +176,7 @@ footer .player-main{
     margin-bottom: 7px;
 }
 
-footer .player-main .top-player{
+footer .player-main .top-player {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -186,37 +186,37 @@ footer .player-main .top-player{
     margin: 10px 5px;
 }
 
-footer .track-artist{
+footer .track-artist {
     display: flex;
 }
 
-footer .track-artist .vinyl{
+footer .track-artist .vinyl {
     display: flex;
     align-items: center;
     margin-right: 15px;
 }
 
-footer .track-artist .vinyl img{
+footer .track-artist .vinyl img {
     transition: 2500ms;
 }
 
-footer .track-artist > div:nth-child(2){
+footer .track-artist>div:nth-child(2) {
     max-height: 51px;
     overflow: hidden;
-    text-overflow: ellipsis; 
+    text-overflow: ellipsis;
 }
 
 
-footer .fav-pl-btn{
+footer .fav-pl-btn {
     display: flex;
     margin-right: 40px
 }
 
-footer .player-main .top-player .fav-pl-btn i{
+footer .player-main .top-player .fav-pl-btn i {
     color: var(--grey-text);
 }
 
-footer .player-main .top-player .fav-pl-btn i:hover{
+footer .player-main .top-player .fav-pl-btn i:hover {
     color: var(--white);
     transform: scale(1.15);
 }
@@ -226,24 +226,24 @@ footer .player-main .bottom-player {
     width: 95%;
 }
 
-footer .player-main .bottom-player input{
+footer .player-main .bottom-player input {
     width: 97%;
     margin-inline: 1.5%;
     background: var(--tertiary-bg);
     cursor: pointer;
 }
 
-footer .player-main .bottom-player > div{
-    color : var(--grey-text)
+footer .player-main .bottom-player>div {
+    color: var(--grey-text)
 }
 
 /* modal ajout playlist */
 
 footer .fav-pl-btn {
-   position: relative;
+    position: relative;
 }
 
-footer .fav-pl-btn .add-on-pl-modal{
+footer .fav-pl-btn .add-on-pl-modal {
     width: 250px;
     height: 300px;
     background: var(--tertiary-bg);
@@ -255,16 +255,16 @@ footer .fav-pl-btn .add-on-pl-modal{
     display: none;
 }
 
-footer .fav-pl-btn .add-on-pl-header{
+footer .fav-pl-btn .add-on-pl-header {
     display: flex;
     padding: 20px 25px;
 }
 
-footer .fav-pl-btn .add-on-pl-header i{
+footer .fav-pl-btn .add-on-pl-header i {
     margin-right: 10px;
 }
 
-footer .fav-pl-btn .add-on-pl-header span{
+footer .fav-pl-btn .add-on-pl-header span {
     color: var(--grey-text);
 }
 
@@ -272,50 +272,51 @@ footer .fav-pl-btn .pl-container {
     display: flex;
     align-items: center;
     padding-inline: 25px;
-    padding-block: 5px ;
+    padding-block: 5px;
 }
 
-footer .fav-pl-btn .pl-container .img{
+footer .fav-pl-btn .pl-container .img {
     width: 30px;
-    height: 30px;    
+    height: 30px;
     margin-right: 10px;
     border-radius: 5px;
     background: red;
 }
 
-footer .fav-pl-btn .pl-container span{
+footer .fav-pl-btn .pl-container span {
     font-size: 14px;
 }
+
 /*************Firefox**************/
 input[type=range]::-moz-range-track {
-    background:  var(--grey-text);
+    background: var(--grey-text);
     border-radius: 10px;
-    transition: 500ms;  
+    transition: 500ms;
 }
 
-input[type=range]::-moz-range-progress { 
-    transition: 500ms;  
+input[type=range]::-moz-range-progress {
+    transition: 500ms;
     background: var(--main-color);
-    border-radius: 10px;       
+    border-radius: 10px;
 }
 
 input[type=range]::-moz-range-thumb {
-  background: transparent;
-  opacity: 0;
-  border: none;
-  transition: 500ms;  
+    background: transparent;
+    opacity: 0;
+    border: none;
+    transition: 500ms;
 }
 
 input[type=range]:hover::-moz-range-thumb,
-input[type=range]:active::-moz-range-thumb{
+input[type=range]:active::-moz-range-thumb {
     background: white;
     opacity: 1;
 }
-  
+
 input[type=range]:hover::-moz-range-track,
 input[type=range]:hover::-moz-range-progress,
 input[type=range]:active::-moz-range-track,
-input[type=range]:active::-moz-range-progress{
+input[type=range]:active::-moz-range-progress {
     height: 5px;
 }
 
@@ -340,27 +341,122 @@ input[type=range]:hover::-ms-thumb {
 
 /* la tooltip de la valeur */
 input[type=range]::-ms-tooltip {
-  display: none;                  
+    display: none;
 }
 
 /* barre progression avant */
 input[type=range].custom-slider::-ms-fill-lower {
-  background: var(--main-color);
+    background: var(--main-color);
 }
 
 /**********Chrome***********/
 
 /* la zone de déplacement */
 input[type=range]:-webkit-slider-runnable-track {
-    background:  var(--grey-text);
+    background: var(--grey-text);
 
 }
 
-  /* le curseur */
-  input[type=range]::-webkit-slider-thumb {
-    -webkit-appearance: none;               
+/* le curseur */
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
     background: var(--white);
-    display: none;    
+    display: none;
+}
+
+/*------------------modal------------------*/
+#bg-dark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.5;
+    z-index: 9;
+    background-color: #23232D;
+    display: none;
+}
+
+#modal {
+    position: fixed;
+    width: 300px;
+    border-radius: 10px;
+    background: #23232D;
+    z-index: 10;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+    border: 1px solid var(--grey-border);
+    padding: 20px;
+}
+
+#modal span {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+}
+
+#modal span#add_playlist_modal_header {
+    border-bottom: var(--grey-border) 1px solid;
+}
+
+#add_playlist_name {
+    justify-content: center;
+}
+
+#name_playlist_input {
+    background: transparent;
+    border: none;
+    color: white;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+}
+
+#name_playlist_input:focus {
+    outline: none;
+}
+
+#add_playlist_modal_header .fa-thin.fa-plus {
+    margin: 0;
+    margin-right: 20px;
+    font-size: 30px;
+}
+
+#add_playlist_name i {
+    color: #A7A7A7;
+    cursor: pointer;
+}
+
+select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    height: 100%;
+}
+
+select::-ms-expand {
+    display: none;
+}
+
+option {
+    line-height: 30px;
+}
+
+#submit-button {
+    background-color: #00D98E;
+    color: black;
+    border: none;
+    padding: 10px;
+    border-radius: 15px;
+    margin: 20px;
 }
 
 
@@ -430,7 +526,7 @@ input[type=range]:-webkit-slider-runnable-track {
     }
 
     .top-container header button:hover>i,
-    .top-container nav button:hover > i{
+    .top-container nav button:hover>i {
         color: var(--main-color);
     }
 
@@ -454,32 +550,32 @@ input[type=range]:-webkit-slider-runnable-track {
         height: 13vh;
     }
 
-    footer .player-btn-group{
+    footer .player-btn-group {
         width: 100%;
         max-width: none;
         min-width: none;
     }
-    
-    footer .player-btn-group button{
+
+    footer .player-btn-group button {
         width: 35px;
         height: 35px;
         padding: 0;
         margin: 0 1%;
     }
 
-    footer .player-btn-group button i{
+    footer .player-btn-group button i {
         font-size: 22px;
     }
 
-    footer .player-main  {
+    footer .player-main {
         margin-bottom: 10px !important;
         width: 98%;
     }
-    
+
     footer .player-main .top-player {
         margin: auto !important;
     }
-    
+
     footer .player-main .bottom-player {
         margin: auto !important;
     }

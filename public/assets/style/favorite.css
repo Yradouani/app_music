@@ -47,6 +47,17 @@
     cursor: pointer;
 }
 
+#favorite_empty {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60%;
+}
+
+#p_empty {
+    font-size: 20px;
+}
+
 /**table**/
 
 #tableTop {
@@ -102,6 +113,7 @@ table{
     cursor: pointer;
     border-bottom: 1px var(--grey-border) solid
 }
+
 
 /*Heart Button*/
 input[type="checkbox"] {
