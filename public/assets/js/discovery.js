@@ -10,7 +10,7 @@ const swiperWrapper = document.getElementsByClassName("swiper-wrapper");
 let newGenreTitle = "";
 let tableauTop = "";
 
-console.log(swiperWrapper);
+// console.log(swiperWrapper);
 
 fn_top100();
 
@@ -48,7 +48,7 @@ function fillSwiper(response, tableLength, tracks) {
                             </div>`);
     }
 
-    console.log(swiperWrapper.innerHTML);
+    // console.log(swiperWrapper.innerHTML);
 }
 
 function createTable(response, tableLength, tracks) {
@@ -68,8 +68,8 @@ function createTable(response, tableLength, tracks) {
                                 </div>
                             </td>
                             <td class="heart-td">
-                                <input name="heart" type="checkbox" id="heart-${(tracks) ? response.tracks.data[i].id : response.data[i].id}"/>
-                                <label for="heart-${(tracks) ? response.tracks.data[i].id : response.data[i].id}"></label>                            
+                                <input name="heart" type="checkbox" id="heart-${(tracks) ? response.tracks.data[i].id : response.data[i].id}" onchange="updateFavorite(this, event)"/>
+                                <label for="heart-${(tracks) ? response.tracks.data[i].id : response.data[i].id}"></label>
                             </td>
                             <td>
                                 <i id="plus" class="fa-solid fa-plus add_playlist"></i>
@@ -95,7 +95,7 @@ function fn_top100() {
     getTracks(url, fnName);
 
     function displayTopTracks(response, url, fnName) {
-        console.log(response);
+        // console.log(response);
         if (response.error) {
             console.log("error" + response);
             getTracks(url, fnName);
@@ -168,22 +168,22 @@ function fn_search() {
 }
 //-------Music Player------//
 
-function changeMusicInPlayer(track, e){
+function changeMusicInPlayer(track, e) {
     trackId = track.id;
-    console.log(e.target);
+    // console.log(e.target);
 
     if (e.target == track.querySelector('label') || e.target == track.querySelector('input')) {
-        console.log('error');
-        
-  }else{
-    getTrack(trackId)
+        // console.log('error');
 
-    sound.stop();
-    startStopBtn.innerHTML = "<i class='fa-solid fa-play'></i>"; 
-    elapsed = 0;
-    inputPlayer.value = elapsed; 
-    clearInterval(intervalId);
-  }
+    } else {
+        getTrack(trackId)
+
+        sound.stop();
+        startStopBtn.innerHTML = "<i class='fa-solid fa-play'></i>";
+        elapsed = 0;
+        inputPlayer.value = elapsed;
+        clearInterval(intervalId);
+    }
 }
 // fetch('https://deezerdevs-deezer.p.rapidapi.com/search?q=eminem', options)
 // 	.then(response => response.json())
@@ -217,7 +217,7 @@ function addTrackInPlaylist() {
 }
 
 document.onmouseup = (e) => {
-    console.log(e.target)
+    // console.log(e.target)
     if (!modal.contains(e.target)) {
         modal.style.display = 'none';
         bgDark.style.display = "none";
@@ -305,5 +305,49 @@ var swiper = new Swiper(".mySwiper", {
         clickable: true,
     },
 });
+
+
+// --------Favorite------------//
+
+/* <input name="heart" type="checkbox" id="heart-${(tracks) ? response.tracks.data[i].id : response.data[i].id}" onchange="updateFavorite()"/>
+<label for="heart-${(tracks) ? response.tracks.data[i].id : response.data[i].id}"></label> */
+
+function updateFavorite(checkbox) {
+
+    if (checkbox.checked) {
+        
+        idSplit = checkbox.id.split("-");
+        songId = idSplit[1];
+        console.log("add " + songId);
+
+        fetch('/addFavorite', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ songId: songId })
+        })
+            .then(response => response.json())
+            .then(data => console.log(data))
+            .catch(error => console.error(error));
+ 
+    } else {
+        idSplit = checkbox.id.split("-");
+        songId = idSplit[1];
+        console.log("del " + songId);
+
+        fetch('/deleteFavorite/' + songId, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ songId: songId })
+        })
+            .then(response => response.json())
+            .then(data => console.log(data))
+            .catch(error => console.error(error));
+    }
+}
+
 
 
