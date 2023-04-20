@@ -17,8 +17,11 @@ security:
             lazy: true
             provider: app_user_provider
             # access_denied_url: '{{ app.request.pathInfo }}'
-
-            form_login:
+        # remember_me:
+        #         secret: '%env(APP_SECRET)%'
+        #         lifetime: 10 # 1800 -> 30 minutes
+        #         path: /
+        form_login:
             # "app_login" is the name of the route created previously
                 # login_path: app_discovery
                 # check_path: app_discovery
