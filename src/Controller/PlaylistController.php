@@ -10,7 +10,6 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
@@ -24,24 +23,26 @@ class PlaylistController extends AbstractController
             if ($request->request->get('track_id') !== null) {
                 $track_id = $request->request->get('track_id');
                 $idPlaylist = $request->request->get('playlist');
-                $playlistRepository = $entityManager->getRepository(Playlist::class);
-                $playlist = $playlistRepository->find($idPlaylist);
-                $tracks = $entityManager->getRepository(Track::class)->findBy(['num_track' => $track_id]);
-                foreach ($tracks as $track) {
-                    if ($track->getIdPlaylist() == $playlist) {
-                        $isAlreadyInPlaylist = true;
-                    }
-                }
-                if ($isAlreadyInPlaylist == false) {
+                if ($track_id) {
                     $playlistRepository = $entityManager->getRepository(Playlist::class);
                     $playlist = $playlistRepository->find($idPlaylist);
+                    $tracks = $entityManager->getRepository(Track::class)->findBy(['num_track' => $track_id]);
+                    foreach ($tracks as $track) {
+                        if ($track->getIdPlaylist() == $playlist) {
+                            $isAlreadyInPlaylist = true;
+                        }
+                    }
+                    if ($isAlreadyInPlaylist == false) {
+                        $playlistRepository = $entityManager->getRepository(Playlist::class);
+                        $playlist = $playlistRepository->find($idPlaylist);
 
-                    $newTrack = new Track();
-                    $newTrack->setIdPlaylist($playlist);
-                    $newTrack->setNumTrack($track_id);
-                    $entityManager->persist($newTrack);
-                    $entityManager->flush();
-                    $trackAdded = true;
+                        $newTrack = new Track();
+                        $newTrack->setIdPlaylist($playlist);
+                        $newTrack->setNumTrack($track_id);
+                        $entityManager->persist($newTrack);
+                        $entityManager->flush();
+                        $trackAdded = true;
+                    }
                 }
             }
             $playlist_id = $request->request->get('playlist_id');
@@ -177,6 +178,7 @@ class PlaylistController extends AbstractController
         return $this->render('playlist/playlist.html.twig', [
             'id' => $id,
             'tracks_api_response' => $tracks_api_response,
+            'playlist' => $playlist
         ]);
     }
 
