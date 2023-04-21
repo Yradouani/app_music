@@ -59,7 +59,17 @@ nav#mobile-nav {
     display: flex;
     align-items: center;
     width: 100%;
-    padding: 25px 10px 35px 1.5vw;
+    padding: 0 10px 0 1.5vw;
+    margin: 25px 0;
+}
+
+header .logo{
+    padding: 30px 10px 30px 1.5vw;
+    margin: 0;
+}
+
+nav a.logo:hover{
+    background: none;
 }
 
 .logo img {
