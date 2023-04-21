@@ -54,7 +54,6 @@ if (tracks) {
 }
 
 function createTable(response, tableLength, tracks) {
-
     for (let i = 0; i < tableLength; i++) {
        tableauTop += `<tr class=${(tracks) ? 'track-container ranked' : 'track-container'} id="${(tracks) ? response.tracks.data[i].id : response.data[i].id}" onclick=changeMusicInPlayer(this,event)>
                             <td class="img-td">
@@ -90,6 +89,10 @@ function createTable(response, tableLength, tracks) {
         document.querySelector('th.rank-td').remove()
     }
     allTracks.innerHTML = tableauTop;
+    
+
+
+
     addTrackInPlaylist();
 }
 
@@ -123,8 +126,6 @@ function fn_loadGenre(i) {
 
     let url = "playlist/" + idGenre;
     let fnName = displayTrackByGenre;
-
-    console.log(url);
 
     allTracks.innerHTML = "";
     tableauTop = "";
@@ -177,12 +178,19 @@ function fn_search() {
 
 function changeMusicInPlayer(track, e) {
     trackId = track.id;
-    // console.log(e.target);
 
     if (e.target == track.querySelector('label') || e.target == track.querySelector('input')) {
         // console.log('error');
 
     } else {
+
+        const tracksArr = document.querySelectorAll('.track-container');
+        tracksArr.forEach(track => {
+            track.classList.remove('selected-track')
+        })
+        
+        track.classList.add('selected-track');
+
         getTrack(trackId)
 
         sound.stop();
@@ -191,6 +199,8 @@ function changeMusicInPlayer(track, e) {
         inputPlayer.value = elapsed;
         clearInterval(intervalId);
     }
+
+
 }
 
 function changeMusicSwiper(slide){
@@ -208,6 +218,8 @@ function changeMusicSwiper(slide){
 
 
 function addTrackInPlaylist() {
+    
+
     let trackContainer = document.querySelectorAll('.track-container')
 
     let addPlaylistBtn = document.querySelectorAll('.add_playlist');
@@ -263,8 +275,6 @@ swiper.on('click', function (e) {
     var clickedIndex = swiper.activeIndex;
     console.log('Slide cliquée : ' + clickedIndex);
 });
-
-
 
 // --------Favorite------------//
 

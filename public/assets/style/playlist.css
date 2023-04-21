@@ -127,20 +127,6 @@
     margin-left: 30px;
 }
 
-#oneplaylist_header_text button {
-    border: none;
-    background: #00D98E;
-    color: black;
-    border-radius: 20px;
-    padding: 10px 15px;
-    font-weight: 500;
-}
-
-#oneplaylist_header_text i {
-    color: black;
-    margin-right: 10px;
-}
-
 #tableTop {
     width: 100%;
 }
@@ -214,9 +200,13 @@ tr:hover {
 }
 
 .trash_icon:hover {
-    color: rgb(128, 2, 2);
+    color: #929292;
 }
 
+.track-container{
+    cursor: pointer;
+    border-bottom: 1px var(--grey-border) solid
+}
 /*Heart Button*/
 input[type="checkbox"] {
     display: none;

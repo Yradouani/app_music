@@ -5,6 +5,12 @@ function changeMusicInPlayer(track, e){
         console.log('like');
         
   }else{
+    const tracksArr = document.querySelectorAll('.track-container');
+        tracksArr.forEach(track => {
+            track.classList.remove('selected-track')
+        })
+        
+        track.classList.add('selected-track');
     getTrack(trackId)
 
     sound.stop();

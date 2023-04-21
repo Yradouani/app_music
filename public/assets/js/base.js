@@ -1,4 +1,28 @@
 /*-------------------------------------*/
+/*----------LOADING SPINNER------------*/
+/*-------------------------------------*/
+const spinner = document.querySelector('.spinner');
+const backdrop = document.querySelector('.spinner-backdrop')
+
+const animation = [
+  { opacity: 1 },
+  { opacity: 0 },
+];
+
+const timing = {
+  duration: 500,
+  iterations: 1,
+  fill: "forwards"
+};
+
+setTimeout(() => {
+  spinner.animate(animation, timing);
+  backdrop.animate(animation, timing);
+  spinner.style.display = 'none';
+  backdrop.style.display = 'none';
+}, 2000);
+
+/*-------------------------------------*/
 /*-------------MENU BURGER-------------*/
 /*-------------------------------------*/
 const nav = document.querySelector('#mobile-nav');
@@ -82,8 +106,9 @@ function mobile() {
 /*------------MUSIC PLAYER-------------*/
 /*-------------------------------------*/
 let trackId;
-trackId = 3135556;
+trackId = 3135556
 getTrack(trackId);
+
 
 function getTrack(trackId) {
   const options = {
@@ -117,35 +142,40 @@ function playMusic(data) {
     const trackArtsistContainer = document.querySelector('.top-player .track-artist .artist');
     trackNameContainer.textContent = data.title;
     trackArtsistContainer.textContent = data.artist.name;
-    
+  
+    const footer = document.querySelector('footer')
+    footer.id = `selected-${data.id}`;
 
     sound = new Howl({
       src: [data.preview]
     });
 
-    
-    
-      
-      musicDuration = 30
-      playerSettings(musicDuration, sound)
+    musicDuration = 30;
+    playerSettings(musicDuration, sound, data.id);
 
  
-
   }
 }
 
 
-function playerSettings(musicDuration = null, sound = null) {
+
+
+
+
+
+function playerSettings(musicDuration = null, sound = null, id = null) {
   if (sound != null) {
     sound.on('load', () => {
       console.log('La musique a été chargée avec succès !');
-    });
-   
+  }
+      );
     
     // Gérer les erreurs de chargement du son
-    sound.on('loaderror', (id, error) => {
+    sound.on('loaderror', () => {
       console.log(`Erreur de chargement de la musique (${id}): ${error}`);
     });
+
+    
   }
 
   const durationContainer = document.querySelector('#duration-player');
@@ -324,6 +354,10 @@ switch (location.pathname) {
     document.querySelector('#mobile-nav .top-links a:nth-child(2)').classList.add('selected')
     document.querySelector('#desktop-nav .top-links a:nth-child(2)').classList.add('selected')
     break;
+  case '/addplaylists':
+  document.querySelector('#mobile-nav .top-links a:nth-child(2)').classList.add('selected')
+  document.querySelector('#desktop-nav .top-links a:nth-child(2)').classList.add('selected')
+  break;
   case '/favorite':
     document.querySelector('#mobile-nav .top-links a:nth-child(3)').classList.add('selected')
     document.querySelector('#desktop-nav .top-links a:nth-child(3)').classList.add('selected')
@@ -346,6 +380,7 @@ playerBtnAddPlaylist.addEventListener("click", () => {
   modal.style.display = "block";
   bgDark.style.display = "block";
 })
+
 document.onmouseup = (e) => {
   if (!modal.contains(e.target)) {
     modal.style.display = "none";
@@ -353,7 +388,8 @@ document.onmouseup = (e) => {
   }
 }
 const select = document.getElementById("mySelect");
-const optionCount = select.getElementsByTagName("option").length;
+if (select) {
+  const optionCount = select.getElementsByTagName("option").length;
 select.setAttribute("size", optionCount);
 select.addEventListener("change", function () {
   const selectedOption = this.options[this.selectedIndex];
@@ -364,9 +400,25 @@ select.addEventListener("change", function () {
   selectedOption.classList.add("selected");
 });
 
+}
+
 /************Barre de nav************/
 
 if(location.pathname.includes('/playlists/')){
   document.querySelector('#mobile-nav .top-links a:nth-child(2)').classList.add('selected')
   document.querySelector('#desktop-nav .top-links a:nth-child(2)').classList.add('selected')
 }
+
+/*******Quand une musique est séléctionné*******/
+
+setTimeout(() => {
+  const tracksArr = document.querySelectorAll('.track-container');
+  const footer = document.querySelector('footer')
+  const footerId = footer.id.split('-')[1];
+  tracksArr.forEach(track => {
+    track.classList.remove('selected-track');
+    if (track.id == footerId) {
+      track.classList.add('selected-track');
+    }
+});
+}, 2000);

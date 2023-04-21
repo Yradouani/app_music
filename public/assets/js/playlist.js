@@ -93,13 +93,47 @@ function changeMusicInPlayer(track, e) {
         console.log('like');
 
     } else {
-        getTrack(trackId)
+        const tracksArr = document.querySelectorAll('.track-container');
+        tracksArr.forEach(track => {
+            track.classList.remove('selected-track')
+        })
+        
+        track.classList.add('selected-track');
+        
 
         sound.stop();
         startStopBtn.innerHTML = "<i class='fa-solid fa-play'></i>";
         elapsed = 0;
         inputPlayer.value = elapsed;
         clearInterval(intervalId);
+
+        getTrack(trackId)
     }
 }
+
+/***********Bouton Écouter************/
+function listenMusic() {
+    const tracksArr = document.querySelectorAll('.track-container')
+    const idTrackArr = [];  
+
+    tracksArr.forEach(track => {
+        idTrackArr.push(track.id) 
+        track.classList.remove('selected-track')
+    })
+    trackId = idTrackArr[Math.floor(Math.random() * idTrackArr.length)]; 
+    
+    tracksArr.forEach(track => {
+        if(track.id == trackId){
+            track.classList.add('selected-track')
+        }
+    })
+        sound.stop();
+        startStopBtn.innerHTML = "<i class='fa-solid fa-play'></i>";
+        elapsed = 0;
+        inputPlayer.value = elapsed;
+        clearInterval(intervalId);
+        console.log(trackId)
+        getTrack(trackId)
+}
+
 
