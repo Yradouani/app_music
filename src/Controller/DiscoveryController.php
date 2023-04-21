@@ -19,27 +19,31 @@ class DiscoveryController extends AbstractController
     {
         $isAlreadyInPlaylist = false;
         $trackAdded = false;
+        $optionSelected = false;
         if ($request->isMethod('POST')) {
             $track_id = $request->request->get('track_id');
             $idPlaylist = $request->request->get('playlist');
-            $playlistRepository = $entityManager->getRepository(Playlist::class);
-            $playlist = $playlistRepository->find($idPlaylist);
-            $tracks = $entityManager->getRepository(Track::class)->findBy(['num_track' => $track_id]);
-            foreach ($tracks as $track) {
-                if ($track->getIdPlaylist() == $playlist) {
-                    $isAlreadyInPlaylist = true;
-                }
-            }
-            if ($isAlreadyInPlaylist == false) {
+            if ($track_id) {
+                $optionSelected = true;
                 $playlistRepository = $entityManager->getRepository(Playlist::class);
                 $playlist = $playlistRepository->find($idPlaylist);
+                $tracks = $entityManager->getRepository(Track::class)->findBy(['num_track' => $track_id]);
+                foreach ($tracks as $track) {
+                    if ($track->getIdPlaylist() == $playlist) {
+                        $isAlreadyInPlaylist = true;
+                    }
+                }
+                if ($isAlreadyInPlaylist == false) {
+                    $playlistRepository = $entityManager->getRepository(Playlist::class);
+                    $playlist = $playlistRepository->find($idPlaylist);
 
-                $newTrack = new Track();
-                $newTrack->setIdPlaylist($playlist);
-                $newTrack->setNumTrack($track_id);
-                $entityManager->persist($newTrack);
-                $entityManager->flush();
-                $trackAdded = true;
+                    $newTrack = new Track();
+                    $newTrack->setIdPlaylist($playlist);
+                    $newTrack->setNumTrack($track_id);
+                    $entityManager->persist($newTrack);
+                    $entityManager->flush();
+                    $trackAdded = true;
+                }
             }
         }
         $idUser = $session->get('idUser');
@@ -52,7 +56,8 @@ class DiscoveryController extends AbstractController
                 'playlists' => $playlists,
                 'isAlreadyInPlaylist' => $isAlreadyInPlaylist,
                 'trackAdded' => $trackAdded,
-                'pseudo' => $user->getPseudo()
+                'pseudo' => $user->getPseudo(),
+                'optionSelected' => $optionSelected
             ]);
         } else {
             return $this->redirectToRoute('home.index');
@@ -62,7 +67,6 @@ class DiscoveryController extends AbstractController
     #[Route('/discovery', name: 'discovery')]
     public function discovery(Request $request): Response
     {
-        $pseudo = $request->query->get('pseudo');
         return $this->render('discovery.html.twig');
     }
 }

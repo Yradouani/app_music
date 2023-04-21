@@ -29,28 +29,6 @@
     padding-left: 30px;
 }
 
-.favorite_btn {
-    border-radius: 50px;
-    padding: 10px 20px;
-    display: flex;
-    align-items: center;
-    background-color: #00d98e;
-    margin-left: 30px;
-    font-weight: 600;
-    transition: all 0.5s;
-    color: #000;
-}
-
-.favorite_btn i {
-    color: #000;
-    margin: 0 10px;
-}
-
-.favorite_btn:hover {
-    background-color: #30ffb6;
-    cursor: pointer;
-}
-
 #favorite_empty {
     display: flex;
     justify-content: center;
@@ -61,6 +39,11 @@
 #p_empty {
     font-size: 20px;
 }
+
+#listen{
+    margin-left: 30px;
+}
+
 
 /**table**/
 

@@ -21,6 +21,17 @@
 		{% endblock %}
 	</head>
 	<body>
+		{% if app.request.pathinfo  != '/' and app.request.pathinfo  != '/connexion' %}
+			<div class="spinner-backdrop"></div>
+			<div class="spinner">
+				<div class="rect1"></div>
+				<div class="rect2"></div>
+				<div class="rect3"></div>
+				<div class="rect4"></div>
+				<div class="rect5"></div>
+			</div>
+		{% endif %}
+
 		<div class="top-container">
 			{% if app.request.pathinfo  != '/' and app.request.pathinfo  != '/connexion' %}
 				{% block panel %}
@@ -37,11 +48,10 @@
 				{% include "partials/footer.html.twig" %}
 			{% endblock %}
 		{% endif %}
-		
+
 		{% block javascripts %}
 			{{ encore_entry_script_tags('app') }}
 		{% endblock %}
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
-
 	</body>
-</html>
+</html></body></html>
