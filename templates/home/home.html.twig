@@ -17,7 +17,7 @@ console.log("Salut");
 
 
 {% block main %}
-	
+
 	{% for message in app.flashes('success') %}
 		<div class="alert alert-success">{{ message }}</div>
 	{% endfor %}
@@ -54,6 +54,12 @@ console.log("Salut");
 						<input type="password" class="input" name="password" required>
 						<label>Mot de passe</label>
 					</div>
+					<span class="toggle-password">
+						<span class="show-password">show</span>
+						<span class="hide-password">hide</span>
+					</span>
+
+
 					<button class="home_btn" type="submit">Se connecter</button>
 				</form>
 			</div>
@@ -72,6 +78,12 @@ console.log("Salut");
 						<input type="password" class="input" name="password" required>
 						<label>Mot de passe</label>
 					</div>
+					<span class="toggle-password">
+						<span class="show-password">show</span>
+						<span class="hide-password">hide</span>
+					</span>
+
+
 					<button class="home_btn" type="submit">S'inscrire</button>
 				</form>
 			</div>

@@ -65,8 +65,6 @@ class HomeController extends AbstractController
         return $this->redirectToRoute('home.index');
     }
 
-
-
     #[Route('/connexion', name: 'home.connexion', methods: ['POST'])]
     public function connexion(Request $request, UserRepository $userRepository, SessionInterface $session): Response
     {

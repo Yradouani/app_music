@@ -12,7 +12,7 @@
 {% endblock %}
 
 {% block main %}
-{% for message in app.flashes('erase') %}
+	{% for message in app.flashes('erase') %}
 		<div class="alert alert-success">{{ message }}</div>
 	{% endfor %}
 	{{ parent() }}
@@ -32,9 +32,10 @@
 				Playlists créées
 			</p>
 			<p>
-				<span>1326</span>
+				<span>123456</span>
 				musiques likées
 			</p>
+
 		</div>
 	</div>
 	<div class="admin_list_register">
