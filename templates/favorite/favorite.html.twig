@@ -49,7 +49,6 @@
 					<th class='img-td'></th>
 					<th class='title-td'>TITRE</th>
 					<th class='heart-td'></th>
-					<th class='plus-td'></th>
 					<th class='artist-td'>ARTISTE</th>
 					<th class='album-td'>ALBUM</th>
 				</tr>
@@ -58,7 +57,7 @@
 
 				{% for i in range(0, responseTrack|length - 1) %}
 
-					{{ responseTrack[i].id }}
+					{# {{ responseTrack[i].id }} #}
 
 					<tr class="track-container" id="{{ responseTrack[i].id }}" onclick="changeMusicInPlayer(this,event)">
 											<td class="img-td">
@@ -74,9 +73,6 @@
 											<td class="heart-td">
 												<input name="heart" type="checkbox" id={{'heart-' ~ responseTrack[i].id}} onchange="updateFavorite(this)">
 												<label for={{'heart-' ~ responseTrack[i].id}}></label>
-											</td>
-											<td>
-												<i id={{ responseTrack[i].id ~ '|' ~ id }} class="fa-solid fa-trash trash_icon"></i>
 											</td>
 											<td class="artist-td">{{responseTrack[i].artist.name}}</td>
 											<td class="album-td">{{responseTrack[i].album.title }}
