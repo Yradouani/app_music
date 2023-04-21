@@ -21,6 +21,10 @@
     font-size: 1.5em;
 }
 
+.favorite_general {
+    width: 100%;
+}
+
 .favorite_general p {
     padding-left: 30px;
 }
