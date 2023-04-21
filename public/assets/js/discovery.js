@@ -54,7 +54,6 @@ function fillSwiper(response, tableLength, tracks) {
 }
 
 function createTable(response, tableLength, tracks) {
-
     for (let i = 0; i < tableLength; i++) {
         tableauTop += `<tr class=${(tracks) ? 'track-container ranked' : 'track-container'} id="${(tracks) ? response.tracks.data[i].id : response.data[i].id}" onclick=changeMusicInPlayer(this,event)>
                             <td class="img-td">
@@ -70,7 +69,7 @@ function createTable(response, tableLength, tracks) {
                                 </div>
                             </td>
                             <td class="heart-td">
-                                <input name="heart" type="checkbox" id="heart-${(tracks) ? response.tracks.data[i].id : response.data[i].id}" onchange="updateFavorite(this, event)"/>
+                                <input name="heart" type="checkbox" id="heart-${(tracks) ? response.tracks.data[i].id : response.data[i].id}" onchange="updateFavorite(this)"/>
                                 <label for="heart-${(tracks) ? response.tracks.data[i].id : response.data[i].id}"></label>
                             </td>
                             <td  class="plus-td">
@@ -80,7 +79,7 @@ function createTable(response, tableLength, tracks) {
                                 ${(tracks) ? response.tracks.data[i].artist.name : response.data[i].artist.name}
                             </td>
                             <td class="album-td">
-                                ${(tracks) ? response.tracks.data[i].album.title : response.data[i].album.title}
+                                ${(tracks) ? response.tracks.data[i].album.title : response.data[i].album.title}                              
                             </td>
                         </tr>`;
     }
@@ -90,6 +89,10 @@ function createTable(response, tableLength, tracks) {
         document.querySelector('th.rank-td').remove()
     }
     allTracks.innerHTML = tableauTop;
+    
+
+
+
     addTrackInPlaylist();
 }
 
@@ -123,8 +126,6 @@ function fn_loadGenre(i) {
 
     let url = "playlist/" + idGenre;
     let fnName = displayTrackByGenre;
-
-    console.log(url);
 
     allTracks.innerHTML = "";
     tableauTop = "";
@@ -177,12 +178,19 @@ function fn_search() {
 
 function changeMusicInPlayer(track, e) {
     trackId = track.id;
-    // console.log(e.target);
 
     if (e.target == track.querySelector('label') || e.target == track.querySelector('input')) {
         // console.log('error');
 
     } else {
+
+        const tracksArr = document.querySelectorAll('.track-container');
+        tracksArr.forEach(track => {
+            track.classList.remove('selected-track')
+        })
+        
+        track.classList.add('selected-track');
+
         getTrack(trackId)
 
         sound.stop();
@@ -191,6 +199,8 @@ function changeMusicInPlayer(track, e) {
         inputPlayer.value = elapsed;
         clearInterval(intervalId);
     }
+
+
 }
 
 function changeMusicSwiper(slide) {
@@ -208,6 +218,8 @@ function changeMusicSwiper(slide) {
 
 
 function addTrackInPlaylist() {
+    
+
     let trackContainer = document.querySelectorAll('.track-container')
 
     let addPlaylistBtn = document.querySelectorAll('.add_playlist');
