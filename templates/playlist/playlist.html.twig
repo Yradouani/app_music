@@ -100,7 +100,7 @@
 								</div>
 							</td>
 							<td class="heart-td">
-								<input name="heart" type="checkbox" id={{'heart-' ~ track.id}}>
+								<input name="heart" type="checkbox" id={{'heart-' ~ track.id}} onchange="updateFavorite(this)" >
 								<label for={{'heart-' ~ track.id}}></label>
 							</td>
 							<td>
