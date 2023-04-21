@@ -8,12 +8,9 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-<<<<<<< HEAD
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-=======
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
->>>>>>> 43c6d5d31fa52556c1842882d229d0b9d901cda6
 
 class FavoriteController extends AbstractController
 {
@@ -29,16 +26,18 @@ class FavoriteController extends AbstractController
             return $this->redirectToRoute('home.index');
         }
     }
-<<<<<<< HEAD
 
-    #[Route('/addFavorite', name: 'addFavorite.index')]
-    public function addFavorite(Request $request, EntityManagerInterface $manager): JsonResponse
+    #[Route('/addFavorite', name: 'addFavorite.index', methods:['POST'])]
+    public function addFavorite(Request $request, EntityManagerInterface $manager, SessionInterface $session): JsonResponse
     {
+
         $data = json_decode($request->getContent(), true);
         $songId= $data['songId'];
 
+        $idUser = $session->get('idUser');
+
         $userRepository = $manager->getRepository(User::class);
-        $user = $userRepository->find(1);
+        $user = $userRepository->find($idUser);
 
         $favorite = new Favorite();
         $favorite->setIdUser($user);
@@ -50,25 +49,28 @@ class FavoriteController extends AbstractController
         return new JsonResponse(['message' => $songId]);
     }
 
-    #[Route('/deleteFavorite/{id}', name: 'addFavorite.index')]
-    public function deleteFavorite(Favorite $favorite, Request $request, EntityManagerInterface $manager): JsonResponse
+    #[Route('/deleteFavorite/{id}', name: 'deleteFavorite.index')]
+    public function deleteFavorite(Request $request, EntityManagerInterface $manager, SessionInterface $session, $id): JsonResponse
     {
         $data = json_decode($request->getContent(), true);
-        $songId= $data['songId'];
+        $songId = $data['songId'];
 
         $userRepository = $manager->getRepository(User::class);
-        $user = $userRepository->find(1);
+        $user = $userRepository->find($session->get('idUser'));
 
-        $favorite = new Favorite();
-        $favorite->setIdUser($user);
-        $favorite->setIdTrack($songId);
+        $favorite = $manager->getRepository(Favorite::class)->findOneBy([
+            'id_user' => $user,
+            'id_track' => $songId
+        ]);
 
-        $manager->persist($favorite);
+
+        if (!$favorite) {
+            return new JsonResponse(['error' => "La track n'est pas dans la liste des favoris"]);
+        }
+
+        $manager->remove($favorite);
         $manager->flush();
 
-        return new JsonResponse(['message' => $songId]);
+        return new JsonResponse(['message' => $id]);
     }
 }
-=======
-}
->>>>>>> 43c6d5d31fa52556c1842882d229d0b9d901cda6

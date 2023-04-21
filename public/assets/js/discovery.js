@@ -70,7 +70,7 @@ function createTable(response, tableLength, tracks) {
                                 </div>
                             </td>
                             <td class="heart-td">
-                                <input name="heart" type="checkbox" id="heart-${(tracks) ? response.tracks.data[i].id : response.data[i].id}" onchange="updateFavorite(this, event)"/>
+                                <input name="heart" type="checkbox" id="heart-${(tracks) ? response.tracks.data[i].id : response.data[i].id}" onchange="updateFavorite(this)"/>
                                 <label for="heart-${(tracks) ? response.tracks.data[i].id : response.data[i].id}"></label>
                             </td>
                             <td  class="plus-td">
@@ -80,7 +80,7 @@ function createTable(response, tableLength, tracks) {
                                 ${(tracks) ? response.tracks.data[i].artist.name : response.data[i].artist.name}
                             </td>
                             <td class="album-td">
-                                ${(tracks) ? response.tracks.data[i].album.title : response.data[i].album.title}
+                                ${(tracks) ? response.tracks.data[i].album.title : response.data[i].album.title}                              
                             </td>
                         </tr>`;
     }
@@ -289,7 +289,7 @@ function updateFavorite(checkbox) {
             .then(response => response.json())
             .then(data => console.log(data))
             .catch(error => console.error(error));
- 
+
     } else {
         idSplit = checkbox.id.split("-");
         songId = idSplit[1];

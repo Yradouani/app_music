@@ -106,3 +106,5 @@ function changeMusicInPlayer(track, e) {
     }
 }
 
+//-----------------favorite-------------//
+
