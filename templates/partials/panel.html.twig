@@ -1,5 +1,6 @@
 {% block javascripts %}
 	<script src="{{ asset('assets/js/base.js')}}" defer></script>
+
 {% endblock %}
 
 <nav id="mobile-nav">
@@ -92,3 +93,11 @@
 		</a>
 	</div>
 </nav>
+
+
+{# {% if app.user and 'ROLE_ADMIN' in app.user.getRoles() %}
+    <a href="{{ path('admin.index') }}">
+        <i class="fa-solid fa-lock"></i>
+        <span>Admin</span>
+    </a>
+{% endif %} #}

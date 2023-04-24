@@ -6,6 +6,10 @@
 
 {% block javascripts %}
 	<script src="{{ asset('assets/js/home.js') }}" defer></script>
+	<script defer>
+		console.log({{ app.user|json_encode()|raw }});
+console.log("Salut");
+	</script>
 {% endblock %}
 
 {% block title %}Home
@@ -13,6 +17,7 @@
 
 
 {% block main %}
+
 	{% for message in app.flashes('success') %}
 		<div class="alert alert-success">{{ message }}</div>
 	{% endfor %}
@@ -49,6 +54,12 @@
 						<input type="password" class="input" name="password" required>
 						<label>Mot de passe</label>
 					</div>
+					<span class="toggle-password">
+						<span class="show-password">show</span>
+						<span class="hide-password">hide</span>
+					</span>
+
+
 					<button class="home_btn" type="submit">Se connecter</button>
 				</form>
 			</div>
@@ -67,6 +78,12 @@
 						<input type="password" class="input" name="password" required>
 						<label>Mot de passe</label>
 					</div>
+					<span class="toggle-password">
+						<span class="show-password">show</span>
+						<span class="hide-password">hide</span>
+					</span>
+
+
 					<button class="home_btn" type="submit">S'inscrire</button>
 				</form>
 			</div>
