@@ -18,6 +18,7 @@ class PlaylistController extends AbstractController
     #[Route('/playlists', name: 'playlist.index')]
     public function index(Request $request, EntityManagerInterface $entityManager, SessionInterface $session): Response
     {
+        $isAlreadyInPlaylist = false;
         $idUser = $session->get('idUser');
         if ($request->isMethod('POST')) {
             if ($request->request->get('track_id') !== null) {
@@ -45,15 +46,18 @@ class PlaylistController extends AbstractController
                     }
                 }
             }
-            $playlist_id = $request->request->get('playlist_id');
-            $playlistRepository = $entityManager->getRepository(Playlist::class);
-            $playlist = $playlistRepository->find($playlist_id);
 
-            if (!$playlist) {
-                throw $this->createNotFoundException('Playlist non trouvée');
-            } else {
-                $entityManager->remove($playlist);
-                $entityManager->flush();
+            if ($request->request->get('playlist_id') !== null) {
+                $playlist_id = $request->request->get('playlist_id');
+                $playlistRepository = $entityManager->getRepository(Playlist::class);
+                $playlist = $playlistRepository->find($playlist_id);
+
+                if (!$playlist) {
+                    throw $this->createNotFoundException('Playlist non trouvée');
+                } else {
+                    $entityManager->remove($playlist);
+                    $entityManager->flush();
+                }
             }
         }
 
@@ -90,7 +94,8 @@ class PlaylistController extends AbstractController
         if (isset($idUser)) {
             return $this->render('playlist/playlist.html.twig', [
                 'playlists' => $playlists,
-                'tracks_info' => $tracks_info
+                'tracks_info' => $tracks_info,
+                'isAlreadyInPlaylist' => $isAlreadyInPlaylist
             ]);
         } else {
             return $this->redirectToRoute('home.index');

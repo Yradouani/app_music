@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Entity\Favorite;
+use App\Entity\Playlist;
+use App\Entity\Track;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,13 +18,43 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class FavoriteController extends AbstractController
 {
     #[Route('/favorite', name: 'favorite.index')]
-    public function index(SessionInterface $session, EntityManagerInterface $manager): Response
+    public function index(SessionInterface $session, EntityManagerInterface $manager, Request $request): Response
     {
         $idUser = $session->get('idUser');
+        $isAlreadyInPlaylist = false;
         if (isset($idUser)) {
 
             $userRepository = $manager->getRepository(User::class);
             $user = $userRepository->find($idUser);
+            $playlists = $manager->getRepository(Playlist::class)->findBy(['id_user' => $user]);
+
+            if ($request->isMethod('POST')) {
+                if ($request->request->get('track_id') !== null) {
+                    $track_id = $request->request->get('track_id');
+                    $idPlaylist = $request->request->get('playlist');
+                    if ($track_id) {
+                        $playlistRepository = $manager->getRepository(Playlist::class);
+                        $playlist = $playlistRepository->find($idPlaylist);
+                        $tracks = $manager->getRepository(Track::class)->findBy(['num_track' => $track_id]);
+                        foreach ($tracks as $track) {
+                            if ($track->getIdPlaylist() == $playlist) {
+                                $isAlreadyInPlaylist = true;
+                            }
+                        }
+                        if ($isAlreadyInPlaylist == false) {
+                            $playlistRepository = $manager->getRepository(Playlist::class);
+                            $playlist = $playlistRepository->find($idPlaylist);
+
+                            $newTrack = new Track();
+                            $newTrack->setIdPlaylist($playlist);
+                            $newTrack->setNumTrack($track_id);
+                            $manager->persist($newTrack);
+                            $manager->flush();
+                            $trackAdded = true;
+                        }
+                    }
+                }
+            }
 
             $favoriteRepository = $manager->getRepository(Favorite::class);
             $favoriteList = $favoriteRepository->findBy(['id_user' => $user]);
@@ -55,12 +87,16 @@ class FavoriteController extends AbstractController
                     'controller_name' => 'FavoriteController',
                     'userNum' => $user,
                     'errorGetContent' => $errorGetContent,
+                    'playlists' => $playlists,
+                    'isAlreadyInPlaylist' => $isAlreadyInPlaylist
                 ]);
             } else {
                 return $this->render('favorite/favorite.html.twig', [
                     'controller_name' => 'FavoriteController',
                     'userNum' => $user,
                     'responseTrack' => $responseTrack,
+                    'playlists' => $playlists,
+                    'isAlreadyInPlaylist' => $isAlreadyInPlaylist
                 ]);
             }
         } else {

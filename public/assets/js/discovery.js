@@ -113,6 +113,8 @@ function fn_top100() {
             console.log("error" + response);
             getTracks(url, fnName);
         } else {
+            const spinner = document.querySelector('.spinner');
+            const backdrop = document.querySelector('.spinner-backdrop')
             spinner.style.display = 'none';
             backdrop.style.display = 'none';
             let tabLength = 100;
@@ -148,7 +150,7 @@ function fn_loadGenre(i) {
             backdrop.style.display = 'none';
             let tabLength = 50;
             let tracks = true;
-            
+
             fillSwiper(response, tabLength, tracks);
             createTable(response, tabLength, tracks);
         }
@@ -197,7 +199,7 @@ function changeMusicInPlayer(track, e) {
         tracksArr.forEach(track => {
             track.classList.remove('selected-track')
         })
-        
+
         track.classList.add('selected-track');
 
         getTrack(trackId)
@@ -227,7 +229,7 @@ function changeMusicSwiper(slide) {
 
 
 function addTrackInPlaylist() {
-    
+
 
     let trackContainer = document.querySelectorAll('.track-container')
 
