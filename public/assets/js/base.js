@@ -368,6 +368,16 @@ switch (location.pathname) {
 
 
 // -------------------------------Player add in playlist------------------
+
+//------------------Get id Track in player------------------------
+let idTrackInPlayer
+setTimeout(() => {
+  let footer = document.querySelector(".myfooter");
+  idTrackInPlayer = (footer.id).split('-');
+  idTrackInPlayer = idTrackInPlayer[1];
+  console.log(idTrackInPlayer)
+}, 2000);
+
 let playerBtnAddPlaylist = document.querySelector(".playlist-btn");
 let bgDark = document.querySelector("#bg-dark");
 let modal = document.querySelector("#modal");
@@ -375,6 +385,7 @@ let modal = document.querySelector("#modal");
 playerBtnAddPlaylist.addEventListener("click", () => {
   modal.style.display = "block";
   bgDark.style.display = "block";
+  document.getElementById("track_id_input").value = idTrackInPlayer;
 
   document.onmouseup = (e) => {
     if (!modal.contains(e.target)) {

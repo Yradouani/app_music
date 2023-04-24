@@ -37,6 +37,11 @@
 				Aléatoire</button>
 			<hr>
 		</div>
+		{% if isAlreadyInPlaylist is defined and isAlreadyInPlaylist == true %}
+			<div id="error_message">Ce morceau est déjà dans cette playlist</div>
+		{% elseif isAlreadyInPlaylist is defined and isAlreadyInPlaylist == false %}
+			<div id="confirmation_message">Votre morceau a bien été ajouté à la playlist</div>
+		{% endif %}
 	</div>
 
 
@@ -95,23 +100,24 @@
 	{# ---------Modal add track in playlist------------------ #}
 
 
-	{# <div id="bg-dark"></div>
-																		<div id="modal">
-																			<span id="add_playlist_modal_header">
-																				<span class="fa-thin fa-plus"></span>
-																				Ajouter à une playlist</span>
-																			<span id="add_playlist_name">
-																				<form action="{{ path('discovery.index') }}" method="POST">
-																					<input type="hidden" name="track_id" id="track_id_input" value="">
-																					<select id="mySelect" name="playlist">
-																						{% for playlist in playlists %}
-																							<option value={{ playlist.getId() }}>{{ playlist.getNamePlaylist() }}</option>
-																							<hr>
-																						{% endfor %}
-																					</select>
-																					<input type="submit" value="Ajouter" id="submit-button"/>
-																				</form>
-																			</span>
-																		</div> #}
+	<div id="bg-dark"></div>
+	<div id="modal">
+		<span id="add_playlist_modal_header">
+			<span class="fa-thin fa-plus"></span>
+			Ajouter à une playlist</span>
+		<span id="add_playlist_name">
+			<form action="{{ path('favorite.index') }}" method="POST">
+				<input type="hidden" name="track_id" id="track_id_input" value="">
+				<select id="mySelect" name="playlist">
+					{% for playlist in playlists %}
+						<option value={{ playlist.getId() }}>{{ playlist.getNamePlaylist() }}</option>
+						<hr>
+					{% endfor %}
+				</select>
+				<input type="submit" value="Ajouter" id="submit-button"/>
+			</form>
+		</span>
+	</div>
+
 
 </div>{% endblock %}

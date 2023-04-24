@@ -5,7 +5,7 @@ let modalAddPlaylist = document.querySelector("#modal_add_playlist")
 let deleteModal = document.querySelector("#modal_delete");
 let deleteButtons = document.querySelectorAll(".delete");
 let addPlaylistContainer = document.querySelector('#add_playlist')
-let id = [];
+let ids = [];
 
 const spinnerPl = document.querySelector('.spinner');
 const backdropPl = document.querySelector('.spinner-backdrop')
@@ -15,31 +15,31 @@ spinnerPl.style.display = 'none';
 backdropPl.style.display = 'none';
 
 for (let i = 0; i < track.length; i++) {
-    id.push(track[i].id)
+    ids.push(track[i].id)
     track[i].addEventListener("click", (e) => {
         if (!deleteButtons[i].contains(e.target))
-            window.location.href = `playlists/${id[i]}`;
-            launchSpinner();
-        })
+            window.location.href = `playlists/${ids[i]}`;
+        launchSpinner();
+    })
 
 }
 
 
 /*------------------add playlist-----------------------*/
 function responsiveAddPlBtn() {
-    if(window.innerWidth <= 768){
+    if (window.innerWidth <= 768) {
         addPlaylistContainer.addEventListener("click", () => {
             modalAddPlaylist.style.display = "block";
             bgDark.style.display = "block";
         })
-    }else{
+    } else {
         if (addPlaylistBtn) {
             addPlaylistBtn.addEventListener("click", () => {
                 modalAddPlaylist.style.display = "block";
                 bgDark.style.display = "block";
             })
         }
-    }    
+    }
 }
 
 
@@ -47,7 +47,6 @@ responsiveAddPlBtn()
 window.onresize = () => {
     responsiveAddPlBtn()
 }
-
 
 
 for (let i = 0; i < deleteButtons.length; i++) {
@@ -121,9 +120,9 @@ function changeMusicInPlayer(track, e) {
         tracksArr.forEach(track => {
             track.classList.remove('selected-track')
         })
-        
+
         track.classList.add('selected-track');
-        
+
 
         sound.stop();
         startStopBtn.innerHTML = "<i class='fa-solid fa-play'></i>";
@@ -139,26 +138,26 @@ function changeMusicInPlayer(track, e) {
 /***********Bouton Écouter************/
 function listenMusic() {
     const tracksArr = document.querySelectorAll('.track-container')
-    const idTrackArr = [];  
+    const idTrackArr = [];
 
     tracksArr.forEach(track => {
-        idTrackArr.push(track.id) 
+        idTrackArr.push(track.id)
         track.classList.remove('selected-track')
     })
-    trackId = idTrackArr[Math.floor(Math.random() * idTrackArr.length)]; 
-    
+    trackId = idTrackArr[Math.floor(Math.random() * idTrackArr.length)];
+
     tracksArr.forEach(track => {
-        if(track.id == trackId){
+        if (track.id == trackId) {
             track.classList.add('selected-track')
         }
     })
-        sound.stop();
-        startStopBtn.innerHTML = "<i class='fa-solid fa-play'></i>";
-        elapsed = 0;
-        inputPlayer.value = elapsed;
-        clearInterval(intervalId);
-        console.log(trackId)
-        getTrack(trackId)
+    sound.stop();
+    startStopBtn.innerHTML = "<i class='fa-solid fa-play'></i>";
+    elapsed = 0;
+    inputPlayer.value = elapsed;
+    clearInterval(intervalId);
+    console.log(trackId)
+    getTrack(trackId)
 }
 
 //-----------------favorite-------------//
@@ -166,7 +165,7 @@ function listenMusic() {
 function updateFavorite(checkbox) {
 
     if (checkbox.checked) {
-        
+
         idSplit = checkbox.id.split("-");
         songId = idSplit[1];
         console.log("add " + songId);
