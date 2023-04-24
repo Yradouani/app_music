@@ -9,13 +9,16 @@ const search = document.getElementById("search");
 const swiperWrapper = document.getElementsByClassName("swiper-wrapper");
 let newGenreTitle = "";
 let tableauTop = "";
-
-// console.log(swiperWrapper);
+clearTimeout(timeoutId);
+launchSpinner();
 
 fn_top100();
 
 for (let i = 0; i < genreButton.length; i++) {
-    genreButton[i].addEventListener("click", () => fn_loadGenre(i));
+    genreButton[i].addEventListener("click", () => {
+        fn_loadGenre(i);
+        launchSpinner();
+    });
 }
 
 search.addEventListener("input", () => fn_search());
@@ -89,7 +92,8 @@ function createTable(response, tableLength, tracks) {
         document.querySelector('th.rank-td').remove()
     }
     allTracks.innerHTML = tableauTop;
-    
+
+
 
 
 
@@ -105,17 +109,20 @@ function fn_top100() {
     getTracks(url, fnName);
 
     function displayTopTracks(response, url, fnName) {
-        // console.log(response);
         if (response.error) {
             console.log("error" + response);
             getTracks(url, fnName);
         } else {
-
+            spinner.style.display = 'none';
+            backdrop.style.display = 'none';
             let tabLength = 100;
             let tracks = true;
 
             createTable(response, tabLength, tracks);
             fillSwiper(response, tabLength, tracks);
+
+            trackId = (tracks) ? response.tracks.data[0].id : response.data[i].id;
+            getTrack(trackId);
         }
     }
 }
@@ -137,9 +144,11 @@ function fn_loadGenre(i) {
         if (response.error) {
             getTracks(url, fnName);
         } else {
+            spinner.style.display = 'none';
+            backdrop.style.display = 'none';
             let tabLength = 50;
             let tracks = true;
-
+            
             fillSwiper(response, tabLength, tracks);
             createTable(response, tabLength, tracks);
         }

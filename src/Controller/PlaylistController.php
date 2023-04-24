@@ -58,7 +58,12 @@ class PlaylistController extends AbstractController
         }
 
         $userRepository = $entityManager->getRepository(User::class);
-        $user = $userRepository->find($idUser);
+        if (isset($idUser)) {
+            $user = $userRepository->find($idUser);
+        } else {
+            return $this->redirectToRoute('home.index');
+        }
+
         $playlists = $entityManager->getRepository(Playlist::class)->findBy(['id_user' => $user]);
 
         $tracks_info = [];
@@ -113,8 +118,11 @@ class PlaylistController extends AbstractController
                 }
                 if (($isUsed == false) && ($isValidPlaylistName == true)) {
                     $userRepository = $entityManager->getRepository(User::class);
-                    $user = $userRepository->find($idUser);
-
+                    if (isset($idUser)) {
+                        $user = $userRepository->find($idUser);
+                    } else {
+                        return $this->redirectToRoute('home.index');
+                    }
                     $playlist = new Playlist();
                     $playlist->setNamePlaylist($namePlaylist);
                     $playlist->setIdUser($user);
@@ -126,7 +134,12 @@ class PlaylistController extends AbstractController
         }
 
         $userRepository = $entityManager->getRepository(User::class);
-        $user = $userRepository->find($idUser);
+
+        if (isset($idUser)) {
+            $user = $userRepository->find($idUser);
+        } else {
+            return $this->redirectToRoute('home.index');
+        }
         $playlists = $entityManager->getRepository(Playlist::class)->findBy(['id_user' => $user]);
 
         for ($i = 0; $i < count($playlists); $i++) {

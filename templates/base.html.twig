@@ -21,7 +21,7 @@
 		{% endblock %}
 	</head>
 	<body>
-		{% if app.request.pathinfo  != '/' and app.request.pathinfo  != '/connexion' %}
+		{% if app.request.pathinfo != '/' %}
 			<div class="spinner-backdrop"></div>
 			<div class="spinner">
 				<div class="rect1"></div>

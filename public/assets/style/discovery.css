@@ -131,12 +131,11 @@ table {
 }
 
 .img-td img {
-    width: 100%
+    width: 60px;
 }
 
 .img-td {
-    /* background: red; */
-    width: 5rem
+    width: 80px;
 }
 
 .rank-td {
@@ -387,6 +386,15 @@ option {
     .plus-td {
         width: 2.5rem;
         /* background: red; */
+    }
+
+
+    .img-td img {
+        width: 60px;
+    }
+    
+    .img-td {
+        width: 70px !important;
     }
 
     thead {
