@@ -25,7 +25,8 @@ class AdminController extends AbstractController
     {
         $numberOfUsers = $userRepository->count([]);
         $numberOfPlaylists = $playlistRepository->count([]);
-        // $numberOfLikedMusics = $this->getNumberOfLikedMusics();
+        $numberOfFavorites = $this->getNumberOfFavorites();
+
 
         $users = $userRepository->findAll();
         $idUser = $session->get('idUser');
@@ -36,7 +37,7 @@ class AdminController extends AbstractController
                 return $this->render('admin/admin.html.twig', [
                     'numberOfUsers' => $numberOfUsers,
                     'numberOfPlaylists' => $numberOfPlaylists,
-                    // 'numberOfLikedMusics' => $numberOfLikedMusics,
+                    'numberOfFavorites' => $numberOfFavorites,
                     'users' => $users,
                 ]);
             } else {
@@ -57,9 +58,10 @@ class AdminController extends AbstractController
         return $this->redirectToRoute('admin.index');
     }
 
-    // private function getNumberOfLikedMusics()
-    // {
-    //     $numberOfLikedMusics = $this->entityManager->createQuery('SELECT COUNT(DISTINCT l.music) FROM App\Entity\Like l')->getSingleScalarResult();
-    //     return $numberOfLikedMusics;
-    // }
+    private function getNumberOfFavorites()
+    {
+        $numberOfFavorites = $this->entityManager->createQuery('SELECT COUNT(f.id) FROM App\Entity\Favorite f')->getSingleScalarResult();
+        return $numberOfFavorites;
+    }
+    
 }
