@@ -50,3 +50,43 @@ function listenMusic() {
       console.log(trackId)
       getTrack(trackId)
 }
+
+
+//-----------------favorite-------------//
+
+function updateFavorite(checkbox) {
+
+    if (checkbox.checked) {
+        
+        idSplit = checkbox.id.split("-");
+        songId = idSplit[1];
+        console.log("add " + songId);
+
+        fetch('/addFavorite', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ songId: songId })
+        })
+            .then(response => response.json())
+            .then(data => console.log(data))
+            .catch(error => console.error(error));
+
+    } else {
+        idSplit = checkbox.id.split("-");
+        songId = idSplit[1];
+        console.log("del " + songId);
+
+        fetch('/deleteFavorite/' + songId, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ songId: songId })
+        })
+            .then(response => response.json())
+            .then(data => console.log(data))
+            .catch(error => console.error(error));
+    }
+}
