@@ -1,4 +1,28 @@
 /*-------------------------------------*/
+/*----------LOADING SPINNER------------*/
+/*-------------------------------------*/
+const spinner = document.querySelector('.spinner');
+const backdrop = document.querySelector('.spinner-backdrop')
+
+const animation = [
+  { opacity: 1 },
+  { opacity: 0 },
+];
+
+const timing = {
+  duration: 500,
+  iterations: 1,
+  fill: "forwards"
+};
+
+setTimeout(() => {
+  spinner.animate(animation, timing);
+  backdrop.animate(animation, timing);
+  spinner.style.display = 'none';
+  backdrop.style.display = 'none';
+}, 2000);
+
+/*-------------------------------------*/
 /*-------------MENU BURGER-------------*/
 /*-------------------------------------*/
 const nav = document.querySelector('#mobile-nav');
@@ -82,10 +106,9 @@ function mobile() {
 /*------------MUSIC PLAYER-------------*/
 /*-------------------------------------*/
 let trackId;
-
 trackId = 3135556;
-
 getTrack(trackId);
+
 
 function getTrack(trackId) {
   const options = {
@@ -119,31 +142,40 @@ function playMusic(data) {
     const trackArtsistContainer = document.querySelector('.top-player .track-artist .artist');
     trackNameContainer.textContent = data.title;
     trackArtsistContainer.textContent = data.artist.name;
+  
+    const footer = document.querySelector('footer')
+    footer.id = `selected-${data.id}`;
 
     sound = new Howl({
-      src: [data.preview],
+      src: [data.preview]
     });
 
-    console.log(sound);
+    musicDuration = 30;
+    playerSettings(musicDuration, sound, data.id);
 
-    // musicDuration = data.duration;
-    musicDuration = 30
-    console.log(data.preview);
-    playerSettings(musicDuration, sound)
+ 
   }
 }
 
 
-function playerSettings(musicDuration = null, sound = null) {
+
+
+
+
+
+function playerSettings(musicDuration = null, sound = null, id = null) {
   if (sound != null) {
     sound.on('load', () => {
       console.log('La musique a été chargée avec succès !');
-    });
-
+  }
+      );
+    
     // Gérer les erreurs de chargement du son
-    sound.on('loaderror', (id, error) => {
+    sound.on('loaderror', () => {
       console.log(`Erreur de chargement de la musique (${id}): ${error}`);
     });
+
+    
   }
 
   const durationContainer = document.querySelector('#duration-player');
@@ -151,7 +183,6 @@ function playerSettings(musicDuration = null, sound = null) {
   const vinyl = document.querySelector('.vinyl img')
 
   inputPlayer.max = musicDuration;
-
 
 
   // Affichage de la durée de la musique en mm:ss
@@ -163,13 +194,24 @@ function playerSettings(musicDuration = null, sound = null) {
     // on met à jour le temps écoulé
     elapsedContainer.innerHTML = formatTime(inputPlayer.value);
     elapsed = parseInt(inputPlayer.value);
-
-
+    let seekTime = parseFloat(inputPlayer.value);
+    sound.seek(seekTime)
     // si le lecteur était en marche
     if (isPlayed) {
+      if(elapsed == musicDuration){
+        clearInterval(intervalId);
+        
+        elapsed = 0
+        inputPlayer.value = elapsed;
+        isPlayed = false;
+        
+        sound.stop();
+        startStopBtn.innerHTML = "<i class='fa-solid fa-play'></i>";
+      }
       // il reste en marche
       clearInterval(intervalId);
       intervalId = setInterval(() => {
+       
         elapsed += 1;
         inputPlayer.value = elapsed;
         elapsedContainer.innerHTML = formatTime(inputPlayer.value);
@@ -178,10 +220,17 @@ function playerSettings(musicDuration = null, sound = null) {
         // si la musique a été consommée entièrement
         if (elapsed === musicDuration) {
           // On stop le lecteur
+          elapsed = 0
+          inputPlayer.value = elapsed;
           isPlayed = false;
           clearInterval(intervalId);
-          sound.pause();
+          sound.stop();
           startStopBtn.innerHTML = "<i class='fa-solid fa-play'></i>";
+        }
+
+        if (isPlayed == true) {
+          const forward = document.querySelector('#forward')
+          const backward = document.querySelector('#backward')  
         }
       }, 1000);
     }
@@ -210,39 +259,71 @@ function playerSettings(musicDuration = null, sound = null) {
   startStopBtn.onclick = () => {
     // si le lecteur était en pause
     if (isPlayed === false) {
+  // si la musique a été consommée entièrement
+  if (inputPlayer.value == musicDuration) {
+    clearInterval(intervalId);
+    elapsed = 0
+    inputPlayer.value = elapsed;
+    // On stop le lecteur
+    sound.stop();
+    isPlayed = false;
+    startStopBtn.innerHTML = "<i class='fa-solid fa-play'></i>";
+  }else{
+     // On change la valeur de isPlayed
+     isPlayed = true;
+     // On remplace le bouton start par le bouton pause 
+     startStopBtn.innerHTML = "<i class='fa-solid fa-pause'></i>";
+     sound.play();
+     // On démarre le lecteur 
+     intervalId = setInterval(() => {
+       // toutes les secondes
+       // on rajoute 1 seconde au temps écoulé
+       // et on fait tourné le vinyl
+       elapsed += 1;
+       inputPlayer.value = elapsed;
+       elapsedContainer.innerHTML = formatTime(inputPlayer.value);
+       rotateDeg += 75;
+       vinyl.style.transform = `rotate(${rotateDeg}deg)`;
 
-      // On change la valeur de isPlayed
-      isPlayed = true;
-      // On remplace le bouton start par le bouton pause 
-      startStopBtn.innerHTML = "<i class='fa-solid fa-pause'></i>";
-      sound.play();
-      // On démarre le lecteur 
-      intervalId = setInterval(() => {
-        // toutes les secondes
-        // on rajoute 1 seconde au temps écoulé
-        // et on fait tourné le vinyl
+       // si la musique a été consommée entièrement
+       if (inputPlayer.value == musicDuration) {
+    
+         clearInterval(intervalId);
+         elapsed = 0
+         inputPlayer.value = elapsed;
+         // On stop le lecteur
+         sound.stop();
+         isPlayed = false;
+         startStopBtn.innerHTML = "<i class='fa-solid fa-play'></i>";
+       }
 
-        elapsed += 1;
-        inputPlayer.value = elapsed;
-        elapsedContainer.innerHTML = formatTime(inputPlayer.value);
-        rotateDeg += 75;
-        vinyl.style.transform = `rotate(${rotateDeg}deg)`;
-
-        // si la musique a été consommée entièrement
-        if (elapsed === musicDuration) {
-          // On stop le lecteur
-          sound.stop();
-          isPlayed = false;
-          clearInterval(intervalId);
-          startStopBtn.innerHTML = "<i class='fa-solid fa-play'></i>";
+        const forward = document.querySelector('#forward')
+        const backward = document.querySelector('#backward')  
+        if(elapsed <= (musicDuration - 5)){
+          forward.onclick = () => {
+            elapsed += 3;
+            inputPlayer.value = elapsed;
+            elapsedContainer.innerHTML = formatTime(inputPlayer.value);
+            let seekTime = parseFloat(inputPlayer.value);
+            sound.seek(seekTime)
+          } 
         }
+        if(elapsed >= 3){
+          backward.onclick = () => {
+            elapsed -= 3;
+            inputPlayer.value = elapsed;
+            elapsedContainer.innerHTML = formatTime(inputPlayer.value);
 
-      }, 1000);
-      if (elapsed === musicDuration) {
-        elapsed = 0;
-        inputPlayer.value = elapsed;
-        elapsedContainer.innerHTML = formatTime(inputPlayer.value);
+            let seekTime = parseFloat(inputPlayer.value);
+            sound.seek(seekTime)
+            
+          } 
+
+        
       }
+     }, 1000);
+
+  }
     } else {
       // si le lecteur était en marche
       // on met le lecteur en pause
@@ -252,22 +333,8 @@ function playerSettings(musicDuration = null, sound = null) {
       clearInterval(intervalId);
     }
   };
-  // On simule un clique pour démarrer le lecteur  au chargement de la page
-  // document.addEventListener("DOMContentLoaded", () => {
-  //     startStopBtn.click();
-  // });
-
-  // const tracksTab = document.querySelectorAll('.track-container')
-  // tracksTab.forEach(track => {
-  //   track.onclick = () => {
-
-  //   };
-  // });
-
-  inputPlayer.value = 0;
-  elapsedContainer.innerHTML = formatTime(inputPlayer.value);
-
-
+    inputPlayer.value = 0;
+    elapsedContainer.innerHTML = formatTime(inputPlayer.value);
 }
 
 
@@ -287,6 +354,10 @@ switch (location.pathname) {
     document.querySelector('#mobile-nav .top-links a:nth-child(2)').classList.add('selected')
     document.querySelector('#desktop-nav .top-links a:nth-child(2)').classList.add('selected')
     break;
+  case '/addplaylists':
+  document.querySelector('#mobile-nav .top-links a:nth-child(2)').classList.add('selected')
+  document.querySelector('#desktop-nav .top-links a:nth-child(2)').classList.add('selected')
+  break;
   case '/favorite':
     document.querySelector('#mobile-nav .top-links a:nth-child(3)').classList.add('selected')
     document.querySelector('#desktop-nav .top-links a:nth-child(3)').classList.add('selected')
@@ -309,15 +380,16 @@ playerBtnAddPlaylist.addEventListener("click", () => {
   modal.style.display = "block";
   bgDark.style.display = "block";
 })
+
 document.onmouseup = (e) => {
-  console.log(e.target)
   if (!modal.contains(e.target)) {
     modal.style.display = "none";
     bgDark.style.display = "none";
   }
 }
 const select = document.getElementById("mySelect");
-const optionCount = select.getElementsByTagName("option").length;
+if (select) {
+  const optionCount = select.getElementsByTagName("option").length;
 select.setAttribute("size", optionCount);
 select.addEventListener("change", function () {
   const selectedOption = this.options[this.selectedIndex];
@@ -328,8 +400,25 @@ select.addEventListener("change", function () {
   selectedOption.classList.add("selected");
 });
 
+}
+
+/************Barre de nav************/
 
 if(location.pathname.includes('/playlists/')){
   document.querySelector('#mobile-nav .top-links a:nth-child(2)').classList.add('selected')
   document.querySelector('#desktop-nav .top-links a:nth-child(2)').classList.add('selected')
 }
+
+/*******Quand une musique est séléctionné*******/
+
+setTimeout(() => {
+  const tracksArr = document.querySelectorAll('.track-container');
+  const footer = document.querySelector('footer')
+  const footerId = footer.id.split('-')[1];
+  tracksArr.forEach(track => {
+    track.classList.remove('selected-track');
+    if (track.id == footerId) {
+      track.classList.add('selected-track');
+    }
+});
+}, 2000);
