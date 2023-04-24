@@ -65,8 +65,6 @@ class HomeController extends AbstractController
         return $this->redirectToRoute('home.index');
     }
 
-
-
     #[Route('/connexion', name: 'home.connexion', methods: ['POST'])]
     public function connexion(Request $request, UserRepository $userRepository, SessionInterface $session): Response
     {
@@ -76,9 +74,9 @@ class HomeController extends AbstractController
 
         if (!$user || !password_verify($password, $user->getPassword())) {
             // Email ou mot de passe invalide
+            $this->addFlash('error', 'Email ou mot de passe invalide.');
             return $this->render('home/home.html.twig', [
                 'controller_name' => 'HomeController',
-                'error' => "Email ou mot de passe invalide.",
             ]);
         }
         $session->set('roleUser', $user->getRoles());

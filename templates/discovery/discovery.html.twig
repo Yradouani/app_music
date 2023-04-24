@@ -6,6 +6,11 @@
 
 {% block javascripts %}
 	<script src="{{ asset('assets/js/discovery.js') }}" defer></script>
+	<script defer>
+		console.log({{ app.user|json_encode()|raw }});
+console.log("Salut");
+
+	</script>
 {% endblock %}
 
 {% block title %}Discovery
@@ -40,7 +45,7 @@
 		<div id="divGenre">
 			<h4 id="titleGenre">Genres</h4>
 			<div class="divGenreButton">
-				<button id="rapButton" class="genreButton" name="1996494362">Rap</button>
+				<button id="rapButton" class="genreButton" name="1996494362" active>Rap</button>
 				<button id="popButton" class="genreButton" name="53362031">Pop</button>
 				<button id="rockButton" class="genreButton" name="1306931615">Rock</button>
 				<button id="rnbButton" class="genreButton" name="1384018035">R&amp;B</button>

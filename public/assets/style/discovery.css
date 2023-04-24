@@ -50,7 +50,12 @@ hr {
     margin-left: 2%;
     margin-bottom: 20px;
 }
-
+.track-title {
+    background-color: #121216;
+    color: #fff; 
+    border-radius: 10px 10px 0 0;
+    padding: 4px;
+  }
 #titleTab {
     margin-left: 2%;
     margin-bottom: 20px;
@@ -73,6 +78,14 @@ hr {
     font-weight: 700;
     /* min-width: 200px; */
 }
+
+.genreButton:hover {
+    filter: brightness(50%);
+}
+
+.activeButton {
+    transform: scale(110%); 
+    }
 
 #rapButton {
     background-image: linear-gradient(to right, #1E37B6, #1E37B6);

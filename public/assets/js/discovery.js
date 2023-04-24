@@ -42,23 +42,23 @@ function fillSwiper(response, tableLength, tracks) {
     // swiperWrapper.innerHTML = "";
     swiper.removeAllSlides()
 
-if (tracks) {
-    for (let i = 0; i < tableLength; i++) {
-        // swipperWrapper.innerHTML += `<div class="swiper-slide"><img src="${(tracks) ? response.tracks.data[i].album.cover_big : response.data[i].album.cover_big}" alt=""></div>`;
-        // swipperWrapper.innerHTML += `<div class="swiper-slide"><img src="${(tracks) ? response.tracks.data[i].album.cover_big : response.data[i].album.cover_big}" alt=""></div>`;
-        // swiper.appendSlide(`<div class="swiper-slide"><img src="https://place-hold.it/300x300" alt=""></div>`);
-        swiper.appendSlide(`<div class="swiper-slide" id="swiper-${response.tracks.data[i].id}" onclick=changeMusicSwiper(this) >
-        ${i + 1} - ${(tracks) ? response.tracks.data[i].title : response.data[i].title} 
-                                <img src="${(tracks) ? response.tracks.data[i].album.cover_big : response.data[i].album.cover_big}" alt="">
-                            </div>`);
+    if (tracks) {
+        for (let i = 0; i < tableLength; i++) {
+            // swipperWrapper.innerHTML += `<div class="swiper-slide"><img src="${(tracks) ? response.tracks.data[i].album.cover_big : response.data[i].album.cover_big}" alt=""></div>`;
+            // swipperWrapper.innerHTML += `<div class="swiper-slide"><img src="${(tracks) ? response.tracks.data[i].album.cover_big : response.data[i].album.cover_big}" alt=""></div>`;
+            // swiper.appendSlide(`<div class="swiper-slide"><img src="https://place-hold.it/300x300" alt=""></div>`);
+            swiper.appendSlide(`<div class="swiper-slide" id="swiper-${response.tracks.data[i].id}" onclick=changeMusicSwiper(this)>
+        <span class="track-title">${i + 1} - ${(tracks) ? response.tracks.data[i].title : response.data[i].title}</span>
+        <img src="${(tracks) ? response.tracks.data[i].album.cover_big : response.data[i].album.cover_big}" alt="">
+      </div>`);
+        }
     }
-}
 
 }
 
 function createTable(response, tableLength, tracks) {
     for (let i = 0; i < tableLength; i++) {
-       tableauTop += `<tr class=${(tracks) ? 'track-container ranked' : 'track-container'} id="${(tracks) ? response.tracks.data[i].id : response.data[i].id}" onclick=changeMusicInPlayer(this,event)>
+        tableauTop += `<tr class=${(tracks) ? 'track-container ranked' : 'track-container'} id="${(tracks) ? response.tracks.data[i].id : response.data[i].id}" onclick=changeMusicInPlayer(this,event)>
                             <td class="img-td">
                                 <img id="albumCover" src="${(tracks) ? response.tracks.data[i].album.cover_big : response.data[i].album.cover_big}" alt="albumImg">
                             </td>
@@ -87,7 +87,7 @@ function createTable(response, tableLength, tracks) {
                         </tr>`;
     }
 
-    if(!tracks && document.querySelector('th.rank-td')){
+    if (!tracks && document.querySelector('th.rank-td')) {
 
         document.querySelector('th.rank-td').remove()
     }
@@ -212,7 +212,7 @@ function changeMusicInPlayer(track, e) {
 
 }
 
-function changeMusicSwiper(slide){
+function changeMusicSwiper(slide) {
     trackId = slide.id.split('-')[1]
     getTrack(trackId)
     sound.stop();
@@ -285,6 +285,24 @@ swiper.on('click', function (e) {
     console.log('Slide cliquée : ' + clickedIndex);
 });
 
+swiper.on('slideChange', function () {
+    var activeIndex = swiper.activeIndex;
+    var slides = swiper.slides;
+
+    for (var i = 0; i < slides.length; i++) {
+        var slide = slides[i];
+        var image = slide.querySelector('img');
+
+        if (i === activeIndex) {
+            image.style.filter = 'brightness(100%)';
+            slide.style.opacity = 1;
+        } else {
+            image.style.filter = 'brightness(50%)';
+            slide.style.opacity = 0.5;
+        }
+    }
+});
+
 // --------Favorite------------//
 
 /* <input name="heart" type="checkbox" id="heart-${(tracks) ? response.tracks.data[i].id : response.data[i].id}" onchange="updateFavorite()"/>
@@ -293,7 +311,7 @@ swiper.on('click', function (e) {
 function updateFavorite(checkbox) {
 
     if (checkbox.checked) {
-        
+
         idSplit = checkbox.id.split("-");
         songId = idSplit[1];
         console.log("add " + songId);
@@ -328,4 +346,16 @@ function updateFavorite(checkbox) {
 }
 
 
+// discovery button
+// Obtenez tous les boutons de genre
+const genreButtons = document.querySelectorAll('.genreButton');
 
+// Parcourez chaque bouton et ajoutez un écouteur d'événement de clic
+genreButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        // Supprimez la classe 'activeButton' de tous les boutons
+        genreButtons.forEach(button => button.classList.remove('activeButton'));
+        // Ajoutez la classe 'activeButton' au bouton cliqué
+        button.classList.add('activeButton');
+    });
+});
