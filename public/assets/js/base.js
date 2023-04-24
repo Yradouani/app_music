@@ -3,24 +3,24 @@
 /*-------------------------------------*/
 const spinner = document.querySelector('.spinner');
 const backdrop = document.querySelector('.spinner-backdrop')
+let timeoutId;
+// const animation = [
+//   { opacity: 1 },
+//   { opacity: 0 },
+// ];
 
-const animation = [
-  { opacity: 1 },
-  { opacity: 0 },
-];
+// const timing = {
+//   duration: 500,
+//   iterations: 1,
+//   fill: "forwards"
+// };
 
-const timing = {
-  duration: 500,
-  iterations: 1,
-  fill: "forwards"
-};
-
-setTimeout(() => {
-  spinner.animate(animation, timing);
-  backdrop.animate(animation, timing);
-  spinner.style.display = 'none';
-  backdrop.style.display = 'none';
-}, 2000);
+// setTimeout(() => {
+//   spinner.animate(animation, timing);
+//   backdrop.animate(animation, timing);
+//   spinner.style.display = 'none';
+//   backdrop.style.display = 'none';
+// }, 2000);
 
 /*-------------------------------------*/
 /*-------------MENU BURGER-------------*/
@@ -49,10 +49,6 @@ function mobile() {
   const openBtn = document.querySelector('button.menu-burger');
   const closeBtn = document.querySelector('.menu-title button i');
   const body = document.querySelector('body');
-
-
-
-
 
   openBtn.onclick = () => {
     toggler(100, 0, 'initial', 300, 0)
@@ -422,3 +418,34 @@ setTimeout(() => {
     }
 });
 }, 2000);
+
+/*spinner*/ 
+function launchSpinner() {
+  spinner.style.display = 'initial';
+  backdrop.style.display = 'initial';
+  const animation = [
+      { opacity: 0.85 },
+      { opacity: 0.65 },
+    ];
+    
+    const timing = {
+      duration: 5000,
+      iterations: 1,
+      fill: "forwards"
+    };
+    backdrop.animate(animation, timing);
+
+timeoutId = setTimeout(() => {
+  spinner.style.display = 'none';
+  backdrop.style.display = 'none';
+}, 10000);
+}
+
+const navLinksArr = document.querySelectorAll('.top-links a')
+
+navLinksArr.forEach(link => {
+    link.onclick = () => {
+      console.log('wesh');
+        launchSpinner();
+    }
+});

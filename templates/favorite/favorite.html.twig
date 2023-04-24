@@ -6,7 +6,6 @@
 
 {% block javascripts %}
 	<script src="{{ asset('assets/js/favorite.js') }}"></script>
-	<script src="{{ asset('assets/js/getTrackById.js') }}"></script>
 {% endblock %}
 
 {% block title %}Favorite
@@ -34,14 +33,14 @@
 				coups de coeur
 			</p>
 			<button id='listen' class="favorite_btn" onclick="listenMusic()" type="button">
-				<i class="fa-solid fa-play"></i>
-				Écouter</button>
+				<i class="fa-solid fa-shuffle"></i>
+				Aléatoire</button>
 			<hr>
 		</div>
 	</div>
 
 
-	{% if responseTrack is defined %}
+	{% if responseTrack is defined and responseTrack|length != 0 %}
 
 		<table style="margin:3%">
 			<thead>
@@ -60,24 +59,24 @@
 					{# {{ responseTrack[i].id }} #}
 
 					<tr class="track-container" id="{{ responseTrack[i].id }}" onclick="changeMusicInPlayer(this,event)">
-											<td class="img-td">
-					
-												<img id="albumCover" src={{ responseTrack[i].album.cover_big }} alt="albumImg">
-											</td>
-											<td class="title-td">
-												<div>
-													<span>{{responseTrack[i].title}}</span><br>
-													<span class='artist-mobile'>{{responseTrack[i].artist.name}}</span>
-												</div>
-											</td>
-											<td class="heart-td">
-												<input name="heart" type="checkbox" id={{'heart-' ~ responseTrack[i].id}} onchange="updateFavorite(this)">
-												<label for={{'heart-' ~ responseTrack[i].id}}></label>
-											</td>
-											<td class="artist-td">{{responseTrack[i].artist.name}}</td>
-											<td class="album-td">{{responseTrack[i].album.title }}
-											</td>
-										</tr>
+						<td class="img-td">
+
+							<img id="albumCover" src={{ responseTrack[i].album.cover_big }} alt="albumImg">
+						</td>
+						<td class="title-td">
+							<div>
+								<span>{{responseTrack[i].title}}</span><br>
+								<span class='artist-mobile'>{{responseTrack[i].artist.name}}</span>
+							</div>
+						</td>
+						<td class="heart-td">
+							<input name="heart" type="checkbox" id={{'heart-' ~ responseTrack[i].id}} onchange="updateFavorite(this)">
+							<label for={{'heart-' ~ responseTrack[i].id}}></label>
+						</td>
+						<td class="artist-td">{{responseTrack[i].artist.name}}</td>
+						<td class="album-td">{{responseTrack[i].album.title }}
+						</td>
+					</tr>
 				{% endfor %}
 			</tbody>
 		</table>
@@ -97,22 +96,22 @@
 
 
 	{# <div id="bg-dark"></div>
-														<div id="modal">
-															<span id="add_playlist_modal_header">
-																<span class="fa-thin fa-plus"></span>
-																Ajouter à une playlist</span>
-															<span id="add_playlist_name">
-																<form action="{{ path('discovery.index') }}" method="POST">
-																	<input type="hidden" name="track_id" id="track_id_input" value="">
-																	<select id="mySelect" name="playlist">
-																		{% for playlist in playlists %}
-																			<option value={{ playlist.getId() }}>{{ playlist.getNamePlaylist() }}</option>
-																			<hr>
-																		{% endfor %}
-																	</select>
-																	<input type="submit" value="Ajouter" id="submit-button"/>
-																</form>
-															</span>
-														</div> #}
+																		<div id="modal">
+																			<span id="add_playlist_modal_header">
+																				<span class="fa-thin fa-plus"></span>
+																				Ajouter à une playlist</span>
+																			<span id="add_playlist_name">
+																				<form action="{{ path('discovery.index') }}" method="POST">
+																					<input type="hidden" name="track_id" id="track_id_input" value="">
+																					<select id="mySelect" name="playlist">
+																						{% for playlist in playlists %}
+																							<option value={{ playlist.getId() }}>{{ playlist.getNamePlaylist() }}</option>
+																							<hr>
+																						{% endfor %}
+																					</select>
+																					<input type="submit" value="Ajouter" id="submit-button"/>
+																				</form>
+																			</span>
+																		</div> #}
 
 </div>{% endblock %}

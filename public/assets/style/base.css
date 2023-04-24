@@ -65,7 +65,7 @@ nav#mobile-nav {
 }
 
 header .logo{
-    padding: 30px 10px 30px 1.5vw;
+    padding: 20px 10px 20px 1.5vw;
     margin: 0;
 }
 
@@ -131,6 +131,10 @@ button {
     border: none;
     cursor: pointer;
     transition: 500ms;
+}
+
+thead tr:hover{
+    background: none;
 }
 
 /*---------------------------------------*/
@@ -435,9 +439,9 @@ input[type=range]::-webkit-slider-thumb {
     color: white;
 }
 
-form {
+#add_playlist_name form {
     display: flex;
-    flex-direction: column;
+    /* flex-direction: column; */
     margin: auto;
 }
 
@@ -638,7 +642,8 @@ option {
     z-index: 10;
     opacity: 0.8;
 }
-.spinner {
+
+.spinner{
     position: fixed;
     top: 50%;
     left: 50%;
@@ -648,7 +653,7 @@ option {
     text-align: center;
     font-size: 10px;
     z-index: 10;
-  }
+}
   
   .spinner > div {
     background-color: var(--main-color);
@@ -656,8 +661,8 @@ option {
     width: 10px;
     display: inline-block;
     
-    -webkit-animation: sk-stretchdelay 1.2s infinite ease-in-out;
-    animation: sk-stretchdelay 1.2s infinite ease-in-out;
+    -webkit-animation: stretch 1.2s infinite ease-in-out;
+    animation: stretch 1.2s infinite ease-in-out;
   }
   
   .spinner .rect1 {
@@ -688,12 +693,12 @@ option {
     background: #ff8f20;
   }
   
-  @-webkit-keyframes sk-stretchdelay {
+  @-webkit-keyframes stretch {
     0%, 40%, 100% { -webkit-transform: scaleY(0.4) }  
     20% { -webkit-transform: scaleY(1.0) }
   }
   
-  @keyframes sk-stretchdelay {
+  @keyframes stretch {
     0%, 40%, 100% { 
       transform: scaleY(0.4);
       -webkit-transform: scaleY(0.4);

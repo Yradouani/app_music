@@ -138,13 +138,14 @@ input[type="checkbox"]:checked + label:after {
 }
 /*                       */
 
-.plus-td{
-    width: rem;
-    /* background: red; */
+
+
+.img-td img {
+    width: 60px;
 }
 
-.artist-td{
-    /* background: blue; */
+.img-td {
+    width: 80px;
 }
 
 .artist-mobile{
@@ -152,8 +153,8 @@ input[type="checkbox"]:checked + label:after {
 }
 
 
-.album-td{
-    /* background: red; */
+hr{
+    color: transparent;
 }
 
 th, td{
@@ -214,6 +215,15 @@ tr:hover{
         width: 2.5rem;
         /* background: red; */
     }
+
+    .img-td img {
+        width: 60px;
+    }
+    
+    .img-td {
+        width: 70px !important;
+    }
+
 
     thead{
         display: none;

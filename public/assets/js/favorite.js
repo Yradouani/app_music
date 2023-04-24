@@ -1,9 +1,14 @@
+const spinnerFav = document.querySelector('.spinner');
+const backdropFav = document.querySelector('.spinner-backdrop')
+spinnerFav.style.display = 'none';
+backdropFav.style.display = 'none';
+
+
 function changeMusicInPlayer(track, e){
     trackId = track.id;
 
     if (e.target == track.querySelector('label') || e.target == track.querySelector('input')|| e.target == track.querySelector('.add_playlist')) {
         console.log('like');
-        
   }else{
     const tracksArr = document.querySelectorAll('.track-container');
         tracksArr.forEach(track => {

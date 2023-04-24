@@ -33,7 +33,7 @@ class FavoriteController extends AbstractController
             // $favorite = $favoriteList[0];
             // $idTrack = $favorite->getIdTrack();
             // echo $idTrack;
-            
+
             $responseTrack = [];
 
             for ($i = 0; $i < count($favoriteList); $i++) {
@@ -78,8 +78,12 @@ class FavoriteController extends AbstractController
         $idUser = $session->get('idUser');
 
         $userRepository = $manager->getRepository(User::class);
-        $user = $userRepository->find($idUser);
 
+        if (isset($idUser)) {
+            $user = $userRepository->find($idUser);
+        } else {
+            return $this->redirectToRoute('home.index');
+        }
         $favorite = new Favorite();
         $favorite->setIdUser($user);
         $favorite->setIdTrack($songId);
