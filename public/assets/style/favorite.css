@@ -12,7 +12,7 @@
     align-items: center;
 }
 
-.favorite_title h2{
+.favorite_title h2 {
     margin: 0;
 }
 
@@ -40,7 +40,7 @@
     font-size: 20px;
 }
 
-#listen{
+#listen {
     margin-left: 30px;
 }
 
@@ -51,7 +51,7 @@
     width: 100%;
 }
 
-table{
+table {
     table-layout: fixed;
     width: 94%;
     margin: 3%;
@@ -71,72 +71,38 @@ table{
     background-color: #32323c;
 }
 
-.img-td img{
+.img-td img {
     width: 100%
 }
 
-.img-td{
+.img-td {
     /* background: red; */
     width: 5rem
 }
 
-.rank-td{
+.rank-td {
     width: 5%;
     /* background: blue; */
 }
 
-.title-td{
+.title-td {
     /* background: yellow; */
     width: 35%;
     /* background: red; */
 }
 
-.heart-td{
-    width: 3rem;    
+.heart-td {
+    width: 3rem;
     /* background: blue; */
 }
 
-.track-container{
+.track-container {
     cursor: pointer;
     border-bottom: 1px var(--grey-border) solid
 }
 
 
-/*Heart Button*/
-input[type="checkbox"] {
-    display: none;
-}
-
-input[type="checkbox"] + label {
-    position: relative;
-    display: inline-block;
-    font-size: 16px;
-
-}
- 
-input[type="checkbox"] + label:before {
-    content: "\1F5A4";
-   
-    border: 1px solid transparent;    
-    border-radius: 3px;
-    display: block;
-    position: relative;
-	transition:  .5s ease;
-}
-  
-input[type="checkbox"]:checked + label:before {
-    border: 1px solid transparent;
-    background-color: transparent;
-}
- 
-input[type="checkbox"]:checked + label:after {
-    content: '\1F49A';
-    font-size: 18px;
-    position: absolute;
-    top: 0 ;
-	transition:  .5s ease;
-}
-/*                       */
+/* -----css de heart avant--- */
 
 
 
@@ -148,23 +114,36 @@ input[type="checkbox"]:checked + label:after {
     width: 80px;
 }
 
-.artist-mobile{
+.artist-mobile {
     display: none
 }
 
 
-hr{
+hr {
     color: transparent;
 }
 
-th, td{
+th,
+td {
     padding: 3px 10px;
 }
 
-tr:hover{
-    background : var(--tertiary-bg)
+tr:hover {
+    background: var(--tertiary-bg)
 }
 
+/*------------------message d'ajout à la playliste---------------*/
+#error_message {
+    margin-left: 30px;
+    color: #c53c34;
+    font-weight: bold;
+}
+
+#confirmation_message {
+    margin-left: 30px;
+    color: #00D98E;
+    font-weight: bold;
+}
 
 /* ----------RESPONSIVE---------- */
 
@@ -186,32 +165,34 @@ tr:hover{
         width: 45%;
     }
 
-    .title-td{
+    .title-td {
         /* background: yellow; */
-        width: 50%;
+        width: 80%;
         position: relative;
         /* background: red; */
     }
 
-    .artist-mobile{
+    .artist-mobile {
         display: initial;
         font-size: 12px;
     }
 
-    .artist-td, .album-td{
+    .artist-td,
+    .album-td {
         display: none;
     }
 
-    .rank-td{
+    .rank-td {
         width: 2rem;
         /* background: blue; */
     }
-    .heart-td{
+
+    .heart-td {
         width: 2.5rem;
         /* background: blue; */
     }
-    
-    .plus-td{
+
+    .plus-td {
         width: 2.5rem;
         /* background: red; */
     }
@@ -219,13 +200,13 @@ tr:hover{
     .img-td img {
         width: 60px;
     }
-    
+
     .img-td {
-        width: 70px !important;
+        width: 80px !important;
     }
 
 
-    thead{
+    thead {
         display: none;
     }
 

@@ -11,6 +11,9 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\JsonResponse;
+
+
 class HomeController extends AbstractController
 {
     #[Route('/', name: 'home.index')]
@@ -26,7 +29,6 @@ class HomeController extends AbstractController
         }
     }
 
-
     #[Route('/inscription', name: 'home.inscription', methods: ['POST'])]
     public function inscription(Request $request, EntityManagerInterface $entityManager, UserRepository $userRepository): Response
     {
@@ -37,16 +39,24 @@ class HomeController extends AbstractController
         // Vérification de la complexité du mot de passe
         if (!preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/', $password)) {
             // Le mot de passe ne répond pas aux exigences de complexité
-            $this->addFlash('error', 'Le mot de passe doit contenir au minimum une lettre minuscule, une lettre majuscule, un chiffre et un caractère spécial et minimum 8 caractères.');
-            return $this->redirectToRoute('home.index');
+            // $this->addFlash('error', 'Le mot de passe doit contenir au minimum une lettre minuscule, une lettre majuscule, un chiffre et un caractère spécial et minimum 8 caractères.');
+            $result = 'error-password';
+            return $this->render('home/home.html.twig', [
+                'controller_name' => 'HomeController',
+                'result' => $result
+            ]);
         }
 
         $user = $userRepository->findOneBy(['email' => $email]);
 
         if ($user) {
             // Un utilisateur avec le même email existe déjà
-            $this->addFlash('error', 'Cet email est déjà utilisé.');
-            return $this->redirectToRoute('home.index');
+            // $this->addFlash('error', 'Cet email est déjà utilisé.');
+            $result = 'error-mail';
+            return $this->render('home/home.html.twig', [
+                'controller_name' => 'HomeController',
+                'result' => $result
+            ]);
         }
 
         $user = new User();
@@ -59,10 +69,16 @@ class HomeController extends AbstractController
         $entityManager->persist($user);
         $entityManager->flush();
 
+
         // Redirection vers la page d'accueil
         $this->addFlash('success', 'Inscription réussie !');
-
-        return $this->redirectToRoute('home.index');
+        // $message = "Hello World";
+        // return new JsonResponse($message);
+        $result = 'success';
+        return $this->render('home/home.html.twig', [
+            'controller_name' => 'HomeController',
+            'result' => $result
+        ]);
     }
 
     #[Route('/connexion', name: 'home.connexion', methods: ['POST'])]

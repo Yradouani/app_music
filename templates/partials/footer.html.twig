@@ -1,4 +1,4 @@
-<footer>
+<footer class="myfooter">
 	<div class="player-btn-group">
 		<button id="backward">
 			<i class="fa-solid fa-backward-step"></i>
@@ -24,8 +24,13 @@
 				</div>
 			</div>
 			<div class="fav-pl-btn">
+				{# <button class="favorite-btn">
+					<input name="heart" type="checkbox" id={{'heart-' ~ responseTrack[i].id}} onchange="updateFavorite(this)" checked>
+					<label for={{'heart-' ~ responseTrack[i].id}}></label>
+				</button> #}
 				<button class="favorite-btn">
-					<i class="fa-regular fa-heart"></i>
+					<input name="heart" type="checkbox" id={{'heart-' ~ responseTrack[i].id}} onchange="updateFavorite(this)" checked>
+					<label for={{'heart-' ~ responseTrack[i].id}}></label>
 				</button>
 				<button class="playlist-btn">
 					<i class="fa-solid fa-plus"></i>
