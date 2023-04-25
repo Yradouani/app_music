@@ -2,16 +2,20 @@
 
 namespace App\Controller;
 
-use App\Entity\Playlist;
-use App\Entity\Track;
 use App\Entity\User;
+use App\Entity\Track;
+use App\Entity\Favorite;
+use App\Entity\Playlist;
+use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
-use Symfony\Component\Security\Core\Security;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class DiscoveryController extends AbstractController
 {
@@ -48,27 +52,75 @@ class DiscoveryController extends AbstractController
                 }
             }
         }
+
+
         $idUser = $session->get('idUser');
         if (isset($idUser)) {
             $userRepository = $entityManager->getRepository(User::class);
             $user = $userRepository->find($idUser);
             $playlists = $entityManager->getRepository(Playlist::class)->findBy(['id_user' => $user]);
 
+            $favoriteRepository = $entityManager->getRepository(Favorite::class);
+            $favoriteList = $favoriteRepository->findBy(['id_user' => $user]);
+
             return $this->render('discovery/discovery.html.twig', [
                 'playlists' => $playlists,
                 'isAlreadyInPlaylist' => $isAlreadyInPlaylist,
                 'trackAdded' => $trackAdded,
                 'pseudo' => $user->getPseudo(),
-                'optionSelected' => $optionSelected
+                'optionSelected' => $optionSelected,
+                'favoriteList' => $favoriteList,
             ]);
         } else {
             return $this->redirectToRoute('home.index');
         }
     }
 
-    #[Route('/discovery', name: 'discovery')]
-    public function discovery(Request $request): Response
+    #[Route('/discoveryFavoriteTrack', name: 'discoveryFavoriteTrack.index')]
+    public function discovery(Request $request, SessionInterface $session, EntityManagerInterface $manager): JsonResponse
     {
-        return $this->render('discovery.html.twig');
+        $idUser = $session->get('idUser');
+        if (isset($idUser)) {
+
+            $userRepository = $manager->getRepository(User::class);
+            $user = $userRepository->find($idUser);
+
+            $favoriteRepository = $manager->getRepository(Favorite::class);
+            $favoriteList = $favoriteRepository->findBy(['id_user' => $user]);
+
+            // $favoriteTab = [];
+            // foreach ($favoriteList as $favorite) {
+            //     $favoriteListJson = [
+            //         "id_track" => $favorite->getIdTrack()
+            //     ];
+            //     array_push($favoriteTab, $favoriteListJson);
+            // }
+
+            $favoriteListJson = [];
+            foreach ($favoriteList as $favorite) {
+                $jsonList = [
+                    "id_track" => $favorite->getIdTrack(),
+                ];
+                array_push($favoriteListJson, $jsonList);
+            }
+
+            try {
+                // $favoriteList = json_encode($favoriteList);
+                return new JsonResponse(['favoriteListJson' => $favoriteListJson]);
+            } catch (Exception $e) {
+                error_log('JSON encoding error: ' . $e->getMessage());
+            }
+
+            // return $this->render('discovery/discovery.html.twig', [
+            //     'favoriteList' => $favoriteList,
+            // ]);
+
+            // var_dump($favoriteList);
+            // die;
+
+
+        } else {
+            return $this->redirectToRoute('home.index');
+        }
     }
 }

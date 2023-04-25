@@ -19,7 +19,9 @@
 
 
 	{# {{ dump(userNum) }} #}
-	{# {{ dump(favoriteList) }} #}
+
+	{# {{ dump(favoriteList[0].getIdTrack()) }} #}
+
 
 		<div class="favorite_container"> <div class="favorite_title">
 			<i class="fa-solid fa-heart"></i>
@@ -29,7 +31,9 @@
 		<div class="favorite_general">
 
 			<p>
-				<span>2</span>
+				<span>
+					{{ favoriteList|length }}
+				</span>
 				coups de coeur
 			</p>
 			<button id='listen' class="favorite_btn" onclick="listenMusic()" type="button">
@@ -54,9 +58,11 @@
 			</thead>
 			<tbody id="allTracks">
 
+
 				{% for i in range(0, responseTrack|length - 1) %}
 
 					{# {{ responseTrack[i].id }} #}
+					{# {{ dump(favoriteList[i].idTrack) }} #}
 
 					<tr class="track-container" id="{{ responseTrack[i].id }}" onclick="changeMusicInPlayer(this,event)">
 						<td class="img-td">
@@ -69,10 +75,17 @@
 								<span class='artist-mobile'>{{responseTrack[i].artist.name}}</span>
 							</div>
 						</td>
-						<td class="heart-td">
-							<input name="heart" type="checkbox" id={{'heart-' ~ responseTrack[i].id}} onchange="updateFavorite(this)">
-							<label for={{'heart-' ~ responseTrack[i].id}}></label>
-						</td>
+						{% if favoriteList[i].idTrack ==  responseTrack[i].id %}
+							<td class="heart-td">
+								<input name="heart" type="checkbox" id={{'heart-' ~ responseTrack[i].id}} onchange="updateFavorite(this)" checked>
+								<label for={{'heart-' ~ responseTrack[i].id}}></label>
+							</td>
+						{% else %}
+							<td class="heart-td">
+								<input name="heart" type="checkbox" id={{'heart-' ~ responseTrack[i].id}} onchange="updateFavorite(this)">
+								<label for={{'heart-' ~ responseTrack[i].id}}></label>
+							</td>
+						{% endif %}
 						<td class="artist-td">{{responseTrack[i].artist.name}}</td>
 						<td class="album-td">{{responseTrack[i].album.title }}
 						</td>
@@ -96,22 +109,22 @@
 
 
 	{# <div id="bg-dark"></div>
-																		<div id="modal">
-																			<span id="add_playlist_modal_header">
-																				<span class="fa-thin fa-plus"></span>
-																				Ajouter à une playlist</span>
-																			<span id="add_playlist_name">
-																				<form action="{{ path('discovery.index') }}" method="POST">
-																					<input type="hidden" name="track_id" id="track_id_input" value="">
-																					<select id="mySelect" name="playlist">
-																						{% for playlist in playlists %}
-																							<option value={{ playlist.getId() }}>{{ playlist.getNamePlaylist() }}</option>
-																							<hr>
-																						{% endfor %}
-																					</select>
-																					<input type="submit" value="Ajouter" id="submit-button"/>
-																				</form>
-																			</span>
-																		</div> #}
+																					<div id="modal">
+																						<span id="add_playlist_modal_header">
+																							<span class="fa-thin fa-plus"></span>
+																							Ajouter à une playlist</span>
+																						<span id="add_playlist_name">
+																							<form action="{{ path('discovery.index') }}" method="POST">
+																								<input type="hidden" name="track_id" id="track_id_input" value="">
+																								<select id="mySelect" name="playlist">
+																									{% for playlist in playlists %}
+																										<option value={{ playlist.getId() }}>{{ playlist.getNamePlaylist() }}</option>
+																										<hr>
+																									{% endfor %}
+																								</select>
+																								<input type="submit" value="Ajouter" id="submit-button"/>
+																							</form>
+																						</span>
+																					</div> #}
 
 </div>{% endblock %}

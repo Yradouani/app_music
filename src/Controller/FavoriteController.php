@@ -61,6 +61,7 @@ class FavoriteController extends AbstractController
                     'controller_name' => 'FavoriteController',
                     'userNum' => $user,
                     'responseTrack' => $responseTrack,
+                    'favoriteList' => $favoriteList,
                 ]);
             }
         } else {

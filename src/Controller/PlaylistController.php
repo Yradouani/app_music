@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Entity\Track;
 use App\Entity\Playlist;
+use App\Entity\Favorite;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -86,11 +87,14 @@ class PlaylistController extends AbstractController
                 $tracks_info[$i] = null;
             }
         }
+
+
+
         $idUser = $session->get('idUser');
         if (isset($idUser)) {
             return $this->render('playlist/playlist.html.twig', [
                 'playlists' => $playlists,
-                'tracks_info' => $tracks_info
+                'tracks_info' => $tracks_info,
             ]);
         } else {
             return $this->redirectToRoute('home.index');
@@ -170,7 +174,7 @@ class PlaylistController extends AbstractController
     }
 
     #[Route('/playlists/{id}', name: 'onePlaylist')]
-    public function show(Request $request, EntityManagerInterface $entityManager): Response
+    public function show(Request $request, EntityManagerInterface $entityManager, SessionInterface $session): Response
     {
         $id = $request->get('id');
 
@@ -194,10 +198,21 @@ class PlaylistController extends AbstractController
             sleep(1);
         }
 
+        $idUser = $session->get('idUser');
+        if (isset($idUser)) {
+            $userRepository = $entityManager->getRepository(User::class);
+            $user = $userRepository->find($idUser);
+
+            $favoriteRepository = $entityManager->getRepository(Favorite::class);
+            $favoriteList = $favoriteRepository->findBy(['id_user' => $user]);
+        }
+
+
         return $this->render('playlist/playlist.html.twig', [
             'id' => $id,
             'tracks_api_response' => $tracks_api_response,
-            'playlist' => $playlist
+            'playlist' => $playlist,
+            'favoriteList' => $favoriteList,
         ]);
     }
 

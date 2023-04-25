@@ -25,7 +25,7 @@ for (let i = 0; i < genreButton.length; i++) {
 
 search.addEventListener("input", () => fn_search());
 
-function getTracks(url, fnName) {
+function getTracks(url, fnName, data) {
 
     fetch('https://deezerdevs-deezer.p.rapidapi.com/' + url, {
         method: 'GET',
@@ -35,46 +35,41 @@ function getTracks(url, fnName) {
         }
     })
         .then(response => response.json())
-        .then(response => fnName(response, url, fnName))
+        .then(response => {
+            console.log(data);
+            fnName(response, url, fnName, data);
+
+        })
         .catch(err => console.error(err));
 }
 
-function getFavoriteTrack() {
+function getFavoriteTrack(url, fnName) {
     fetch('/discoveryFavoriteTrack', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         }
     })
-        .then(response => response.json())
-        .then(data => {
-            console.log(data);
+    // .then(response => console.log(response.json()))
+    // .then(response => response.json())
+    // .then(data => console.log(data))
+    // .then(data => console.log(data.favoriteListJson[0].id_track))
+    // .then(data => {
+    //     // console.log(data.json());
 
-            setTimeout(() => {
-                let allHearts = document.querySelectorAll(".allHearts");
-                console.log(allHearts);
+    //     let dataJson = data.json();
 
+    //     console.log(dataJson);
 
-                for (let i = 0; i < allHearts.length; i++) {
-
-                    let idSplit = allHearts[i].id.split("-");
-                    songId = idSplit[1];
-                    console.log("id " + songId);
-
-                    for (let j = 0; j < data.favoriteListJson.length; j++) {
-                        console.log(data.favoriteListJson[j].id_track);
-                        if (data.favoriteListJson[j].id_track == songId) {
-                            allHearts[i].checked = true;
-                        }
-                    }
-                }
-            }, 2000);
-        })
-        // .then(data => console.log(data.favoriteListJson))
-        .catch(error => console.error(error));
+    //     // let dataFavorite = data.favoriteListJson;
+    //     getTracks(url, fnName, dataFavorite);
+    // })
+    
+    .then(response => response.json())
+    // .then(data => console.log(data))
+    .then(data => getTracks(url, fnName, data))
+    .catch(error => console.error(error));
 }
-
-getFavoriteTrack();
 
 function fillSwiper(response, tableLength, tracks) {
 
@@ -94,9 +89,9 @@ function fillSwiper(response, tableLength, tracks) {
     }
 }
 
-function createTable(response, tableLength, tracks, favoriteTracks) {
+function createTable(response, tableLength, tracks, data) {
 
-    // console.log(favoriteTracks);
+    console.log(data);
 
     for (let i = 0; i < tableLength; i++) {
         tableauTop += `<tr class=${(tracks) ? 'track-container ranked' : 'track-container'} id="${(tracks) ? response.tracks.data[i].id : response.data[i].id}" onclick=changeMusicInPlayer(this,event)>
@@ -113,7 +108,7 @@ function createTable(response, tableLength, tracks, favoriteTracks) {
                                 </div>
                             </td>
                             <td class="heart-td">
-                                <input name="heart" type="checkbox" class="allHearts" id="heart-${(tracks) ? response.tracks.data[i].id : response.data[i].id}" onchange="updateFavorite(this)"/>
+                                <input name="heart" type="checkbox" id="heart-${(tracks) ? response.tracks.data[i].id : response.data[i].id}" onchange="updateFavorite(this)"/>
                                 <label for="heart-${(tracks) ? response.tracks.data[i].id : response.data[i].id}"></label>
                             </td>
                             <td  class="plus-td">
@@ -143,20 +138,22 @@ function fn_top100() {
     let url = "playlist/1109890291";
     let fnName = displayTopTracks;
 
-    getTracks(url, fnName);
+    console.log("fn_top100");
 
-    function displayTopTracks(response, url, fnName, favoriteTracks) {
+    // getTracks(url, fnName);
+    getFavoriteTrack(url, fnName);
+
+    function displayTopTracks(response, url, fnName, data) {
         if (response.error) {
             console.log("error" + response);
-            getTracks(url, fnName);
+            getTracks(url, fnName, data);
         } else {
             spinner.style.display = 'none';
             backdrop.style.display = 'none';
-
-            let tabLength = 100;
+            let tabLength = 50;
             let tracks = true;
 
-            createTable(response, tabLength, tracks);
+            createTable(response, tabLength, tracks, data);
             fillSwiper(response, tabLength, tracks);
 
             trackId = (tracks) ? response.tracks.data[0].id : response.data[i].id;
