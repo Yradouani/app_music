@@ -41,9 +41,9 @@
 				Aléatoire</button>
 			<hr>
 		</div>
-		{% if isAlreadyInPlaylist is defined and isAlreadyInPlaylist == true %}
+		{% if (isAlreadyInPlaylist is defined) and (isAlreadyInPlaylist != "") and (isAlreadyInPlaylist == true) %}
 			<div id="error_message">Ce morceau est déjà dans cette playlist</div>
-		{% elseif isAlreadyInPlaylist is defined and isAlreadyInPlaylist == false %}
+		{% elseif isAlreadyInPlaylist is defined and (isAlreadyInPlaylist != "") and isAlreadyInPlaylist == false %}
 			<div id="confirmation_message">Votre morceau a bien été ajouté à la playlist</div>
 		{% endif %}
 	</div>
