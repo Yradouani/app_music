@@ -21,7 +21,7 @@ class AdminController extends AbstractController
     }
 
     #[Route('/admin', name: 'admin.index')]
-    public function index(UserRepository $userRepository, PlaylistRepository $playlistRepository, SessionInterface $session): Response
+    public function index(UserRepository $userRepository, PlaylistRepository $playlistRepository, SessionInterface $session, EntityManagerInterface $entityManager): Response
     {
         $numberOfUsers = $userRepository->count([]);
         $numberOfPlaylists = $playlistRepository->count([]);
@@ -32,6 +32,8 @@ class AdminController extends AbstractController
         $idUser = $session->get('idUser');
 
         if (isset($idUser)) {
+            $userRepository = $entityManager->getRepository(User::class);
+            $user = $userRepository->find($idUser);
             $role = $session->get('roleUser')[0];
             if ($role == "ROLE_ADMIN") {
                 return $this->render('admin/admin.html.twig', [
@@ -39,6 +41,7 @@ class AdminController extends AbstractController
                     'numberOfPlaylists' => $numberOfPlaylists,
                     'numberOfFavorites' => $numberOfFavorites,
                     'users' => $users,
+                    'pseudo' => $user->getPseudo(),
                 ]);
             } else {
                 return $this->redirectToRoute('discovery.index');
