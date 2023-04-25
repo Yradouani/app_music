@@ -108,3 +108,6 @@ class HomeController extends AbstractController
         return $this->render('discovery.html.twig');
     }
 }
+
+
+

@@ -97,6 +97,7 @@ class FavoriteController extends AbstractController
                             'playlists' => $playlists,
                             'isAlreadyInPlaylist' => $isAlreadyInPlaylist,
                             'pseudo' => $user->getPseudo(),
+                            'favoriteList' => $favoriteList,
                         ]);
                     } else {
                         return $this->render('favorite/favorite.html.twig', [
@@ -106,6 +107,8 @@ class FavoriteController extends AbstractController
                             'playlists' => $playlists,
                             'isAlreadyInPlaylist' => $isAlreadyInPlaylist,
                             'pseudo' => $user->getPseudo(),
+                            'favoriteList' => $favoriteList,
+
                         ]);
                     }
                 } else {
