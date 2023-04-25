@@ -21,7 +21,10 @@
 		{% endblock %}
 	</head>
 	<body>
-		{% if app.request.pathinfo != '/' %}
+
+
+		{% if app.request.pathinfo != '/' and app.request.pathinfo != '/connexion' and app.request.pathinfo != '/admin' and app.request.pathinfo  != '/inscription' %}
+
 			<div class="spinner-backdrop"></div>
 			<div class="spinner">
 				<div class="rect1"></div>
@@ -32,8 +35,9 @@
 			</div>
 		{% endif %}
 
+
 		<div class="top-container">
-			{% if app.request.pathinfo  != '/' and app.request.pathinfo  != '/connexion' %}
+			{% if app.request.pathinfo  != '/' and app.request.pathinfo  != '/connexion' and app.request.pathinfo  != '/inscription'%}
 				{% block panel %}
 					{% include "partials/panel.html.twig" %}
 				{% endblock %}
@@ -43,7 +47,7 @@
 				{% block main %}{% endblock %}
 			</main>
 		</div>
-		{% if app.request.pathinfo  != '/' and app.request.pathinfo  != '/connexion' %}
+		{% if app.request.pathinfo  != '/' and app.request.pathinfo  != '/connexion' and app.request.pathinfo  != '/inscription'%}
 			{% block footer %}
 				{% include "partials/footer.html.twig" %}
 			{% endblock %}

@@ -116,6 +116,7 @@ class FavoriteController extends AbstractController
                 break;
             }
         }
+
         if ($isExistUser == false) {
             $session->remove('idUser');
             return $this->redirectToRoute('home.index');
