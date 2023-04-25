@@ -19,6 +19,7 @@ class DiscoveryController extends AbstractController
     public function index(Request $request, EntityManagerInterface $entityManager, SessionInterface $session, Security $security): Response
     {
 
+
         $isAlreadyInPlaylist = false;
         $trackAdded = false;
         $optionSelected = false;
@@ -66,7 +67,7 @@ class DiscoveryController extends AbstractController
         }
     }
 
-    #[Route('/discovery', name: 'discovery')]
+    #[Route('/{url}', name: 'discovery')]
     public function discovery(Request $request): Response
     {
         return $this->render('discovery.html.twig');

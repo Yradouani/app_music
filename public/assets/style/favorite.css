@@ -188,7 +188,7 @@ tr:hover{
 
     .title-td{
         /* background: yellow; */
-        width: 50%;
+        width: 80%;
         position: relative;
         /* background: red; */
     }
@@ -221,7 +221,7 @@ tr:hover{
     }
     
     .img-td {
-        width: 70px !important;
+        width: 80px !important;
     }
 
 

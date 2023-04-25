@@ -24,7 +24,6 @@ for (let i = 0; i < genreButton.length; i++) {
 search.addEventListener("input", () => fn_search());
 
 function getTracks(url, fnName) {
-
     fetch('https://deezerdevs-deezer.p.rapidapi.com/' + url, {
         method: 'GET',
         headers: {
@@ -53,7 +52,6 @@ function fillSwiper(response, tableLength, tracks) {
       </div>`);
         }
     }
-
 }
 
 function createTable(response, tableLength, tracks) {
@@ -92,11 +90,7 @@ function createTable(response, tableLength, tracks) {
         document.querySelector('th.rank-td').remove()
     }
     allTracks.innerHTML = tableauTop;
-
-
-
-
-
+    
     addTrackInPlaylist();
 }
 
@@ -359,3 +353,4 @@ genreButtons.forEach(button => {
         button.classList.add('activeButton');
     });
 });
+
