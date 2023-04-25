@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
-
+use Symfony\Component\HttpFoundation\RedirectResponse;
 class HomeController extends AbstractController
 {
     #[Route('/', name: 'home.index')]
@@ -92,3 +92,6 @@ class HomeController extends AbstractController
         return $this->render('discovery.html.twig');
     }
 }
+
+
+
