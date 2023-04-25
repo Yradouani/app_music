@@ -9,6 +9,14 @@
 {% endblock %}
 
 {% block main %}
+
+
+	{# {% if favoriteList is defined %}
+		{% for track in favoriteList %}
+			{{ dump(track.idTrack) }}
+		{% endfor %}
+	{% endif %} #}
+
 	{% if id is not defined %}
 		<div id="playlist-container">
 			<div id="playlist-header">
@@ -106,6 +114,7 @@
 					</thead>
 					<tbody id="allTracks">
 						{% for track in tracks_api_response %}
+
 							<tr class="track-container" id="{{ track.id }}" onclick="changeMusicInPlayer(this,event)">
 								<td class="img-td">
 
@@ -117,8 +126,16 @@
 										<span class='artist-mobile'>{{track.artist.name}}</span>
 									</div>
 								</td>
+
 								<td class="heart-td">
-									<input name="heart" type="checkbox" id={{'heart-' ~ track.id}} onchange="updateFavorite(this)">
+									<input name="heart" type="checkbox" id={{'heart-' ~ track.id}} onchange="updateFavorite(this)" 
+
+									{% for favoriteTrack in favoriteList %}
+									{% if favoriteTrack.idTrack == track.id %}
+									checked
+									{% endif %}
+									{% endfor %}
+									>
 									<label for={{'heart-' ~ track.id}}></label>
 								</td>
 								<td>
@@ -127,8 +144,6 @@
 								<td class="artist-td">{{track.artist.name}}</td>
 								<td class="album-td">{{ track.album.title }}
 								</td>
-
-
 							</tr>
 						{% endfor %}
 					</tbody>
