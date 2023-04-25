@@ -79,13 +79,15 @@ hr {
     /* min-width: 200px; */
 }
 
-.genreButton:hover {
-    filter: brightness(50%);
-}
 
-.activeButton {
-    transform: scale(110%); 
-    }
+.activeButton,
+.genreButton:hover {
+    transform: scale(1.075);    
+ }
+
+ .activeButton {
+    border: 2px solid white;    
+ }
 
 #rapButton {
     background-image: linear-gradient(to right, #1E37B6, #1E37B6);
@@ -371,7 +373,7 @@ option {
 
     .title-td {
         /* background: yellow; */
-        width: 50%;
+        width: 60%;
         position: relative;
         /* background: red; */
     }
@@ -388,26 +390,22 @@ option {
 
     .rank-td {
         width: 2rem;
-        /* background: blue; */
     }
 
     .heart-td {
         width: 2.5rem;
-        /* background: blue; */
     }
 
     .plus-td {
         width: 2.5rem;
-        /* background: red; */
     }
-
 
     .img-td img {
         width: 60px;
     }
     
     .img-td {
-        width: 70px !important;
+        width: 60px !important;
     }
 
     thead {

@@ -4,23 +4,6 @@
 const spinner = document.querySelector('.spinner');
 const backdrop = document.querySelector('.spinner-backdrop')
 let timeoutId;
-// const animation = [
-//   { opacity: 1 },
-//   { opacity: 0 },
-// ];
-
-// const timing = {
-//   duration: 500,
-//   iterations: 1,
-//   fill: "forwards"
-// };
-
-// setTimeout(() => {
-//   spinner.animate(animation, timing);
-//   backdrop.animate(animation, timing);
-//   spinner.style.display = 'none';
-//   backdrop.style.display = 'none';
-// }, 2000);
 
 /*-------------------------------------*/
 /*-------------MENU BURGER-------------*/
@@ -385,7 +368,9 @@ let modal = document.querySelector("#modal");
 playerBtnAddPlaylist.addEventListener("click", () => {
   modal.style.display = "block";
   bgDark.style.display = "block";
+
   document.getElementById("track_id_input").value = idTrackInPlayer;
+
 
   document.onmouseup = (e) => {
     if (!modal.contains(e.target)) {
@@ -394,6 +379,7 @@ playerBtnAddPlaylist.addEventListener("click", () => {
     }
   }
 })
+
 
 const select = document.getElementById("mySelect");
 if (select) {
@@ -453,12 +439,14 @@ function launchSpinner() {
   }, 10000);
 }
 
-console.log(timeoutId)
+
 const navLinksArr = document.querySelectorAll('.top-links a')
 
 navLinksArr.forEach(link => {
-  link.onclick = () => {
-    console.log('wesh');
-    launchSpinner();
-  }
+    link.onclick = () => {
+     
+        launchSpinner();
+    }
+
+
 });
