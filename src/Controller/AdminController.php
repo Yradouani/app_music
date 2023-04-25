@@ -49,7 +49,7 @@ class AdminController extends AbstractController
     }
 
     #[Route("/admin/user/{id}/delete", name: "admin.delete_user")]
-    public function deleteUser(User $user, SessionInterface $session): Response
+    public function deleteUser(User $user, SessionInterface $session, UserRepository $userRepository): Response
     {
         $this->entityManager->remove($user);
         $this->entityManager->flush();
@@ -63,5 +63,4 @@ class AdminController extends AbstractController
         $numberOfFavorites = $this->entityManager->createQuery('SELECT COUNT(f.id) FROM App\Entity\Favorite f')->getSingleScalarResult();
         return $numberOfFavorites;
     }
-    
 }
