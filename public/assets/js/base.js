@@ -121,7 +121,7 @@ function playMusic(data) {
     const trackArtsistContainer = document.querySelector('.top-player .track-artist .artist');
     trackNameContainer.textContent = data.title;
     trackArtsistContainer.textContent = data.artist.name;
-  
+
     const footer = document.querySelector('footer')
     footer.id = `selected-${data.id}`;
 
@@ -132,7 +132,7 @@ function playMusic(data) {
     musicDuration = 30;
     playerSettings(musicDuration, sound, data.id);
 
- 
+
   }
 }
 
@@ -146,15 +146,15 @@ function playerSettings(musicDuration = null, sound = null, id = null) {
   if (sound != null) {
     sound.on('load', () => {
       console.log('La musique a été chargée avec succès !');
-  }
-      );
-    
+    }
+    );
+
     // Gérer les erreurs de chargement du son
     sound.on('loaderror', () => {
       console.log(`Erreur de chargement de la musique (${id}): ${error}`);
     });
 
-    
+
   }
 
   const durationContainer = document.querySelector('#duration-player');
@@ -177,20 +177,20 @@ function playerSettings(musicDuration = null, sound = null, id = null) {
     sound.seek(seekTime)
     // si le lecteur était en marche
     if (isPlayed) {
-      if(elapsed == musicDuration){
+      if (elapsed == musicDuration) {
         clearInterval(intervalId);
-        
+
         elapsed = 0
         inputPlayer.value = elapsed;
         isPlayed = false;
-        
+
         sound.stop();
         startStopBtn.innerHTML = "<i class='fa-solid fa-play'></i>";
       }
       // il reste en marche
       clearInterval(intervalId);
       intervalId = setInterval(() => {
-       
+
         elapsed += 1;
         inputPlayer.value = elapsed;
         elapsedContainer.innerHTML = formatTime(inputPlayer.value);
@@ -209,7 +209,7 @@ function playerSettings(musicDuration = null, sound = null, id = null) {
 
         if (isPlayed == true) {
           const forward = document.querySelector('#forward')
-          const backward = document.querySelector('#backward')  
+          const backward = document.querySelector('#backward')
         }
       }, 1000);
     }
@@ -238,71 +238,71 @@ function playerSettings(musicDuration = null, sound = null, id = null) {
   startStopBtn.onclick = () => {
     // si le lecteur était en pause
     if (isPlayed === false) {
-  // si la musique a été consommée entièrement
-  if (inputPlayer.value == musicDuration) {
-    clearInterval(intervalId);
-    elapsed = 0
-    inputPlayer.value = elapsed;
-    // On stop le lecteur
-    sound.stop();
-    isPlayed = false;
-    startStopBtn.innerHTML = "<i class='fa-solid fa-play'></i>";
-  }else{
-     // On change la valeur de isPlayed
-     isPlayed = true;
-     // On remplace le bouton start par le bouton pause 
-     startStopBtn.innerHTML = "<i class='fa-solid fa-pause'></i>";
-     sound.play();
-     // On démarre le lecteur 
-     intervalId = setInterval(() => {
-       // toutes les secondes
-       // on rajoute 1 seconde au temps écoulé
-       // et on fait tourné le vinyl
-       elapsed += 1;
-       inputPlayer.value = elapsed;
-       elapsedContainer.innerHTML = formatTime(inputPlayer.value);
-       rotateDeg += 75;
-       vinyl.style.transform = `rotate(${rotateDeg}deg)`;
+      // si la musique a été consommée entièrement
+      if (inputPlayer.value == musicDuration) {
+        clearInterval(intervalId);
+        elapsed = 0
+        inputPlayer.value = elapsed;
+        // On stop le lecteur
+        sound.stop();
+        isPlayed = false;
+        startStopBtn.innerHTML = "<i class='fa-solid fa-play'></i>";
+      } else {
+        // On change la valeur de isPlayed
+        isPlayed = true;
+        // On remplace le bouton start par le bouton pause 
+        startStopBtn.innerHTML = "<i class='fa-solid fa-pause'></i>";
+        sound.play();
+        // On démarre le lecteur 
+        intervalId = setInterval(() => {
+          // toutes les secondes
+          // on rajoute 1 seconde au temps écoulé
+          // et on fait tourné le vinyl
+          elapsed += 1;
+          inputPlayer.value = elapsed;
+          elapsedContainer.innerHTML = formatTime(inputPlayer.value);
+          rotateDeg += 75;
+          vinyl.style.transform = `rotate(${rotateDeg}deg)`;
 
-       // si la musique a été consommée entièrement
-       if (inputPlayer.value == musicDuration) {
-    
-         clearInterval(intervalId);
-         elapsed = 0
-         inputPlayer.value = elapsed;
-         // On stop le lecteur
-         sound.stop();
-         isPlayed = false;
-         startStopBtn.innerHTML = "<i class='fa-solid fa-play'></i>";
-       }
+          // si la musique a été consommée entièrement
+          if (inputPlayer.value == musicDuration) {
 
-        const forward = document.querySelector('#forward')
-        const backward = document.querySelector('#backward')  
-        if(elapsed <= (musicDuration - 5)){
-          forward.onclick = () => {
-            elapsed += 3;
+            clearInterval(intervalId);
+            elapsed = 0
             inputPlayer.value = elapsed;
-            elapsedContainer.innerHTML = formatTime(inputPlayer.value);
-            let seekTime = parseFloat(inputPlayer.value);
-            sound.seek(seekTime)
-          } 
-        }
-        if(elapsed >= 3){
-          backward.onclick = () => {
-            elapsed -= 3;
-            inputPlayer.value = elapsed;
-            elapsedContainer.innerHTML = formatTime(inputPlayer.value);
+            // On stop le lecteur
+            sound.stop();
+            isPlayed = false;
+            startStopBtn.innerHTML = "<i class='fa-solid fa-play'></i>";
+          }
 
-            let seekTime = parseFloat(inputPlayer.value);
-            sound.seek(seekTime)
-            
-          } 
+          const forward = document.querySelector('#forward')
+          const backward = document.querySelector('#backward')
+          if (elapsed <= (musicDuration - 5)) {
+            forward.onclick = () => {
+              elapsed += 3;
+              inputPlayer.value = elapsed;
+              elapsedContainer.innerHTML = formatTime(inputPlayer.value);
+              let seekTime = parseFloat(inputPlayer.value);
+              sound.seek(seekTime)
+            }
+          }
+          if (elapsed >= 3) {
+            backward.onclick = () => {
+              elapsed -= 3;
+              inputPlayer.value = elapsed;
+              elapsedContainer.innerHTML = formatTime(inputPlayer.value);
 
-        
+              let seekTime = parseFloat(inputPlayer.value);
+              sound.seek(seekTime)
+
+            }
+
+
+          }
+        }, 1000);
+
       }
-     }, 1000);
-
-  }
     } else {
       // si le lecteur était en marche
       // on met le lecteur en pause
@@ -312,8 +312,8 @@ function playerSettings(musicDuration = null, sound = null, id = null) {
       clearInterval(intervalId);
     }
   };
-    inputPlayer.value = 0;
-    elapsedContainer.innerHTML = formatTime(inputPlayer.value);
+  inputPlayer.value = 0;
+  elapsedContainer.innerHTML = formatTime(inputPlayer.value);
 }
 
 
@@ -334,9 +334,9 @@ switch (location.pathname) {
     document.querySelector('#desktop-nav .top-links a:nth-child(2)').classList.add('selected')
     break;
   case '/addplaylists':
-  document.querySelector('#mobile-nav .top-links a:nth-child(2)').classList.add('selected')
-  document.querySelector('#desktop-nav .top-links a:nth-child(2)').classList.add('selected')
-  break;
+    document.querySelector('#mobile-nav .top-links a:nth-child(2)').classList.add('selected')
+    document.querySelector('#desktop-nav .top-links a:nth-child(2)').classList.add('selected')
+    break;
   case '/favorite':
     document.querySelector('#mobile-nav .top-links a:nth-child(3)').classList.add('selected')
     document.querySelector('#desktop-nav .top-links a:nth-child(3)').classList.add('selected')
@@ -351,6 +351,16 @@ switch (location.pathname) {
 
 
 // -------------------------------Player add in playlist------------------
+
+//------------------Get id Track in player------------------------
+let idTrackInPlayer
+setTimeout(() => {
+  let footer = document.querySelector(".myfooter");
+  idTrackInPlayer = (footer.id).split('-');
+  idTrackInPlayer = idTrackInPlayer[1];
+  console.log(idTrackInPlayer)
+}, 2000);
+
 let playerBtnAddPlaylist = document.querySelector(".playlist-btn");
 let bgDark = document.querySelector("#bg-dark");
 let modal = document.querySelector("#modal");
@@ -358,6 +368,9 @@ let modal = document.querySelector("#modal");
 playerBtnAddPlaylist.addEventListener("click", () => {
   modal.style.display = "block";
   bgDark.style.display = "block";
+
+  document.getElementById("track_id_input").value = idTrackInPlayer;
+
 
   document.onmouseup = (e) => {
     if (!modal.contains(e.target)) {
@@ -371,21 +384,21 @@ playerBtnAddPlaylist.addEventListener("click", () => {
 const select = document.getElementById("mySelect");
 if (select) {
   const optionCount = select.getElementsByTagName("option").length;
-select.setAttribute("size", optionCount);
-select.addEventListener("change", function () {
-  const selectedOption = this.options[this.selectedIndex];
-  const options = this.getElementsByTagName("option");
-  for (let i = 0; i < options.length; i++) {
-    options[i].classList.remove("selected");
-  }
-  selectedOption.classList.add("selected");
-});
+  select.setAttribute("size", optionCount);
+  select.addEventListener("change", function () {
+    const selectedOption = this.options[this.selectedIndex];
+    const options = this.getElementsByTagName("option");
+    for (let i = 0; i < options.length; i++) {
+      options[i].classList.remove("selected");
+    }
+    selectedOption.classList.add("selected");
+  });
 
 }
 
 /************Barre de nav************/
 
-if(location.pathname.includes('/playlists/')){
+if (location.pathname.includes('/playlists/')) {
   document.querySelector('#mobile-nav .top-links a:nth-child(2)').classList.add('selected')
   document.querySelector('#desktop-nav .top-links a:nth-child(2)').classList.add('selected')
 }
@@ -401,32 +414,32 @@ setTimeout(() => {
     if (track.id == footerId) {
       track.classList.add('selected-track');
     }
-});
+  });
 }, 2000);
 
-/*spinner*/ 
+/*spinner*/
 function launchSpinner() {
   spinner.style.display = 'initial';
   backdrop.style.display = 'initial';
   const animation = [
-      { opacity: 0.85 },
-      { opacity: 0.65 },
-    ];
-    
-    const timing = {
-      duration: 5000,
-      iterations: 1,
-      fill: "forwards"
-    };
-    backdrop.animate(animation, timing);
+    { opacity: 0.85 },
+    { opacity: 0.65 },
+  ];
 
-timeoutId = setTimeout(() => {
-  spinner.style.display = 'none';
-  backdrop.style.display = 'none';
-}, 10000);
+  const timing = {
+    duration: 5000,
+    iterations: 1,
+    fill: "forwards"
+  };
+  backdrop.animate(animation, timing);
+
+  timeoutId = setTimeout(() => {
+    spinner.style.display = 'none';
+    backdrop.style.display = 'none';
+  }, 10000);
 }
 
-console.log(timeoutId);
+
 const navLinksArr = document.querySelectorAll('.top-links a')
 
 navLinksArr.forEach(link => {
@@ -434,4 +447,6 @@ navLinksArr.forEach(link => {
      
         launchSpinner();
     }
+
+
 });
