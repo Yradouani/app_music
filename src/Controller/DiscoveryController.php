@@ -7,6 +7,7 @@ use App\Entity\Track;
 use App\Entity\Favorite;
 use App\Entity\Playlist;
 use Doctrine\ORM\EntityManager;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Security;
@@ -20,64 +21,72 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class DiscoveryController extends AbstractController
 {
     #[Route('/discovery', name: 'discovery.index')]
-    public function index(Request $request, EntityManagerInterface $entityManager, SessionInterface $session, Security $security): Response
+    public function index(Request $request, EntityManagerInterface $entityManager, SessionInterface $session, Security $security, UserRepository $userRepository): Response
     {
+        $users = $userRepository->findAll();
+        $idUser = $session->get('idUser');
+        $isExistUser = false;
 
-        $isAlreadyInPlaylist = false;
-        $trackAdded = false;
-        $optionSelected = false;
-        if ($request->isMethod('POST')) {
-            $track_id = $request->request->get('track_id');
-            $idPlaylist = $request->request->get('playlist');
-            if ($track_id) {
-                $optionSelected = true;
-                $playlistRepository = $entityManager->getRepository(Playlist::class);
-                $playlist = $playlistRepository->find($idPlaylist);
-                $tracks = $entityManager->getRepository(Track::class)->findBy(['num_track' => $track_id]);
-                foreach ($tracks as $track) {
-                    if ($track->getIdPlaylist() == $playlist) {
-                        $isAlreadyInPlaylist = true;
+
+        for ($i = 0; $i < count($users); $i++) {
+            if ($users[$i]->getId() == $idUser) {
+                $isAlreadyInPlaylist = false;
+                $trackAdded = false;
+                $optionSelected = false;
+                $isExistUser = true;
+                if ($request->isMethod('POST')) {
+                    $track_id = $request->request->get('track_id');
+                    $idPlaylist = $request->request->get('playlist');
+                    if ($track_id) {
+                        $optionSelected = true;
+                        $playlistRepository = $entityManager->getRepository(Playlist::class);
+                        $playlist = $playlistRepository->find($idPlaylist);
+                        $tracks = $entityManager->getRepository(Track::class)->findBy(['num_track' => $track_id]);
+                        foreach ($tracks as $track) {
+                            if ($track->getIdPlaylist() == $playlist) {
+                                $isAlreadyInPlaylist = true;
+                            }
+                        }
+                        if ($isAlreadyInPlaylist == false) {
+                            $playlistRepository = $entityManager->getRepository(Playlist::class);
+                            $playlist = $playlistRepository->find($idPlaylist);
+
+                            $newTrack = new Track();
+                            $newTrack->setIdPlaylist($playlist);
+                            $newTrack->setNumTrack($track_id);
+                            $entityManager->persist($newTrack);
+                            $entityManager->flush();
+                            $trackAdded = true;
+                        }
                     }
                 }
-                if ($isAlreadyInPlaylist == false) {
-                    $playlistRepository = $entityManager->getRepository(Playlist::class);
-                    $playlist = $playlistRepository->find($idPlaylist);
 
-                    $newTrack = new Track();
-                    $newTrack->setIdPlaylist($playlist);
-                    $newTrack->setNumTrack($track_id);
-                    $entityManager->persist($newTrack);
-                    $entityManager->flush();
-                    $trackAdded = true;
+                if (isset($idUser)) {
+                    $userRepository = $entityManager->getRepository(User::class);
+                    $user = $userRepository->find($idUser);
+                    $playlists = $entityManager->getRepository(Playlist::class)->findBy(['id_user' => $user]);
+
+                    return $this->render('discovery/discovery.html.twig', [
+                        'playlists' => $playlists,
+                        'isAlreadyInPlaylist' => $isAlreadyInPlaylist,
+                        'trackAdded' => $trackAdded,
+                        'pseudo' => $user->getPseudo(),
+                        'optionSelected' => $optionSelected
+                    ]);
+                } else {
+                    return $this->redirectToRoute('home.index');
                 }
+                break;
             }
         }
-
-
-        $idUser = $session->get('idUser');
-        if (isset($idUser)) {
-            $userRepository = $entityManager->getRepository(User::class);
-            $user = $userRepository->find($idUser);
-            $playlists = $entityManager->getRepository(Playlist::class)->findBy(['id_user' => $user]);
-
-            $favoriteRepository = $entityManager->getRepository(Favorite::class);
-            $favoriteList = $favoriteRepository->findBy(['id_user' => $user]);
-
-            return $this->render('discovery/discovery.html.twig', [
-                'playlists' => $playlists,
-                'isAlreadyInPlaylist' => $isAlreadyInPlaylist,
-                'trackAdded' => $trackAdded,
-                'pseudo' => $user->getPseudo(),
-                'optionSelected' => $optionSelected,
-                'favoriteList' => $favoriteList,
-            ]);
-        } else {
+        if ($isExistUser == false) {
+            $session->remove('idUser');
             return $this->redirectToRoute('home.index');
         }
     }
 
     #[Route('/discoveryFavoriteTrack', name: 'discoveryFavoriteTrack.index')]
-    public function discovery(Request $request, SessionInterface $session, EntityManagerInterface $manager): JsonResponse
+    public function favoriteDiscovery(SessionInterface $session, EntityManagerInterface $manager): JsonResponse
     {
         $idUser = $session->get('idUser');
         if (isset($idUser)) {
@@ -122,5 +131,11 @@ class DiscoveryController extends AbstractController
         } else {
             return $this->redirectToRoute('home.index');
         }
+    }
+
+    #[Route('/{url}', name: 'discovery')]
+    public function discovery(): Response
+    {
+        return $this->render('discovery/discovery.html.twig');
     }
 }

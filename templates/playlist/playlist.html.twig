@@ -46,6 +46,9 @@
 				{% if isUsed is defined and isUsed == true %}
 					<div id="error_message">Le nom de la playlist est déjà utilisé, veuillez en choisir un autre</div>
 				{% endif %}
+				{% if isAlreadyInPlaylist is defined and isAlreadyInPlaylist == true %}
+					<div id="error_message">Ce morceau est déjà dans cette playlist</div>
+				{% endif %}
 				<div id="track_container">
 					<div id="add_playlist">
 						<div class="playlist-image add_playlist_image">
@@ -151,7 +154,6 @@
 		{% endif %}
 	{% endif %}
 	{# --------------Add playlist Modal--------------------- #}
-	<div id="bg-dark"></div>
 	<div id="modal_add_playlist">
 		<span id="add_playlist_modal_header">
 			<span class="fa-thin fa-plus"></span>
@@ -180,7 +182,7 @@
 			<span class="fa-thin fa-plus"></span>
 			Ajouter à une playlist</span>
 		<span id="add_playlist_name">
-			<form action="{{ path('discovery.index') }}" method="POST">
+			<form action="{{ path('playlist.index') }}" method="POST">
 				<input type="hidden" name="track_id" id="track_id_input" value="">
 				<select id="mySelect" name="playlist">
 					{% if playlists is defined %}
