@@ -116,7 +116,6 @@ input[type="checkbox"]+label {
 
 input[type="checkbox"]+label:before {
     content: "\1F5A4";
-
     border: 1px solid transparent;
     border-radius: 3px;
     display: block;
