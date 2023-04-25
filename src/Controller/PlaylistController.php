@@ -112,7 +112,7 @@ class PlaylistController extends AbstractController
                 break;
             }
         }
-        
+
         if ($isExistUser == false) {
             $session->remove('idUser');
             return $this->redirectToRoute('home.index');
@@ -238,11 +238,8 @@ class PlaylistController extends AbstractController
             'id' => $id,
             'tracks_api_response' => $tracks_api_response,
             'playlist' => $playlist,
-<<<<<<< HEAD
             'favoriteList' => $favoriteList,
-=======
             'pseudo' => $user->getPseudo(),
->>>>>>> 0d174b9413751d44add5b49fb8f85dbc0141a018
         ]);
     }
 
