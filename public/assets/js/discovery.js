@@ -132,7 +132,7 @@ function createTable(response, tableLength, tracks, favoriteTracks) {
         document.querySelector('th.rank-td').remove()
     }
     allTracks.innerHTML = tableauTop;
-    
+
     addTrackInPlaylist();
 }
 
@@ -274,23 +274,25 @@ function addTrackInPlaylist() {
     let addPlaylistBtn = document.querySelectorAll('.add_playlist');
     for (let i = 0; i < addPlaylistBtn.length; i++) {
         addPlaylistBtn[i].addEventListener("click", () => {
+            let modal = document.querySelector("#modal");
+            let bgDark = document.querySelector("#bg-dark");
             modal.style.display = "block";
             bgDark.style.display = "block";
             console.log(trackContainer[i])
             let idTrack = trackContainer[i].getAttribute("id");
             console.log(idTrack)
             document.getElementById("track_id_input").value = idTrack;
+
+            document.onmouseup = (e) => {
+                if (!modal.contains(e.target)) {
+                    modal.style.display = 'none';
+                    bgDark.style.display = "none";
+                }
+            }
         })
     }
 }
 
-document.onmouseup = (e) => {
-    // console.log(e.target)
-    if (!modal.contains(e.target)) {
-        modal.style.display = 'none';
-        bgDark.style.display = "none";
-    }
-}
 
 // --------- swapper  ---------------//
 
