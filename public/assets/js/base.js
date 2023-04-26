@@ -315,10 +315,12 @@ function playerSettings(musicDuration = null, sound = null, id = null) {
 //--------------------------------------------//
 //--------------------------------------------//
 
+// setTimeout(() => {
 switch (location.pathname) {
   case '/discovery':
-    document.querySelector('#mobile-nav .top-links a:first-child').classList.add('selected')
-    document.querySelector('#desktop-nav .top-links a:first-child').classList.add('selected')
+    let discoveryLink = document.querySelectorAll('.top-links a:nth-child(1)')
+    discoveryLink[0].classList.add('selected')
+    discoveryLink[1].classList.add('selected')
     break;
   case '/playlists':
     document.querySelector('#mobile-nav .top-links a:nth-child(2)').classList.add('selected')
@@ -339,7 +341,7 @@ switch (location.pathname) {
   default:
     break;
 }
-
+// }, 2000);
 
 // -------------------------------Player add in playlist------------------
 
@@ -367,6 +369,7 @@ playerBtnAddPlaylist.addEventListener("click", () => {
 
 
 const select = document.getElementById("mySelect");
+console.log(select);
 if (select) {
   const optionCount = select.getElementsByTagName("option").length;
   select.setAttribute("size", optionCount);
@@ -428,10 +431,10 @@ function launchSpinner() {
 const navLinksArr = document.querySelectorAll('.top-links a')
 
 navLinksArr.forEach(link => {
-    link.onclick = () => {
-     
-        launchSpinner();
-    }
+  link.onclick = () => {
+
+    launchSpinner();
+  }
 
 
 });
