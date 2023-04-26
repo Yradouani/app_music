@@ -58,10 +58,10 @@ function getFavoriteTrack() {
 
                     let idSplit = allHearts[i].id.split("-");
                     songId = idSplit[1];
-                    console.log("id " + songId);
+                    // console.log("id " + songId);
 
                     for (let j = 0; j < data.favoriteListJson.length; j++) {
-                        console.log(data.favoriteListJson[j].id_track);
+                        // console.log(data.favoriteListJson[j].id_track);
                         if (data.favoriteListJson[j].id_track == songId) {
                             allHearts[i].checked = true;
                         }
