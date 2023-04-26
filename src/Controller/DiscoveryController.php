@@ -133,9 +133,14 @@ class DiscoveryController extends AbstractController
         }
     }
 
-    #[Route('/{url}', name: 'discovery')]
-    public function discovery(): Response
-    {
-        return $this->render('discovery/discovery.html.twig');
-    }
+    // #[Route('/{url}', name: 'discoveryRedirect')]
+    // public function discoveryRedirect(SessionInterface $session): Response
+    // {
+    //     if ($session->get('idUser')) {
+    //         return $this->redirectToRoute('discovery.index');
+    //     } else {
+    //         // return $this->render('home/home.html.twig');
+    //         return $this->redirectToRoute('home.index');
+    //     }
+    // }
 }

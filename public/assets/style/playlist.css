@@ -527,17 +527,12 @@ form {
     .img-td {
         width: 70px !important;
     }
-
     
     thead {
         display: none;
     }
 
-
     #oneplaylist_header{
         margin: 40px 8%;
     }
-
-
-
 }

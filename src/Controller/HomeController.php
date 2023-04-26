@@ -40,10 +40,8 @@ class HomeController extends AbstractController
         if (!preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/', $password)) {
             // Le mot de passe ne répond pas aux exigences de complexité
             // $this->addFlash('error', 'Le mot de passe doit contenir au minimum une lettre minuscule, une lettre majuscule, un chiffre et un caractère spécial et minimum 8 caractères.');
-            $result = 'error-password';
             return $this->render('home/home.html.twig', [
                 'controller_name' => 'HomeController',
-                'result' => $result
             ]);
         }
 
@@ -52,10 +50,8 @@ class HomeController extends AbstractController
         if ($user) {
             // Un utilisateur avec le même email existe déjà
             // $this->addFlash('error', 'Cet email est déjà utilisé.');
-            $result = 'error-mail';
             return $this->render('home/home.html.twig', [
                 'controller_name' => 'HomeController',
-                'result' => $result
             ]);
         }
 
@@ -74,10 +70,8 @@ class HomeController extends AbstractController
         $this->addFlash('success', 'Inscription réussie !');
         // $message = "Hello World";
         // return new JsonResponse($message);
-        $result = 'success';
         return $this->render('home/home.html.twig', [
-            'controller_name' => 'HomeController',
-            'result' => $result
+            'controller_name' => 'HomeController'
         ]);
     }
 
@@ -106,5 +100,15 @@ class HomeController extends AbstractController
     public function discovery(Request $request): Response
     {
         return $this->render('discovery.html.twig');
+    }
+
+    public function redirection(SessionInterface $session)
+    {
+        $idUser = $session->get('idUser');
+        if (isset($idUser)) {
+            return $this->redirectToRoute('discovery.index');
+        } else {
+            return $this->redirectToRoute('home.index');
+        }
     }
 }

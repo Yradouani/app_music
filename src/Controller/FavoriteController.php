@@ -28,7 +28,7 @@ class FavoriteController extends AbstractController
         for ($i = 0; $i < count($users); $i++) {
             if ($users[$i]->getId() == $idUser) {
                 $isExistUser = true;
-                $isAlreadyInPlaylist = false;
+
                 if (isset($idUser)) {
 
                     $userRepository = $manager->getRepository(User::class);
@@ -36,6 +36,7 @@ class FavoriteController extends AbstractController
                     $playlists = $manager->getRepository(Playlist::class)->findBy(['id_user' => $user]);
 
                     if ($request->isMethod('POST')) {
+                        $isAlreadyInPlaylist = false;
                         if ($request->request->get('track_id') !== null) {
                             $track_id = $request->request->get('track_id');
                             $idPlaylist = $request->request->get('playlist');
@@ -88,6 +89,7 @@ class FavoriteController extends AbstractController
                         $responseTrack[$i] = json_decode($response, true);
                     }
 
+
                     if ($responseTrack === false) {
                         $errorGetContent = "Une erreur s'est produite au chargement des Favoris, veuillez recharger la page.";
                         return $this->render('favorite/favorite.html.twig', [
@@ -95,10 +97,9 @@ class FavoriteController extends AbstractController
                             'userNum' => $user,
                             'errorGetContent' => $errorGetContent,
                             'playlists' => $playlists,
-                            'isAlreadyInPlaylist' => $isAlreadyInPlaylist,
+                            'isAlreadyInPlaylist' => isset($isAlreadyInPlaylist) ? $isAlreadyInPlaylist : "",
                             'pseudo' => $user->getPseudo(),
                             'favoriteList' => $favoriteList,
-                            'responseTrack' => $responseTrack,
 
                         ]);
                     } else {
@@ -107,7 +108,7 @@ class FavoriteController extends AbstractController
                             'userNum' => $user,
                             'responseTrack' => $responseTrack,
                             'playlists' => $playlists,
-                            'isAlreadyInPlaylist' => $isAlreadyInPlaylist,
+                            'isAlreadyInPlaylist' => isset($isAlreadyInPlaylist) ? $isAlreadyInPlaylist : "",
                             'pseudo' => $user->getPseudo(),
                             'favoriteList' => $favoriteList,
                         ]);

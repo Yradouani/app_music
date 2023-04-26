@@ -240,7 +240,6 @@ class PlaylistController extends AbstractController
             'playlist' => $playlist,
             'favoriteList' => $favoriteList,
             'pseudo' => $user->getPseudo(),
-
         ]);
     }
 

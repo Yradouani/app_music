@@ -2,15 +2,24 @@
 	<script src="{{ asset('assets/js/base.js')}}" defer></script>
 
 {% endblock %}
-<div id="user-info">
-	<i class="fa-solid fa-user"></i>
-	<span>{{ pseudo }}</span>
-</div>
-<nav id="mobile-nav">
-	<div id="user-info-mobile">
+{% if pseudo is defined %}
+	<div id="user-info">
 		<i class="fa-solid fa-user"></i>
 		<span>{{ pseudo }}</span>
 	</div>
+{% endif %}
+<nav id="mobile-nav">
+	<div class="menu-title">
+		<button>
+			<i class="fa-solid fa-xmark"></i>
+		</button>
+	</div>
+	{% if pseudo is defined %}
+		<div id="user-info-nav">
+			<i class="fa-solid fa-user"></i>
+			<span>{{ pseudo }}</span>
+		</div>
+	{% endif %}
 	<div class="top-links">
 		<a href={{ path('discovery.index') }}>
 			<i class="fa-solid fa-headphones"></i>
