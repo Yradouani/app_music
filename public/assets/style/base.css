@@ -624,6 +624,17 @@ input[type="checkbox"]:checked + label:after {
         font-weight: 500;
     }
 
+    /*User info*/
+
+    #user-info {
+        display: none;
+    }
+    
+    #user-info i {
+        height: 18px;
+        margin: auto 15px;
+    }
+
     /* Footer (player) */
     footer {
         align-items: center;
@@ -733,17 +744,35 @@ input[type="checkbox"]:checked + label:after {
     position: absolute;
     right: 0px;
     top: 0px;
-    padding: 18px 35px 18px 20px;
+    padding: 16px 35px 16px 20px;
     border-left: 1px solid var(--grey-border);
+    border-bottom: 1px solid var(--grey-border);
+    overflow: hidden;
 }
 
 #user-info i {
-    height: 18px;
-    margin: auto 15px;
+    padding: 5px 5px 2px 5px;
+    margin-right: 5px;
+    color: white;
+    background: #c5c5c5;
+    border-radius: 15px;
+}
+
+#user-info-mobile{
+    padding: 15px 10px ;
+    border-bottom: 1px var(--grey-border) solid;
+    overflow: hidden;
+}
+
+#user-info-mobile i{
+    padding: 5px 5px 2px 5px;
+    margin-right: 5px;
+    color: white;
+    background: #c5c5c5;
+    border-radius: 15px;
 }
 
 @-webkit-keyframes stretch {
-
     0%,
     40%,
     100% {
