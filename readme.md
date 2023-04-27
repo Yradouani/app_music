@@ -30,7 +30,7 @@ SoundWave est une application de musique en streaming (tel que Spotify) comprena
 - une rubrique Playlists, permettant à l'utilisateur de créer des playlists pour pouvoir y ajouter des musiques,
 - une rubrique Favoris, permettant à l'utilisateur de retrouver les musiques qu'il a liké.
 
-L'administrateur a en plus accès, à la rubrique admin, où il peut visualiser à la liste des utilisateurs inscrits et quelques statistiques.
+L'administrateur a en plus accès, à la rubrique admin, où il peut visualiser la liste des utilisateurs inscrits et des statistiques concernant l'activité globale des utilisateurs.
 
 ## Technos 
   
