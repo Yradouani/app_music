@@ -71,7 +71,8 @@ class DiscoveryController extends AbstractController
                         'isAlreadyInPlaylist' => $isAlreadyInPlaylist,
                         'trackAdded' => $trackAdded,
                         'pseudo' => $user->getPseudo(),
-                        'optionSelected' => $optionSelected
+                        'optionSelected' => $optionSelected,
+                        'wesh' => 'alors'
                     ]);
                 } else {
                     return $this->redirectToRoute('home.index');
