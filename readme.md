@@ -40,7 +40,7 @@ L'administrateur a en plus accès, à la rubrique admin, où il peut visualiser 
 
 ## Contributeurs
   
-Vianney Giacomi | Thibaud Maître | Yasmine Radouani | Haroun Abdennabi 
+Vianney Giovannelli | Thibaud Maître | Yasmine Radouani | Haroun Abdennabi 
 
 
 
