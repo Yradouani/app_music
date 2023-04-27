@@ -2,7 +2,7 @@
 
 ## Démarrer le projet
 
-Pour utiliser l'application en locale, il est nécéssaire d'avoir des versions récentes de **Composer, PHP, Symfony et MySQL** installées sur votre appareil.
+Pour utiliser l'application en locale, il est nécessaire d'avoir des versions récentes de **Composer, PHP, Symfony et MySQL** installées sur votre appareil.
 
 **Suivez ces étapes :**
 
