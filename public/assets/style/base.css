@@ -516,6 +516,7 @@ input[type="checkbox"] + label {
     position: relative;
     display: inline-block;
     font-size: 16px;
+    cursor: pointer;
 
 }
  

@@ -88,7 +88,7 @@
 								</td>
 							{% else %}
 								<td class="heart-td">
-									<input name="heart" type="checkbox" id={{'heart-' ~ responseTrack[i].id}} onchange="updateFavorite(this)">
+									<input name="heart" type="checkbox" id={{'heart-' ~ responseTrack[i].id}} onchange="updateFavorite(this)" checked>
 									<label for={{'heart-' ~ responseTrack[i].id}}></label>
 								</td>
 							{% endif %}

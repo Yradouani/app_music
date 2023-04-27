@@ -72,7 +72,6 @@ class DiscoveryController extends AbstractController
                         'trackAdded' => $trackAdded,
                         'pseudo' => $user->getPseudo(),
                         'optionSelected' => $optionSelected,
-                        'wesh' => 'alors'
                     ]);
                 } else {
                     return $this->redirectToRoute('home.index');
