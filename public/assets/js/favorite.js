@@ -15,7 +15,6 @@ function changeMusicInPlayer(track, e){
     trackId = track.id;
 
     if (e.target == track.querySelector('label') || e.target == track.querySelector('input')|| e.target == track.querySelector('.add_playlist')) {
-        console.log('like');
   }else{
     const tracksArr = document.querySelectorAll('.track-container');
     tracksArr.forEach(track => {
@@ -54,7 +53,6 @@ function listenMusic() {
       elapsed = 0;
       inputPlayer.value = elapsed;
       clearInterval(intervalId);
-      console.log(trackId)
       getTrack(trackId)
 }
 
@@ -87,7 +85,6 @@ function updateFavorite(checkbox) {
   
         idSplit = checkbox.id.split("-");
         songId = idSplit[1];
-        console.log("del " + songId);
 
         fetch('/deleteFavorite/' + songId, {
             method: 'POST',

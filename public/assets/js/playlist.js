@@ -82,6 +82,7 @@ for (let i = 0; i < trashButtons.length; i++) {
         idTrackToDelete = infosArray[0];
         idPlaylistToDelete = infosArray[1];
 
+
         const url = '/deleteplaylist';
         const data = {
             idPlaylistToDelete: idPlaylistToDelete,
