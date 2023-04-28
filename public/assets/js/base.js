@@ -356,7 +356,9 @@ playerBtnAddPlaylist.addEventListener("click", () => {
   let footer = document.querySelector(".myfooter");
   let idTrackInPlayer = (footer.id).split('-');
   idTrackInPlayer = idTrackInPlayer[1];
-  document.getElementById("track_id_input").value = idTrackInPlayer;
+  if (document.getElementById("track_id_input")) {
+    document.getElementById("track_id_input").value = idTrackInPlayer;
+  }
 
 
   document.onmouseup = (e) => {
@@ -369,7 +371,7 @@ playerBtnAddPlaylist.addEventListener("click", () => {
 
 
 const select = document.getElementById("mySelect");
-console.log(select);
+
 if (select) {
   const optionCount = select.getElementsByTagName("option").length;
   select.setAttribute("size", optionCount);

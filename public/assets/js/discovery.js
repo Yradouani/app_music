@@ -279,7 +279,9 @@ function addTrackInPlaylist() {
             console.log(trackContainer[i])
             let idTrack = trackContainer[i].getAttribute("id");
             console.log(idTrack)
-            document.getElementById("track_id_input").value = idTrack;
+            if (document.getElementById("track_id_input")) {
+                document.getElementById("track_id_input").value = idTrack;
+            }
 
             document.onmouseup = (e) => {
                 if (!modal.contains(e.target)) {
