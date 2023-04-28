@@ -36,7 +36,6 @@ function getTracks(url, fnName, data) {
     })
         .then(response => response.json())
         .then(response => {
-            console.log(data);
             fnName(response, url, fnName, data);
 
         })

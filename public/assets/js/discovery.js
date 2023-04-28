@@ -47,29 +47,24 @@ function getFavoriteTrack() {
     })
         .then(response => response.json())
         .then(data => {
-            console.log(data);
 
             setTimeout(() => {
                 let allHearts = document.querySelectorAll(".allHearts");
-                console.log(allHearts);
 
 
                 for (let i = 0; i < allHearts.length; i++) {
 
                     let idSplit = allHearts[i].id.split("-");
                     songId = idSplit[1];
-                    console.log("id " + songId);
 
                     for (let j = 0; j < data.favoriteListJson.length; j++) {
-                        console.log(data.favoriteListJson[j].id_track);
                         if (data.favoriteListJson[j].id_track == songId) {
                             allHearts[i].checked = true;
                         }
                     }
                 }
-            }, 2000);
+            }, 4000);
         })
-        // .then(data => console.log(data.favoriteListJson))
         .catch(error => console.error(error));
 }
 
@@ -95,7 +90,6 @@ function fillSwiper(response, tableLength, tracks) {
 
 function createTable(response, tableLength, tracks, favoriteTracks) {
 
-    // console.log(favoriteTracks);
 
     for (let i = 0; i < tableLength; i++) {
         tableauTop += `<tr class=${(tracks) ? 'track-container ranked' : 'track-container'} id="${(tracks) ? response.tracks.data[i].id : response.data[i].id}" onclick=changeMusicInPlayer(this,event)>
@@ -146,7 +140,6 @@ function fn_top100() {
 
     function displayTopTracks(response, url, fnName, favoriteTracks) {
         if (response.error) {
-            console.log("error" + response);
             getTracks(url, fnName);
         } else {
             const spinner = document.querySelector('.spinner');
@@ -179,7 +172,6 @@ function fn_loadGenre(i) {
     getTracks(url, fnName);
 
     function displayTrackByGenre(response, url, fnName) {
-        console.log(response);
         if (response.error) {
             getTracks(url, fnName);
         } else {
@@ -202,8 +194,6 @@ function fn_search() {
 
     let url = 'search?q=' + search.value;
     let fnName = displaySearchResult;
-
-    console.log(url);
 
     allTracks.innerHTML = "";
     tableauTop = "";
@@ -229,7 +219,6 @@ function changeMusicInPlayer(track, e) {
     trackId = track.id;
 
     if (e.target == track.querySelector('label') || e.target == track.querySelector('input')) {
-        // console.log('error');
 
     } else {
 
@@ -276,16 +265,13 @@ function addTrackInPlaylist() {
         addPlaylistBtn[i].addEventListener("click", () => {
             modal.style.display = "block";
             bgDark.style.display = "block";
-            console.log(trackContainer[i])
             let idTrack = trackContainer[i].getAttribute("id");
-            console.log(idTrack)
             document.getElementById("track_id_input").value = idTrack;
         })
     }
 }
 
 document.onmouseup = (e) => {
-    // console.log(e.target)
     if (!modal.contains(e.target)) {
         modal.style.display = 'none';
         bgDark.style.display = "none";
@@ -322,7 +308,6 @@ var swiper = new Swiper(".mySwiper", {
 swiper.on('click', function (e) {
     // Récupère l'index de la slide cliquée
     var clickedIndex = swiper.activeIndex;
-    console.log('Slide cliquée : ' + clickedIndex);
 });
 
 swiper.on('slideChange', function () {
@@ -345,16 +330,12 @@ swiper.on('slideChange', function () {
 
 // --------Favorite------------//
 
-/* <input name="heart" type="checkbox" id="heart-${(tracks) ? response.tracks.data[i].id : response.data[i].id}" onchange="updateFavorite()"/>
-<label for="heart-${(tracks) ? response.tracks.data[i].id : response.data[i].id}"></label> */
-
 function updateFavorite(checkbox) {
 
     if (checkbox.checked) {
 
         idSplit = checkbox.id.split("-");
         songId = idSplit[1];
-        console.log("add " + songId);
 
         fetch('/addFavorite', {
             method: 'POST',
@@ -370,7 +351,6 @@ function updateFavorite(checkbox) {
     } else {
         idSplit = checkbox.id.split("-");
         songId = idSplit[1];
-        console.log("del " + songId);
 
         fetch('/deleteFavorite/' + songId, {
             method: 'POST',

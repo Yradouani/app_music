@@ -7,7 +7,7 @@
 {% block javascripts %}
 	<script src="{{ asset('assets/js/home.js') }}" defer></script>
 	<script defer>
-		console.log({{ app.user|json_encode()|raw }});
+		{# console.log({{ app.user|json_encode()|raw }}); #}
 	</script>
 {% endblock %}
 

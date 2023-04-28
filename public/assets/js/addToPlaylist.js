@@ -1,4 +1,3 @@
-console.log('ça marche');
 const btn = document.querySelector('.playlist-btn');
 
 let isPlModalOpen = false;

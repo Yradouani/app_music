@@ -137,19 +137,41 @@ class FavoriteController extends AbstractController
 
         $userRepository = $manager->getRepository(User::class);
 
+        $favoriteRepository = $manager->getRepository(Favorite::class);
+
         if (isset($idUser)) {
             $user = $userRepository->find($idUser);
+            $favoriteList = $favoriteRepository->findBy(['id_user' => $user]);
         } else {
             return $this->redirectToRoute('home.index');
         }
-        $favorite = new Favorite();
-        $favorite->setIdUser($user);
-        $favorite->setIdTrack($songId);
 
-        $manager->persist($favorite);
-        $manager->flush();
+        $isAlreadyFavorite = true;
+        // $countLenghtFav = 0;
 
-        return new JsonResponse(['message' => $songId]);
+        for ($i = 0; $i < count($favoriteList); $i++) {
+            if ($favoriteList[$i] == $songId) {
+                $isAlreadyFavorite = true;
+                // $countLenghtFav += 1;
+            } else {
+                $isAlreadyFavorite = false;
+            }
+        }
+
+        if ($isAlreadyFavorite == false) {
+            $favorite = new Favorite();
+            $favorite->setIdUser($user);
+            $favorite->setIdTrack($songId);
+
+            $manager->persist($favorite);
+            $manager->flush();
+        }
+
+        return new JsonResponse([
+            'message' => $songId,
+            'favoriteList' => $favoriteList,
+            // 'debugMsg' => $debugMsg,
+        ]);
     }
 
     #[Route('/deleteFavorite/{id}', name: 'deleteFavorite.index')]
