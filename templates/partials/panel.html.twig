@@ -4,7 +4,9 @@
 {% endblock %}
 <div id="user-info">
 	<i class="fa-solid fa-user"></i>
-	<span>{{ pseudo }}</span>
+	{% if pseudo is defined %}
+		<span>{{ pseudo }}</span>
+	{% endif %}
 </div>
 <nav id="mobile-nav">
 	<div class="menu-title">
@@ -14,7 +16,9 @@
 	</div>
 	<div id="user-info-nav">
 		<i class="fa-solid fa-user"></i>
-		<span>{{ pseudo }}</span>
+		{% if pseudo is defined %}
+			<span>{{ pseudo }}</span>
+		{% endif %}
 	</div>
 	<div class="top-links">
 		<a href={{ path('discovery.index') }}>
