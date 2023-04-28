@@ -16,7 +16,6 @@
     font-family: 'Montserrat', sans-serif;
 }
 
-
 a {
     text-decoration: none;
     transition: 500ms;
@@ -83,7 +82,7 @@ nav a.logo:hover {
     margin-left: 5px;
 }
 
-nav a {
+nav a, #user-info-nav {
     display: flex;
     align-items: center;
     font-size: 20px;
@@ -99,7 +98,7 @@ nav a.selected i {
     color: var(--main-color);
 }
 
-nav a span {
+nav a span, #user-info-nav span  {
     padding-left: 10px;
 }
 
@@ -517,6 +516,7 @@ input[type="checkbox"] + label {
     position: relative;
     display: inline-block;
     font-size: 16px;
+    cursor: pointer;
 
 }
  
@@ -624,6 +624,17 @@ input[type="checkbox"]:checked + label:after {
         font-weight: 500;
     }
 
+    /*User info*/
+
+    #user-info {
+        display: none;
+    }
+    
+    #user-info i {
+        height: 18px;
+        margin: auto 15px;
+    }
+
     /* Footer (player) */
     footer {
         align-items: center;
@@ -661,23 +672,6 @@ input[type="checkbox"]:checked + label:after {
     footer .player-main .bottom-player {
         margin: auto !important;
     }
-
-    /*-----------------User info---------------------------*/
-    #user-info {
-        display: none;
-    }
-
-    #user-info-nav {
-        display: flex;
-        align-items: center;
-        font-size: 20px;
-        padding: 15px 15px 15px 1.7vw;
-    }
-
-    #user-info-nav span {
-        padding-left: 10px;
-    }
-
 }
 
 /*Spinner*/
@@ -750,14 +744,16 @@ input[type="checkbox"]:checked + label:after {
     position: absolute;
     right: 0px;
     top: 0px;
-    padding: 18px 35px 18px 20px;
+    padding: 17px 35px 17px 20px;
     border-left: 1px solid var(--grey-border);
+    border-bottom: 1px solid var(--grey-border);
 }
 
 #user-info i {
     height: 18px;
     margin: auto 15px;
 }
+
 
 @-webkit-keyframes stretch {
 

@@ -1,3 +1,10 @@
+const checkboxes = document.querySelectorAll("table input[type='checkbox']")
+checkboxes.forEach(checkbox => {
+    console.log(checkbox);
+    checkbox.checked = true
+});
+console.log(checkboxes);
+
 const spinnerFav = document.querySelector('.spinner');
 const backdropFav = document.querySelector('.spinner-backdrop')
 spinnerFav.style.display = 'none';
@@ -10,9 +17,9 @@ function changeMusicInPlayer(track, e){
     if (e.target == track.querySelector('label') || e.target == track.querySelector('input')|| e.target == track.querySelector('.add_playlist')) {
   }else{
     const tracksArr = document.querySelectorAll('.track-container');
-        tracksArr.forEach(track => {
-            track.classList.remove('selected-track')
-        })
+    tracksArr.forEach(track => {
+        track.classList.remove('selected-track')
+    })
         
         track.classList.add('selected-track');
     getTrack(trackId)
@@ -54,23 +61,28 @@ function listenMusic() {
 
 function updateFavorite(checkbox) {
 
-    if (checkbox.checked) {
+    // if (checkbox.checked) {
         
-        idSplit = checkbox.id.split("-");
-        songId = idSplit[1];
+    //     idSplit = checkbox.id.split("-");
+    //     songId = idSplit[1];
+    //     console.log("add " + songId);
 
-        fetch('/addFavorite', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ songId: songId })
-        })
-            .then(response => response.json())
-            .then(data => console.log(data))
-            .catch(error => console.error(error));
+    //     fetch('/addFavorite', {
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type': 'application/json'
+    //         },
+    //         body: JSON.stringify({ songId: songId })
+    //     })
+    //         .then(response => response.json())
+    //         .then(data => console.log(data))
+    //         .catch(error => console.error(error));
 
-    } else {
+    // } else {
+        // const nextElement = checkbox.parentNode.parentNode.nextElementSibling;
+        // const nextElementHeart = nextElement.querySelector('.heart-td input');
+        // console.log(nextElementHeart);
+  
         idSplit = checkbox.id.split("-");
         songId = idSplit[1];
 
@@ -82,7 +94,14 @@ function updateFavorite(checkbox) {
             body: JSON.stringify({ songId: songId })
         })
             .then(response => response.json())
-            .then(data => console.log(data))
+            .then(data => {
+            
+                location.reload(); 
+            })
             .catch(error => console.error(error));
-    }
+         
+         
+    // }
+   
+  
 }

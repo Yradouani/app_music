@@ -56,16 +56,16 @@
 
 .playlist-image:hover .delete {
     display: block;
-    
+
 }
 
-.delete:hover{
+.delete:hover {
     opacity: 1;
 }
 
-.playlist-image:hover img, 
+.playlist-image:hover img,
 .playlist-image:hover .fa-question {
-    opacity:0.4
+    opacity: 0.4
 }
 
 .playlist-image img {
@@ -150,8 +150,7 @@
 }
 
 #notrack {
-    font-size: 30px;
-    font-weight: bold;
+    font-size: 25px;
     text-align: center;
 }
 
@@ -222,10 +221,11 @@ tr:hover {
     color: #929292;
 }
 
-.track-container{
+.track-container {
     cursor: pointer;
     border-bottom: 1px var(--grey-border) solid
 }
+
 /*Heart Button*/
 input[type="checkbox"] {
     display: none;
@@ -389,34 +389,36 @@ form {
 
 
 @media (max-width: 768px) {
-    #oneplaylist_header_img{
+    #oneplaylist_header_img {
         height: 130px;
         width: 130px;
     }
+
     /* PLAYLISTS LIST */
 
-    #playlist-content{
+    #playlist-content {
         margin-left: 0;
     }
+
     #track_container {
         flex-direction: column;
         padding: 10px 0;
     }
 
-    #add_playlist{
+    #add_playlist {
         display: flex;
         align-items: center;
         margin: 0;
         padding: 10px 20px;
         border-bottom: 1px solid var(--grey-border);
     }
-   
-    .track{
+
+    .track {
         flex-direction: row !important;
         margin: 0;
         padding: 10px 20px;
         border-bottom: 1px solid var(--grey-border);
-        position: relative;        
+        position: relative;
     }
 
     .delete {
@@ -424,16 +426,17 @@ form {
         right: 30px;
         opacity: 0.4 !important;
     }
-    .delete:hover{
+
+    .delete:hover {
         opacity: 1 !important;
     }
 
     .track:hover,
-    #add_playlist:hover{
+    #add_playlist:hover {
         background: var(--tertiary-bg);
     }
 
-    .playlist-image{
+    .playlist-image {
         width: 15vw;
         height: 15vw;
         min-width: 50px;
@@ -445,18 +448,18 @@ form {
         position: initial;
     }
 
-    #playlist-header{
-       margin: 70px 0 20px 20px; 
+    #playlist-header {
+        margin: 70px 0 20px 20px;
     }
 
-    h2{
+    h2 {
         padding: 0 20px;
     }
 
     #oneplaylist_header_text h2 {
         padding: 0;
     }
-    
+
 
     .playlist-image:hover .delete {
         display: none;
@@ -468,9 +471,9 @@ form {
     }
 
     .playlist-image:hover i {
-        transform: scale(1) ;
+        transform: scale(1);
     }
-    
+
     /* ONE PLAYLIST */
     #divGenre {
         margin-bottom: 10px;
@@ -482,7 +485,7 @@ form {
         justify-content: space-evenly;
         /* height: 600px; */
     }
-   
+
 
     .genreButton {
         width: 45%;
@@ -523,21 +526,16 @@ form {
     .img-td img {
         width: 60px;
     }
-    
+
     .img-td {
         width: 70px !important;
     }
 
-    
     thead {
         display: none;
     }
 
-
     #oneplaylist_header{
         margin: 40px 8%;
     }
-
-
-
 }

@@ -163,7 +163,6 @@ function updateFavorite(checkbox) {
 
         idSplit = checkbox.id.split("-");
         songId = idSplit[1];
-        console.log("add " + songId);
 
         fetch('/addFavorite', {
             method: 'POST',
@@ -173,7 +172,6 @@ function updateFavorite(checkbox) {
             body: JSON.stringify({ songId: songId })
         })
             .then(response => response.json())
-            .then(data => console.log(data))
             .catch(error => console.error(error));
 
     } else {
@@ -188,7 +186,6 @@ function updateFavorite(checkbox) {
             body: JSON.stringify({ songId: songId })
         })
             .then(response => response.json())
-            .then(data => console.log(data))
             .catch(error => console.error(error));
     }
 }

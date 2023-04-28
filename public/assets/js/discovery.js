@@ -51,7 +51,6 @@ function getFavoriteTrack() {
             setTimeout(() => {
                 let allHearts = document.querySelectorAll(".allHearts");
 
-
                 for (let i = 0; i < allHearts.length; i++) {
 
                     let idSplit = allHearts[i].id.split("-");
@@ -126,7 +125,7 @@ function createTable(response, tableLength, tracks, favoriteTracks) {
         document.querySelector('th.rank-td').remove()
     }
     allTracks.innerHTML = tableauTop;
-    
+
     addTrackInPlaylist();
 }
 
@@ -263,20 +262,25 @@ function addTrackInPlaylist() {
     let addPlaylistBtn = document.querySelectorAll('.add_playlist');
     for (let i = 0; i < addPlaylistBtn.length; i++) {
         addPlaylistBtn[i].addEventListener("click", () => {
+            let modal = document.querySelector("#modal");
+            let bgDark = document.querySelector("#bg-dark");
             modal.style.display = "block";
             bgDark.style.display = "block";
             let idTrack = trackContainer[i].getAttribute("id");
-            document.getElementById("track_id_input").value = idTrack;
+            if (document.getElementById("track_id_input")) {
+                document.getElementById("track_id_input").value = idTrack;
+            }
+
+            document.onmouseup = (e) => {
+                if (!modal.contains(e.target)) {
+                    modal.style.display = 'none';
+                    bgDark.style.display = "none";
+                }
+            }
         })
     }
 }
 
-document.onmouseup = (e) => {
-    if (!modal.contains(e.target)) {
-        modal.style.display = 'none';
-        bgDark.style.display = "none";
-    }
-}
 
 // --------- swapper  ---------------//
 

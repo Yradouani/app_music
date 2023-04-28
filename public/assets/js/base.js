@@ -9,7 +9,6 @@ let timeoutId;
 /*-------------MENU BURGER-------------*/
 /*-------------------------------------*/
 const nav = document.querySelector('#mobile-nav');
-
 menuBurger(window.innerWidth);
 
 
@@ -131,16 +130,8 @@ function playMusic(data) {
 
     musicDuration = 30;
     playerSettings(musicDuration, sound, data.id);
-
-
   }
 }
-
-
-
-
-
-
 
 function playerSettings(musicDuration = null, sound = null, id = null) {
   if (sound != null) {
@@ -324,10 +315,12 @@ function playerSettings(musicDuration = null, sound = null, id = null) {
 //--------------------------------------------//
 //--------------------------------------------//
 
+// setTimeout(() => {
 switch (location.pathname) {
   case '/discovery':
-    document.querySelector('#mobile-nav .top-links a:first-child').classList.add('selected')
-    document.querySelector('#desktop-nav .top-links a:first-child').classList.add('selected')
+    let discoveryLink = document.querySelectorAll('.top-links a:nth-child(1)')
+    discoveryLink[0].classList.add('selected')
+    discoveryLink[1].classList.add('selected')
     break;
   case '/playlists':
     document.querySelector('#mobile-nav .top-links a:nth-child(2)').classList.add('selected')
@@ -348,7 +341,7 @@ switch (location.pathname) {
   default:
     break;
 }
-
+// }, 2000);
 
 // -------------------------------Player add in playlist------------------
 
@@ -363,7 +356,9 @@ playerBtnAddPlaylist.addEventListener("click", () => {
   let footer = document.querySelector(".myfooter");
   let idTrackInPlayer = (footer.id).split('-');
   idTrackInPlayer = idTrackInPlayer[1];
-  document.getElementById("track_id_input").value = idTrackInPlayer;
+  if (document.getElementById("track_id_input")) {
+    document.getElementById("track_id_input").value = idTrackInPlayer;
+  }
 
 
   document.onmouseup = (e) => {
@@ -376,6 +371,7 @@ playerBtnAddPlaylist.addEventListener("click", () => {
 
 
 const select = document.getElementById("mySelect");
+
 if (select) {
   const optionCount = select.getElementsByTagName("option").length;
   select.setAttribute("size", optionCount);
@@ -437,10 +433,10 @@ function launchSpinner() {
 const navLinksArr = document.querySelectorAll('.top-links a')
 
 navLinksArr.forEach(link => {
-    link.onclick = () => {
-     
-        launchSpinner();
-    }
+  link.onclick = () => {
+
+    launchSpinner();
+  }
 
 
 });
