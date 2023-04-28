@@ -75,16 +75,12 @@ let trashButtons = document.querySelectorAll('.trash_icon');
 let idPlaylistToDelete;
 let idTrackToDelete;
 
-console.log(trashButtons)
 for (let i = 0; i < trashButtons.length; i++) {
     trashButtons[i].addEventListener("click", () => {
         let infos = trashButtons[i].id;
         let infosArray = infos.split('|');
         idTrackToDelete = infosArray[0];
         idPlaylistToDelete = infosArray[1];
-        console.log(idTrackToDelete)
-        console.log(idPlaylistToDelete)
-
 
         const url = '/deleteplaylist';
         const data = {
@@ -100,7 +96,6 @@ for (let i = 0; i < trashButtons.length; i++) {
             }
         }).then(response => {
             const rowToDelete = document.getElementById(`${idTrackToDelete}`);
-            console.log(rowToDelete);
             if (rowToDelete) {
                 rowToDelete.remove();
             }
@@ -156,7 +151,6 @@ function listenMusic() {
     elapsed = 0;
     inputPlayer.value = elapsed;
     clearInterval(intervalId);
-    console.log(trackId)
     getTrack(trackId)
 }
 
@@ -168,7 +162,6 @@ function updateFavorite(checkbox) {
 
         idSplit = checkbox.id.split("-");
         songId = idSplit[1];
-        console.log("add " + songId);
 
         fetch('/addFavorite', {
             method: 'POST',
@@ -178,13 +171,11 @@ function updateFavorite(checkbox) {
             body: JSON.stringify({ songId: songId })
         })
             .then(response => response.json())
-            .then(data => console.log(data))
             .catch(error => console.error(error));
 
     } else {
         idSplit = checkbox.id.split("-");
         songId = idSplit[1];
-        console.log("del " + songId);
 
         fetch('/deleteFavorite/' + songId, {
             method: 'POST',
@@ -194,7 +185,6 @@ function updateFavorite(checkbox) {
             body: JSON.stringify({ songId: songId })
         })
             .then(response => response.json())
-            .then(data => console.log(data))
             .catch(error => console.error(error));
     }
 }
