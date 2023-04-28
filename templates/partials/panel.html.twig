@@ -2,6 +2,7 @@
 	<script src="{{ asset('assets/js/base.js')}}" defer></script>
 
 {% endblock %}
+
 {% if pseudo is defined %}
 	<div id="user-info">
 		<i class="fa-solid fa-user"></i>
@@ -14,12 +15,14 @@
 			<i class="fa-solid fa-xmark"></i>
 		</button>
 	</div>
+
 	{% if pseudo is defined %}
 		<div id="user-info-nav">
 			<i class="fa-solid fa-user"></i>
 			<span>{{ pseudo }}</span>
 		</div>
 	{% endif %}
+
 	<div class="top-links">
 		<a href={{ path('discovery.index') }}>
 			<i class="fa-solid fa-headphones"></i>

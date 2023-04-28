@@ -354,9 +354,13 @@ playerBtnAddPlaylist.addEventListener("click", () => {
   modal.style.display = "block";
   bgDark.style.display = "block";
   let footer = document.querySelector(".myfooter");
+  console.log(footer)
   let idTrackInPlayer = (footer.id).split('-');
+  console.log(idTrackInPlayer)
   idTrackInPlayer = idTrackInPlayer[1];
-  document.getElementById("track_id_input").value = idTrackInPlayer;
+  if (document.getElementById("track_id_input")) {
+    document.getElementById("track_id_input").value = idTrackInPlayer;
+  }
 
 
   document.onmouseup = (e) => {
