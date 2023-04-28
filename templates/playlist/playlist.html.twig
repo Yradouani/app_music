@@ -10,13 +10,6 @@
 
 {% block main %}
 
-
-	{# {% if favoriteList is defined %}
-		{% for track in favoriteList %}
-			{{ dump(track.idTrack) }}
-		{% endfor %}
-	{% endif %} #}
-
 	{% if id is not defined %}
 		<div id="playlist-container">
 			<div id="playlist-header">
@@ -79,7 +72,6 @@
 		</div>
 	{% endif %}
 	{% if id is defined %}
-		{# {{ dump(tracks_api_response)}} #}
 		{% set lastTrack = tracks_api_response|last %}
 
 		<div id="oneplaylist_header">
