@@ -63,39 +63,41 @@
 			</thead>
 			<tbody id="allTracks">
 
+				{% if responseTrack|length > 0 %}
 
-				{% for i in range(0, responseTrack|length - 1) %}
 
-					{# {{ responseTrack[i].id }} #}
-					{# {{ dump(favoriteList[i].idTrack) }} #}
+					{% for i in range(0, responseTrack|length - 1) %}
 
-					<tr class="track-container" id="{{ responseTrack[i].id }}" onclick="changeMusicInPlayer(this,event)">
-						<td class="img-td">
+						{# {{ responseTrack[i].id }} #}
+						{# {{ dump(favoriteList[i].idTrack) }} #}
 
-							<img id="albumCover" src={{ responseTrack[i].album.cover_big }} alt="albumImg">
-						</td>
-						<td class="title-td">
-							<div>
-								<span>{{responseTrack[i].title}}</span><br>
-								<span class='artist-mobile'>{{responseTrack[i].artist.name}}</span>
-							</div>
-						</td>
-						{% if favoriteList[i].idTrack ==  responseTrack[i].id %}
-							<td class="heart-td">
-								<input name="heart" type="checkbox" id={{'heart-' ~ responseTrack[i].id}} onchange="updateFavorite(this)" checked>
-								<label for={{'heart-' ~ responseTrack[i].id}}></label>
+							<tr class="track-container" id='{{ responseTrack[i].id }}' onclick="changeMusicInPlayer(this,event)"> <td class="img-td">
+
+								<img id="albumCover" src={{ responseTrack[i].album.cover_big }} alt="albumImg">
 							</td>
-						{% else %}
-							<td class="heart-td">
-								<input name="heart" type="checkbox" id={{'heart-' ~ responseTrack[i].id}} onchange="updateFavorite(this)">
-								<label for={{'heart-' ~ responseTrack[i].id}}></label>
+							<td class="title-td">
+								<div>
+									<span>{{responseTrack[i].title}}</span><br>
+									<span class='artist-mobile'>{{responseTrack[i].artist.name}}</span>
+								</div>
 							</td>
-						{% endif %}
-						<td class="artist-td">{{responseTrack[i].artist.name}}</td>
-						<td class="album-td">{{responseTrack[i].album.title }}
-						</td>
-					</tr>
-				{% endfor %}
+							{% if favoriteList[i].idTrack ==  responseTrack[i].id %}
+								<td class="heart-td">
+									<input name="heart" type="checkbox" id={{'heart-' ~ responseTrack[i].id}} onchange="updateFavorite(this)" checked>
+									<label for={{'heart-' ~ responseTrack[i].id}}></label>
+								</td>
+							{% else %}
+								<td class="heart-td">
+									<input name="heart" type="checkbox" id={{'heart-' ~ responseTrack[i].id}} onchange="updateFavorite(this)" checked>
+									<label for={{'heart-' ~ responseTrack[i].id}}></label>
+								</td>
+							{% endif %}
+							<td class="artist-td">{{responseTrack[i].artist.name}}</td>
+							<td class="album-td">{{responseTrack[i].album.title }}
+							</td>
+						</tr>
+					{% endfor %}
+				{% endif %}
 			</tbody>
 		</table>
 

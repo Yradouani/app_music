@@ -16,6 +16,6 @@ home:
 
 fallback:
   path: /{url}
-  controller: App\Controller\HomeController::index
+  controller: App\Controller\HomeController::redirection
   requirements:
     url: "^(?!_profiler|_wdt|api).*$"

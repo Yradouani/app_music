@@ -47,17 +47,15 @@ function getFavoriteTrack() {
     })
         .then(response => response.json())
         .then(data => {
-            console.log(data);
 
             setTimeout(() => {
                 let allHearts = document.querySelectorAll(".allHearts");
-                console.log(allHearts);
-
 
                 for (let i = 0; i < allHearts.length; i++) {
 
                     let idSplit = allHearts[i].id.split("-");
                     songId = idSplit[1];
+
                     // console.log("id " + songId);
 
                     for (let j = 0; j < data.favoriteListJson.length; j++) {

@@ -9,7 +9,6 @@ let timeoutId;
 /*-------------MENU BURGER-------------*/
 /*-------------------------------------*/
 const nav = document.querySelector('#mobile-nav');
-
 menuBurger(window.innerWidth);
 
 
@@ -131,16 +130,8 @@ function playMusic(data) {
 
     musicDuration = 30;
     playerSettings(musicDuration, sound, data.id);
-
-
   }
 }
-
-
-
-
-
-
 
 function playerSettings(musicDuration = null, sound = null, id = null) {
   if (sound != null) {
