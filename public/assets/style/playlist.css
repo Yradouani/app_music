@@ -289,7 +289,6 @@ h2 {
 #modal_delete {
     position: fixed;
     width: 300px;
-    /* height: 100px; */
     border-radius: 10px;
     background: #23232D;
     z-index: 10;
@@ -478,12 +477,10 @@ form {
     #divGenre {
         margin-bottom: 10px;
         justify-content: space-evenly;
-        /* height: 600px; */
     }
 
     .divGenreButton {
         justify-content: space-evenly;
-        /* height: 600px; */
     }
 
 
@@ -492,10 +489,8 @@ form {
     }
 
     .title-td {
-        /* background: yellow; */
         width: 50%;
         position: relative;
-        /* background: red; */
     }
 
     .artist-mobile {
@@ -510,17 +505,14 @@ form {
 
     .rank-td {
         width: 2rem;
-        /* background: blue; */
     }
 
     .heart-td {
         width: 2.5rem;
-        /* background: blue; */
     }
 
     .plus-td {
         width: 2.5rem;
-        /* background: red; */
     }
 
     .img-td img {
@@ -535,7 +527,7 @@ form {
         display: none;
     }
 
-    #oneplaylist_header{
+    #oneplaylist_header {
         margin: 40px 8%;
     }
 }

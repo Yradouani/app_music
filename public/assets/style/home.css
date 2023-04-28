@@ -19,12 +19,12 @@
     padding: 15px 25px;
     border-radius: 10px;
     font-size: 18px;
-} 
+}
 
 .home_logo_content {
     display: flex;
-   justify-content: center;
-   align-items: center;
+    justify-content: center;
+    align-items: center;
     margin-bottom: 125px;
     margin-left: -30px;
 }
@@ -45,19 +45,19 @@
     display: flex;
     justify-content: space-between;
 }
+
 .home_connexion .home_tab_link {
     text-decoration: none;
     color: var(--white);
-    border-bottom: 1px solid transparent ;
-    padding: 1px 0 ;
-    /* border-radius: 15px; */
+    border-bottom: 1px solid transparent;
+    padding: 1px 0;
     font-weight: 500;
     font-size: 20px;
 }
 
 .home_connexion .home_tab_link:hover {
     cursor: pointer;
-    border-bottom: 1px solid ;
+    border-bottom: 1px solid;
 
 }
 
@@ -68,15 +68,15 @@
 }
 
 .tab-body {
-    display: none;  
+    display: none;
     position: relative;
 }
 
 .tab-body.active {
     display: block;
 }
- 
-form{
+
+form {
     display: flex;
     flex-direction: column;
     margin: 20px 0;
@@ -94,9 +94,9 @@ form{
 .toggle-password {
     position: relative;
     cursor: pointer;
-  }
-  
-  .toggle-password span {
+}
+
+.toggle-password span {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
@@ -104,14 +104,14 @@ form{
     font-size: 0.9rem;
     font-weight: bold;
     text-transform: uppercase;
-  }
-  
-  .toggle-password .hide-password {
+}
+
+.toggle-password .hide-password {
     display: none;
-  }
+}
 
 
-  
+
 .tab-body .input_box input {
     width: 100%;
     height: 100%;
@@ -129,7 +129,7 @@ form{
     left: 45px;
     transform: translateY(-50%);
     font-size: 1em;
-    pointer-events:none;
+    pointer-events: none;
     transition: .5s;
     color: #000;
 }
@@ -139,7 +139,7 @@ form{
     font-size: 0.8em;
     top: -14px;
     left: 17px;
-    color:#fff;
+    color: #fff;
 }
 
 .home_btn {
@@ -150,6 +150,7 @@ form{
     transition: all 0.5s;
     margin: 20px auto;
 }
+
 .home_btn:hover {
     background-color: #16f8a9;
     transform: scale(1.05);
